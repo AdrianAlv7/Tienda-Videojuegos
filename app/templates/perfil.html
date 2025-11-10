@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}Perfil - {{ user[0] }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="perfil-container {{ user[5] }}">
+    <!-- Banner -->
+<div class="banner"style="background-image: url('{{ url_for('static', filename='IMG/' + (user[4] if user[4] else 'banner_default.jpg')) }}')">
+        <div class="perfil-header">
+
+</div>  
+     <!-- Botón fuera del banner -->
+    <div class="perfil-header">
+        <button id="editarPerfilBtn" class="btn-editar">Editar Perfil</button>
+    </div>
+    </div>
+
+    <!-- Info del usuario -->
+    <div class="perfil-info">
+        <img id="fotoPerfil" src="{{ url_for('static', filename='IMG/' + (user[3] if user[3] else 'avatar_default.png')) }}" class="foto-perfil">
+        <h2 id="username">{{ user[0] }}</h2>
+        <p id="descripcion">{{ user[2] if user[2] else 'Sin descripción aún.' }}</p>
+    </div>
+
+    <!-- Formulario de edición -->
+    <form id="formEditarPerfil" action="{{ url_for('main.editar_perfil_usuario') }}" method="POST" enctype="multipart/form-data" class="editar-form" style="display:none;">
+        <div class="form-group">
+            <label for="usernameInput">Nombre de usuario:</label>
+            <input type="text" id="usernameInput" name="username" value="{{ user[0] }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcionInput">Descripción:</label>
+            <textarea id="descripcionInput" name="descripcion" rows="2">{{ user[2] }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fotoInput">Foto de perfil:</label>
+            <input type="file" id="fotoInput" name="foto_perfil" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="bannerInput">Banner:</label>
+            <input type="file" id="bannerInput" name="banner" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+        </div>
+    </form>
+
+    <!-- Biblioteca -->
+    <div class="perfil-juegos">
+        <h3>🎮 Juegos en tu biblioteca</h3>
+        <div class="juegos-grid">
+            {% for j in juegos %}
+            <div class="juego-card">
+                <img src="{{ url_for('static', filename='IMG/' + (j[1] if j[1] else 'default.png')) }}">
+                <p>{{ j[0] }}</p>
+            </div>
+            {% else %}
+            <p class="sin-juegos">No tienes juegos aún 😢</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const btnEditar = document.getElementById("editarPerfilBtn");
+    const form = document.getElementById("formEditarPerfil");
+
+    if (btnEditar && form) {
+        btnEditar.addEventListener("click", () => {
+            form.style.display = form.style.display === "none" ? "block" : "none";
+            form.scrollIntoView({ behavior: "smooth" });
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // === Switch de modo claro/oscuro ===
+    const modoSwitch = document.getElementById("modoSwitch");
+    if (modoSwitch) {
+        modoSwitch.checked = temaGuardado === "claro";
+        modoSwitch.addEventListener("change", function() {
+            const nuevoTema = this.checked ? "claro" : "oscuro";
+            document.body.className = nuevoTema === "claro" ? "modo-claro" : "modo-oscuro";
+            fetch("/actualizar-tema", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tema: nuevoTema })
+            });
+        });
+    }
+
+    // === Mostrar/Ocultar formulario ===
+    const btnEditar = document.getElementById("editarPerfilBtn");
+    const form = document.getElementById("formEditarPerfil");
+
+    if (btnEditar && form) {
+        btnEditar.addEventListener("click", () => {
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        });
+    }
+
+    // === Guardar cambios y actualizar en tiempo real ===
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            const res = await fetch(form.action, { method: "POST", body: formData });
+            const data = await res.json();
+
+            if (data.success) {
+                // ✅ Actualiza datos visualmente sin recargar
+                document.querySelector(".perfil-info h2").textContent = data.username;
+                document.querySelector(".perfil-info p").textContent = data.descripcion || "Sin descripción";
+
+                if (data.foto_perfil) {
+                    document.querySelector(".foto-perfil").src = "/static/IMG/" + data.foto_perfil;
+                }
+
+                if (data.banner) {
+                    document.querySelector(".banner").style.backgroundImage = "url('/static/IMG/" + data.banner + "')";
+                }
+
+                alert("✅ Perfil actualizado correctamente");
+                form.style.display = "none";
+            } else {
+                alert("❌ Error al guardar cambios");
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
+

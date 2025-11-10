@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Productos</h2>
+<a href="{{ url_for('productos.agregar_producto') }}" class="btn btn-success mb-3">Agregar Producto</a>
+
+{% if productos and productos|length > 0 %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr>
+            <td>{{ p[0] }}</td> <!-- id -->
+            <td>{{ p[1] }}</td> <!-- nombre -->
+            <td>
+                {% if p[4] %} <!-- imagen -->
+                    <img src="{{ url_for('static', filename='IMG/' ~ p[4]) }}" 
+                         alt="{{ p[1] }}" width="80" height="80"
+                         style="object-fit: cover; border-radius: 8px;">
+                {% else %}
+                    <span class="text-muted">Sin imagen</span>
+                {% endif %}
+            </td>
+            <td>{{ p[2] }}</td> <!-- descripcion -->
+            <td>${{ "%.2f"|format(p[3]) }}</td> <!-- precio -->
+            <td>
+                <a href="{{ url_for('productos.editar_producto', id=p[0]) }}" class="btn btn-primary btn-sm">Editar</a>
+                <a href="{{ url_for('productos.eliminar_producto', id=p[0]) }}" 
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Seguro que deseas eliminar este producto?')">
+                   Eliminar
+                </a>
+            </td>
+            
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay productos registrados.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+/*Amigos*/
+.image-links {
+    position: fixed; /* Fija la posición del contenedor en la ventana del navegador */
+    top: 10px; /* Coloca el contenedor a 10 píxeles desde la parte superior */
+    right: 20px; /* Coloca el contenedor a 20 píxeles desde la derecha */
+    display: flex; /* Utiliza flexbox para organizar los elementos internos */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: flex-end; /* Alinea los elementos al final del contenedor (a la derecha) */
+    gap: 10px; /* Espacio de 10 píxeles entre los elementos */
+    z-index: 1000; /* Asegura que el contenedor esté por encima de otros elementos */
+    pointer-events: none; /* Evita que el contenedor bloquee la interacción con otros elementos */
+}
+
+.clickable-img {
+    width: 75px; /* Establece el ancho de las imágenes a 75 píxeles */
+    height: auto; /* Mantiene la proporción de la imagen automáticamente */
+    border-radius: 10px; /* Bordes redondeados de 10 píxeles para las imágenes */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añade transición suave para transformaciones y sombras */
+    pointer-events: auto; /* Permite que las imágenes sean clickeables */
+}
+
+@media (max-width: 768px) { /* Estilos para dispositivos con un ancho máximo de 768 píxeles */
+    .image-links {
+        position: relative; /* Cambia la posición a relativa en pantallas pequeñas */
+        top: 20px; /* Ajusta la posición a 20 píxeles desde la parte superior */
+        right: auto; /* Elimina la posición fija a la derecha */
+        left: 50%; /* Centra el contenedor horizontalmente */
+        transform: translateX(-50%); /* Ajusta el contenedor a la mitad de su ancho */
+        flex-direction: row; /* Cambia la dirección de los elementos a fila */
+        align-items: center; /* Centra los elementos horizontalmente */
+        gap: 15px; /* Aumenta el espacio entre las imágenes a 15 píxeles */
+    }
+}
+
+.section-blox button {
+    background-color: #4CAF50; /* Color de fondo verde para el botón */
+    color: white; /* Color del texto en blanco */
+    padding: 10px 20px; /* Espacio interno de 10 píxeles arriba y abajo, 20 píxeles a los lados */
+    border: none; /* Sin borde para el botón */
+    border-radius: 5px; /* Bordes redondeados de 5 píxeles */
+    cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+    font-size: 1.1rem; /* Tamaño de fuente ligeramente más grande */
+    transition: background-color 0.3s ease; /* Añade transición suave para el color de fondo */
+    width: 100%; /* El botón ocupa todo el ancho del contenedor */
+}

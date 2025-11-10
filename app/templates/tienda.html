@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Tienda - ActiveLife{% endblock %}
+{% set active_page = 'tienda' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tienda.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-4 text-center">Tienda de Videojuegos</h1>
+
+<div class="tienda-layout">
+
+  <!-- 🕹️ Zona de juegos -->
+  <div class="games-container">
+    {% for juego in juegos %}
+    <div class="game-card">
+
+<a href="{{ url_for('main.juego_detalle', id=juego.id, origen='tienda') }}">
+  <img class="game-image"
+       src="{{ url_for('static', filename='IMG/' + (juego.imagen if juego.imagen else 'default.png')) }}"
+       alt="{{ juego.nombre }}">
+</a>
+
+
+      <div class="game-info">
+        <div class="game-title">{{ juego.nombre }}</div>
+        <div class="game-desc">{{ juego.descripcion }}</div>
+
+        <div class="game-footer">
+          <div class="game-price">${{ juego.precio }}</div>
+          
+          {% if juego.en_biblioteca %}
+            <a href="{{ url_for('main.biblioteca') }}" class="btn-add" style="background: #999;">🎮 En biblioteca</a>
+          {% else %}
+            <button id="btn-{{ juego.id }}" 
+                    class="btn-add"
+                    onclick="agregarAlCarrito({{ juego.id }}, '{{ juego.nombre }}', {{ juego.precio }})">
+              🛒 Agregar
+            </button>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- 🛒 Carrito -->
+  <div class="carrito-box">
+    <h3>Carrito de compras</h3>
+    <ul id="lista-carrito"></ul>
+    <p class="total">Total: <span id="total-carrito">$0</span></p>
+    <button class="btn-pagar" id="btnPagar">Confirmar compra</button>
+    <div id="message" style="display:none;">Redirigiendo al portal de pagos...</div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+let carrito = [];
+let total = 0;
+
+function agregarAlCarrito(id, nombre, precio) {
+    const boton = document.getElementById(`btn-${id}`);
+    if (boton) {
+        boton.disabled = true;
+        boton.textContent = "🎮 En colección";
+    }
+
+    carrito.push({ id, nombre, precio: parseFloat(precio) });
+    renderCarrito();
+}
+
+function eliminarDelCarrito(id) {
+    // Quita el juego del carrito
+    carrito = carrito.filter(j => j.id !== id);
+
+    // Rehabilita el botón del juego
+    const boton = document.getElementById(`btn-${id}`);
+    if (boton) {
+        boton.disabled = false;
+        boton.textContent = "🛒 Agregar";
+    }
+
+    renderCarrito();
+}
+
+function renderCarrito() {
+    const lista = document.getElementById("lista-carrito");
+    const totalText = document.getElementById("total-carrito");
+    lista.innerHTML = "";
+    total = 0;
+
+    carrito.forEach(juego => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${juego.nombre} - $${juego.precio.toFixed(2)}
+            <button onclick="eliminarDelCarrito(${juego.id})">❌</button>
+        `;
+        lista.appendChild(li);
+        total += juego.precio;
+    });
+
+    totalText.textContent = `$${total.toFixed(2)}`;
+}
+
+document.getElementById("btnPagar").addEventListener("click", async () => {
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío 🛒");
+        return;
+    }
+
+    const resp = await fetch("/procesar_compra", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ juegos: carrito, total: total })
+    });
+
+    const data = await resp.json();
+
+    if (data.success) {
+        alert("Compra completada ✅");
+        carrito = [];
+        renderCarrito();
+        window.location.href = "/biblioteca";
+    } else {
+        alert("Error al procesar la compra: " + data.error);
+    }
+});
+</script>
+{% endblock %}
+

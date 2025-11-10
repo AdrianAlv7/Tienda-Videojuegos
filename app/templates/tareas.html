@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Tienda - ActiveLife{% endblock %}
+{% set active_page = 'tienda' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tienda.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-4 text-center">Tienda de Videojuegos</h1>
+
+<div class="games-container">
+  {% for juego in juegos %}
+  <div class="game-card">
+      <img src="{{ url_for('static', filename='IMG/' + (juego.imagen or 'default.png')) }}" 
+           alt="{{ juego.nombre }}" class="game-image">
+      <div class="game-info">
+          <h3 class="game-title">{{ juego.nombre }}</h3>
+          <p class="game-desc">{{ juego.descripcion }}</p>
+          <div class="game-footer">
+              <span class="game-price">${{ juego.precio }}</span>
+              <button class="btn-add" 
+                      id="btn-{{ juego.id }}"
+                      onclick="agregarAlCarrito('{{ juego.id }}', '{{ juego.nombre }}', '{{ juego.precio }}')">
+                  Agregar al carrito
+              </button>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- 🛒 Carrito lateral -->
+<div class="carrito-box mt-5">
+  <h3>Carrito de compras</h3>
+  <ul id="lista-carrito"></ul>
+  <p class="total">Total: <span id="total-carrito">$0</span></p>
+  <button class="btn-pagar" id="btnPagar">Pagar</button>
+  <div id="message" style="display:none;">Redirigiendo al portal de pagos...</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/tienda.js') }}"></script>
+{% endblock %}

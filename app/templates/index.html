@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}Inicio - ActiveLife{% endblock %}
+
+{% block extra_css %}
+<style>
+body {
+  background-color: #0e0e0e;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ====== Carrusel ====== */
+.carousel-container {
+  position: relative;
+  width: 90%;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-radius: 8px;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0,0,0,0.7);
+}
+
+#prev { left: 10px; }
+#next { right: 10px; }
+
+/* ====== Sección de Juegos ====== */
+.section {
+  width: 90%;
+  margin: 3rem auto;
+}
+
+.section h2 {
+  color: #4CAF50;
+  border-left: 5px solid #4CAF50;
+  padding-left: 10px;
+  margin-bottom: 1rem;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.game-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.game-card h4 {
+  color: #fff;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.btn-ver {
+  background: linear-gradient(135deg, #4CAF50, #2ebf60);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-ver:hover {
+  background: linear-gradient(135deg, #2ebf60, #4CAF50);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- 🧠 CARRUSEL DE DESTACADOS -->
+<div class="carousel-container">
+  <div class="carousel" id="carousel">
+    {% for j in juegos[:5] %}
+    <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+    {% endfor %}
+  </div>
+  <button id="prev" class="carousel-btn">❮</button>
+  <button id="next" class="carousel-btn">❯</button>
+</div>
+
+<!-- 🎮 Tus Juegos -->
+<div class="section">
+  <h2>🎮 Tus Juegos Recientes</h2>
+  <div class="games-grid">
+    {% for j in juegos[:6] %}
+    <div class="game-card">
+      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}">
+        <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+      </a>
+      <h4>{{ j.nombre }}</h4>
+      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}" class="btn-ver">Ver Detalles</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- 🏪 Enlace a Tienda -->
+<div class="section">
+  <h2>🛒 Explora la Tienda</h2>
+  <p>Descubre nuevos títulos y amplía tu colección.</p>
+  <a href="{{ url_for('main.tienda') }}" class="btn-ver" style="padding: 12px 24px;">Ir a la Tienda</a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let index = 0;
+const carousel = document.getElementById('carousel');
+const total = carousel.children.length;
+
+document.getElementById('next').addEventListener('click', () => {
+  index = (index + 1) % total;
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+});
+
+document.getElementById('prev').addEventListener('click', () => {
+  index = (index - 1 + total) % total;
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+});
+</script>
+{% endblock %}

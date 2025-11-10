@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Editar Perfil - ActiveLife{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar mi perfil</h1>
+    <form method="POST" action="{{ url_for('main.editar_perfil') }}">
+        <div class="mb-3">
+            <label for="edad" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="edad" name="edad" value="{{ datos[0] if datos else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="altura" class="form-label">Altura (m)</label>
+            <input type="number" step="0.01" class="form-control" id="altura" name="altura" value="{{ datos[1] if datos else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="peso" class="form-label">Peso (kg)</label>
+            <input type="number" step="0.1" class="form-control" id="peso" name="peso" value="{{ datos[2] if datos else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="objetivo" class="form-label">Objetivo</label>
+            <input type="text" class="form-control" id="objetivo" name="objetivo" value="{{ datos[3] if datos else '' }}">
+        </div>
+        <button type="submit" class="btn btn-success">Guardar cambios</button>
+        <a href="{{ url_for('main.perfil') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

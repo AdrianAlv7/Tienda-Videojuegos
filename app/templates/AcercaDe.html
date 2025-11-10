@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Acerca de Nosotros - ActiveLife{% endblock %}
+{% set active_page = 'acerca' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Acercade.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1>ActiveLife</h1>
+</header>
+<div class="container">
+    <section class="about-us">
+        <h3>Acerca de Nosotros</h3>
+        <p>En <strong>ActiveLife</strong>, nos apasiona ayudarte a alcanzar tus metas de salud y bienestar. Nuestra aplicación combina ejercicios personalizados y recetas saludables para que puedas llevar un estilo de vida activo y equilibrado.</p>
+    </section>
+    <section class="mission">
+        <h3>Misión</h3>
+        <p>Nuestra misión es inspirar y facilitar un estilo de vida saludable a través de herramientas sofisticadas que integren el ejercicio físico y la alimentación saludable y balanceada, promoviendo el bienestar integral de nuestros usuarios.</p>
+    </section>
+    <section class="vision">
+        <h3>Visión</h3>
+        <p>Ser la plataforma líder en el mundo para el cuidado de la salud, destacada por su enfoque y su capacidad para transformar vidas a través de hábitos saludables y sostenibles.</p>
+    </section>
+</div>
+{% endblock %}

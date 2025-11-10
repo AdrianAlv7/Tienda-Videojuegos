@@ -1,0 +1,50 @@
+/* Estilos para el encabezado */
+header {
+    text-align: center; /* Centra el texto dentro del encabezado */
+    padding: 20px; /* Añade espacio interno de 20 píxeles */
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    border-radius: 10px; /* Bordes redondeados de 10 píxeles */
+    margin-bottom: 20px; /* Espacio inferior de 20 píxeles */
+}
+
+header h1 {
+    color: #4CAF50; /* Color verde para el texto del encabezado principal */
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    font-weight: bold; /* Texto en negrita */
+}
+
+header p {
+    font-size: 1.2rem; /* Tamaño de fuente un poco más grande que el normal */
+    color: #666; /* Color gris para el texto del párrafo */
+    margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+}
+
+header img {
+    display: block; /* Hace que la imagen se comporte como un bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    border-radius: 10px; /* Bordes redondeados de 10 píxeles para la imagen */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la imagen */
+}
+
+/* Estilos para el contenido dentro de .container */
+.container {
+    max-width: 900px; /* Ancho máximo de 900 píxeles */
+    margin: auto; /* Centra el contenedor horizontalmente */
+    background: white; /* Color de fondo blanco */
+    padding: 20px; /* Espacio interno de 20 píxeles */
+    border-radius: 10px; /* Bordes redondeados de 10 píxeles */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+}
+
+h3 {
+    color: #4CAF50; /* Color verde para los encabezados de nivel 3 */
+    font-size: 1.5rem; /* Tamaño de fuente mediano */
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+}
+
+p {
+    font-size: 1rem; /* Tamaño de fuente normal */
+    color: #333; /* Color gris oscuro para el texto del párrafo */
+    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+}

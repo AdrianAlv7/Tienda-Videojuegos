@@ -1,0 +1,178 @@
+/* ====== ESTILO GENERAL ====== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* ====== LAYOUT PRINCIPAL ====== */
+.tienda-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px; /* izquierda: juegos | derecha: carrito */
+    gap: 20px;
+    align-items: start;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1400px;
+}
+
+/* ====== LISTA DE JUEGOS ====== */
+.games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.game-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.game-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.game-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.game-desc {
+    font-size: 0.9rem;
+    color: #666;
+    height: 60px;
+    overflow: hidden;
+}
+
+.game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.game-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* ====== BOTONES ====== */
+.btn-add {
+    background: linear-gradient(135deg, #007bff, #00bfff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-add:hover {
+    background: linear-gradient(135deg, #0069d9, #009ad9);
+}
+
+.btn-add:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+/* ====== CARRITO ====== */
+.carrito-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 90px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.carrito-box h3 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+#lista-carrito {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#lista-carrito li {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lista-carrito button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#lista-carrito button:hover {
+    background: #c82333;
+}
+
+.total {
+    font-weight: 600;
+    margin-top: 15px;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+.btn-pagar {
+    background: linear-gradient(135deg, #28a745, #36c96a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    width: 100%;
+    margin-top: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-pagar:hover {
+    background: linear-gradient(135deg, #218838, #2ebf60);
+}

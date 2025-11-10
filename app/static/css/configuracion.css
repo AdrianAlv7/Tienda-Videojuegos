@@ -1,0 +1,60 @@
+/* Estilo general para la sección */
+.section-blox {
+    display: flex; /* Utiliza flexbox para el diseño */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    padding: 20px; /* Espacio interno de 20 píxeles */
+    background-color: #f8f9fa; /* Color de fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    max-width: 500px; /* Ancho máximo de la sección */
+    width: 100%; /* Ancho completo */
+    margin: 20px auto; /* Margen superior e inferior de 20 píxeles y centrado horizontal */
+    text-align: center; /* Centra el texto dentro de la sección */
+}
+
+/* Estilo de la imagen */
+.section-blox img {
+    width: 50px; /* Ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-bottom: 15px; /* Espacio inferior de 15 píxeles */
+    border-radius: 10px; /* Bordes redondeados opcionales */
+}
+
+/* Estilo para el botón */
+.section-blox button {
+    background-color: #4CAF50; /* Color verde para el botón */
+    color: white; /* Color del texto en blanco */
+    padding: 10px 20px; /* Espacio interno del botón */
+    border: none; /* Sin borde para el botón */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+    font-size: 1.1rem; /* Tamaño de fuente del botón */
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+    width: 100%; /* Ancho completo del botón */
+}
+
+.section-blox button:hover {
+    background-color: #45a049; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo para el mensaje de "Buscando dispositivo" */
+#message {
+    margin-top: 20px; /* Espacio superior de 20 píxeles */
+    font-size: 1.2rem; /* Tamaño de fuente para el mensaje */
+    color: #333; /* Color del texto */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para el ítem de la lista cuando se marca */
+.list-group-item.checked {
+    color: #28a745; /* Color verde para el texto marcado */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.list-group-item.checked::before {
+    content: "✓ "; /* Añade la palomita antes del texto */
+    font-size: 1.2rem; /* Tamaño de fuente para la palomita */
+    margin-right: 10px; /* Espacio a la derecha de la palomita */
+}

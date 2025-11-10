@@ -1,0 +1,65 @@
+/* Estilos para la calculadora */
+.calculadora {
+  position: fixed; /* Fija la posición de la calculadora en la ventana del navegador */
+  bottom: 20px; /* Coloca la calculadora a 20 píxeles desde la parte inferior */
+  right: 20px; /* Coloca la calculadora a 20 píxeles desde la derecha */
+  width: 250px; /* Ancho de la calculadora */
+  background: #222; /* Color de fondo oscuro */
+  color: #fff; /* Color del texto en blanco */
+  padding: 15px; /* Espacio interno de 15 píxeles */
+  border-radius: 10px; /* Bordes redondeados de 10 píxeles */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra alrededor de la calculadora */
+  display: none; /* Oculta la calculadora por defecto */
+}
+
+.calculadora.active {
+  display: block; /* Muestra la calculadora cuando está activa */
+}
+
+.calculadora h3 {
+  text-align: center; /* Centra el texto del encabezado */
+  font-size: 18px; /* Tamaño de fuente para el encabezado */
+  margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+}
+
+.calculadora .display {
+  background: #333; /* Color de fondo para la pantalla de la calculadora */
+  padding: 10px; /* Espacio interno de 10 píxeles */
+  text-align: right; /* Alinea el texto a la derecha */
+  font-size: 20px; /* Tamaño de fuente para el display */
+  border-radius: 5px; /* Bordes redondeados de 5 píxeles */
+  margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+}
+
+.calculadora .buttons {
+  display: grid; /* Utiliza un grid para organizar los botones */
+  grid-template-columns: repeat(4, 1fr); /* Crea 4 columnas de igual tamaño */
+  gap: 5px; /* Espacio de 5 píxeles entre los botones */
+}
+
+.calculadora button {
+  background: #444; /* Color de fondo para los botones */
+  color: white; /* Color del texto en blanco */
+  border: none; /* Sin borde para los botones */
+  padding: 10px; /* Espacio interno de 10 píxeles */
+  font-size: 18px; /* Tamaño de fuente para los botones */
+  border-radius: 5px; /* Bordes redondeados de 5 píxeles */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+  transition: background 0.3s; /* Añade transición suave para el color de fondo */
+}
+
+.calculadora button:hover {
+  background: #666; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+}
+
+.calculadora.active {
+  right: 0; /* Mueve la calculadora a la derecha al activarla */
+}
+
+/* Estilos para el botón de la calculadora */
+#calculadora-toggle {
+  position: fixed; /* Fija la posición del botón en la ventana del navegador */
+  right: 20px; /* Coloca el botón a 20 píxeles desde la derecha */
+  top: 50px; /* Ajusta la posición del botón a 50 píxeles desde la parte superior */
+  z-index: 1001; /* Asegura que el botón esté por encima de otros elementos */
+}

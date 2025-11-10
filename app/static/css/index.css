@@ -1,0 +1,95 @@
+/* Estilos para las tarjetas */
+.card {
+    border: none; /* Sin borde alrededor de la tarjeta */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    margin-bottom: 20px; /* Espacio inferior entre tarjetas */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Evita que el contenido se desborde de la tarjeta */
+}
+
+.card-img-top {
+    border-bottom: 2px solid #f1f1f1; /* Borde inferior para la imagen de la tarjeta */
+}
+
+/* Estilo del pie de página */
+footer {
+    background-color: #343a40; /* Color de fondo oscuro para el pie de página */
+    color: #fff; /* Color del texto en blanco */
+    text-align: center; /* Centra el texto */
+    padding: 20px 0; /* Espacio interno arriba y abajo */
+}
+
+/* Estilo para los botones */
+.btn-primary {
+    background-color: #4CAF50; /* Color verde para el botón primario */
+    border: none; /* Sin borde para el botón */
+    padding: 10px 20px; /* Espacio interno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente del botón */
+}
+
+.btn-primary:hover {
+    background-color: #45a049; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo para los botones de detalles */
+.btn-success {
+    background-color: #28a745; /* Color verde más oscuro para el botón de éxito */
+    border: none; /* Sin borde para el botón */
+    padding: 10px 20px; /* Espacio interno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente del botón */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilos para las columnas en dispositivos pequeños */
+@media (max-width: 768px) {
+    .container-fluid {
+        margin-left: 0; /* Elimina margen izquierdo en pantallas pequeñas */
+        padding-left: 15px; /* Añade padding izquierdo */
+        padding-right: 15px; /* Añade padding derecho */
+    }
+
+    .row {
+        flex-direction: column; /* Cambia la dirección de la fila a columna */
+    }
+
+    .col-md-6 {
+        width: 100%; /* Ancho completo para columnas en pantallas pequeñas */
+    }
+
+    h1 {
+        font-size: 2rem; /* Tamaño de fuente más grande para h1 */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Tamaño de fuente más grande para h2 */
+    }
+}
+
+/* Estilos para el botón de menú */
+#menu-toggle {
+    margin-bottom: 20px; /* Espacio inferior para el botón de menú */
+    background-color: #4CAF50; /* Color verde para el botón de menú */
+    color: white; /* Color del texto en blanco */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Espaciado entre elementos */
+.mt-4 {
+    margin-top: 20px; /* Margen superior de 20 píxeles */
+}
+
+.mb-4 {
+    margin-bottom: 20px; /* Margen inferior de 20 píxeles */
+}
+
+/* Ajuste de imágenes */
+img.img-fluid {
+    max-width: 100%; /* Asegura que las imágenes no excedan el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    border-radius: 10px; /* Bordes redondeados para las imágenes */
+}

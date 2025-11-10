@@ -1,0 +1,77 @@
+/* Estilos generales */
+
+body {
+    background-color: #121212; /* Color de fondo oscuro */
+    color: #767474; /* Color de texto blanco para mejor contraste */
+}
+
+/* Contenedor principal */
+.carrito-box {
+    position: fixed;
+    max-width: 600px; /* Ancho máximo del contenedor */
+    background: rgb(255, 255, 255); /* Color de fondo blanco */
+    padding: 20px; /* Espacio interno de 20 píxeles */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra alrededor del contenedor */
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+/* Listado del carrito */
+.carrito-box ul {
+    padding: 0; /* Elimina el padding de la lista */
+    margin: 0; /* Elimina el margen de la lista */
+}
+
+.carrito-box li {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: space-between; /* Espacio entre el texto y el botón */
+    align-items: center; /* Alinea verticalmente al centro */
+    padding: 8px 0; /* Espacio interno arriba y abajo */
+    border-bottom: 1px solid #ddd; /* Borde inferior sutil */
+}
+
+.carrito-box li:last-child {
+    border-bottom: none; /* Elimina el borde inferior del último elemento */
+}
+
+/* Total del carrito */
+.total {
+    font-weight: bold; /* Hace el texto del total en negrita */
+    text-align: right; /* Alinea el texto del total a la derecha */
+    margin-top: 12px; /* Espacio superior de 12 píxeles */
+    font-size: 1.1rem; /* Tamaño de fuente para el total */
+}
+
+/* Botón de pago */
+.btn-pay {
+    background: linear-gradient(to right, #4CAF50, #388E3C); /* Degradado de color verde para el botón */
+    color: white; /* Color del texto en blanco */
+    padding: 12px; /* Espacio interno del botón */
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente del botón */
+    font-weight: bold; /* Texto en negrita */
+    transition: background 0.3s ease, transform 0.2s ease; /* Transiciones suaves para el fondo y la transformación */
+    width: 100%; /* Ancho completo del botón */
+    cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+    border: none; /* Sin borde para el botón */
+}
+
+.btn-pay:hover {
+    background: linear-gradient(to right, #388E3C, #2E7D32); /* Cambio de degradado al pasar el ratón */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+}
+
+/* Solo para el resumen de pago, NO el body */
+.carrito-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 3000;
+}

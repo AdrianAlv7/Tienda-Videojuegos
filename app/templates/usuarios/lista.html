@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Usuarios activos</h2>
+<a href="{{ url_for('usuarios.agregar_usuario') }}" class="btn btn-success mb-3">Agregar Usuario</a>
+<a href="{{ url_for('usuarios.usuarios_inactivos') }}" class="btn btn-secondary mb-3">Mostrar fantasmas</a>
+<table class="table table-bordered table-custom">
+
+    <thead>
+        <tr>
+            <th>ID</th><th>Usuario</th><th>Email</th><th>Rol</th><th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario['id'] }}</td>
+            <td>{{ usuario['username'] }}</td>
+            <td>{{ usuario['email'] }}</td>
+            <td>{{ usuario['role'] }}</td>
+            <td>
+                <a href="{{ url_for('usuarios.editar_usuario', id=usuario['id']) }}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{{ url_for('usuarios.desactivar_usuario', id=usuario['id']) }}" class="btn btn-danger btn-sm"
+                onclick="return confirm('¿Estás seguro de desactivar este usuario?');">Eliminar</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Registro de Nuevo Usuario</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label>Nombre de usuario</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Correo electrónico</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button class="btn btn-success" type="submit">Registrarse</button>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-link">¿Ya tienes cuenta? Inicia sesión</a>
+    </form>
+</div>
+{% endblock %}

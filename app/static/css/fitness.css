@@ -1,0 +1,72 @@
+/* fitness.css */
+
+/* Estilos para los contenedores de las imágenes */
+.row {
+    margin-bottom: 30px; /* Espaciado entre las filas */
+}
+
+.col-md-6 {
+    text-align: center; /* Centra el contenido dentro de cada columna */
+}
+
+/* Estilo para las imágenes */
+.img-fluid {
+    max-width: 100%;
+    height: auto; /* Mantiene la proporción de las imágenes */
+    border-radius: 10px; /* Bordes redondeados en las imágenes */
+}
+
+/* Estilos para los botones */
+.btn-primary {
+    background-color: #4CAF50; /* Botón con color verde */
+    border-color: #4CAF50;
+    padding: 10px 20px; /* Espaciado dentro del botón */
+    font-size: 1.1rem; /* Tamaño del texto */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.btn-primary:hover {
+    background-color: #45a049; /* Cambio de color cuando se pasa el ratón */
+}
+
+/* Asegurar que el contenido principal no se solape con el pie de página */
+.container-fluid {
+    padding-bottom: 80px; /* Espaciado para no solapar el pie de página */
+}
+
+
+/* Contenedor de cada sección */
+.section-box {
+    background-color: white; /* Fondo blanco para resaltar */
+    border: 2px solid #ddd; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espacio interno */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: center; /* Centrar el contenido */
+    margin-bottom: 20px; /* Espacio entre secciones */
+}
+
+/* Ajustar imágenes */
+.section-box img {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 200px; /* Limitar el tamaño máximo */
+    height: auto; /* Mantener proporciones */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Botones */
+.section-box .btn {
+    margin-top: 10px; /* Espacio arriba del botón */
+}
+
+.section-box {
+    border: 1px solid #ccc; /* Borde gris claro alrededor de la sección */
+    border-radius: 10px; /* Bordes redondeados para la sección */
+    padding: 20px; /* Espacio interno de 20 píxeles */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    background-color: white; /* Color de fondo blanco */
+    text-align: center; /* Centra el texto dentro de la sección */
+    margin-bottom: 20px; /* Espacio inferior entre secciones */
+}
+
+

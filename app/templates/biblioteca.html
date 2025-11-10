@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %}Mi Biblioteca{% endblock %}
+{% set active_page = 'biblioteca' %}
+
+{% block extra_css %}
+<style>
+.biblioteca-container {
+    width: 90%;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.biblioteca-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    color: white;
+    transition: transform 0.2s ease-in-out;
+    padding-right: 1rem;
+}
+
+.biblioteca-card:hover {
+    transform: scale(1.02);
+}
+
+.biblioteca-card img {
+    width: 250px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.biblioteca-info {
+    padding: 1rem 1.5rem;
+    flex-grow: 1;
+}
+
+.biblioteca-info h3 {
+    font-size: 1.6rem;
+    color: #4CAF50;
+    margin-bottom: 0.5rem;
+}
+
+.biblioteca-info p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 0.3rem;
+}
+
+.fecha {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-top: 0.8rem;
+}
+
+.boton-jugar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton-jugar:hover {
+    background-color: #45a049;
+}
+
+.boton-no {
+    background-color: #555;
+    color: #ccc;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: not-allowed;
+}
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="text-center mt-4">Mi Biblioteca</h1>
+
+<div class="biblioteca-container">
+    {% if juegos %}
+        {% for j in juegos %}
+        <div class="biblioteca-card">
+<a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}">
+  <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}"
+       class="game-image" alt="{{ j.nombre }}">
+</a>
+
+
+
+  <div class="biblioteca-info">
+    <h3>
+      <a href="{{ url_for('main.juego_detalle', id=j.id) }}" class="nombre-juego">{{ j.nombre }}</a>
+    </h3>
+    <p>{{ j.descripcion }}</p>
+    <p class="fecha">Adquirido el {{ j.fecha_adquirido }}</p>
+  </div>
+
+{% set imagen_juego = j.imagen if j.imagen else 'default.png' %}
+
+<a href="{{ url_for('main.descargar_juego_imagen', nombre_imagen=imagen_juego, nombre_juego=j.nombre) }}"
+   class="btn btn-success">🎮 Jugar</a>
+
+
+
+
+</div>
+
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">Aún no tienes juegos en tu biblioteca 😢</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+

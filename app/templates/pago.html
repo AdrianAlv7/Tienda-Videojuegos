@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Resumen de Compra - ActiveLife{% endblock %}
+{% set active_page = 'tienda' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pago.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="carrito-box">
+    <h3>Resumen de Compra</h3>
+    <ul>
+        {% for nombre, cantidad, precio_unitario in productos %}
+        <li>
+            {{ nombre }} x {{ cantidad }} — ${{ '%.2f'|format(precio_unitario * cantidad) }}
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="total">Total a pagar: <span>${{ '%.2f'|format(total) }}</span></p>
+    <a class="btn btn-primary w-100" href="{{ url_for('main.tienda') }}">Continuar comprando</a>
+</div>
+{% endblock %}

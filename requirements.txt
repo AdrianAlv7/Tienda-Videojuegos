@@ -1,0 +1,16 @@
+Flask
+Flask-Login
+Flask-MySQLdb
+Flask-WTF
+Jinja2
+MarkupSafe
+WTForms
+Werkzeug
+blinker
+click
+colorama
+itsdangerous
+mysqlclient
+PyMySQL
+gunicorn
+cryptography
