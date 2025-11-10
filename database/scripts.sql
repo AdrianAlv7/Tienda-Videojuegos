@@ -266,3 +266,7 @@ CREATE TABLE IF NOT EXISTS imagenes_producto (
     nombre_imagen VARCHAR(255) NOT NULL,
     FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE CASCADE
 );
+
+
+
+xddd
