@@ -4,66 +4,164 @@
 {% block extra_css %}
 <style>
 body {
-  background-color: #0e0e0e;
-  color: #fff;
+  background-color: #0b0b0b;
+  color: #f2f2f2;
   font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
-/* ====== Carrusel ====== */
+/* ====== CARRUSEL PORTADA ====== */
 .carousel-container {
   position: relative;
   width: 90%;
-  margin: 2rem auto;
+  margin: 3rem auto 4rem auto;
   overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  background-color: #111;
+  height: 420px;
+  display: flex;
+  align-items: center;
 }
 
 .carousel {
   display: flex;
-  transition: transform 0.6s ease-in-out;
-}
-
-.carousel img {
+  transition: transform 0.8s ease-in-out;
   width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 15px;
+  height: 100%;
 }
 
+.carousel-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  color: white;
+}
+
+.carousel-slide img {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px 0 0 18px;
+}
+
+.carousel-info {
+  width: 40%;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  border-radius: 0 18px 18px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-info h2 {
+  color: #4CAF50;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-info p {
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-info .btn-ver {
+  display: inline-block;
+  background: linear-gradient(135deg, #4CAF50, #2ebf60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  width: 150px;
+}
+.carousel-info .btn-ver:hover {
+  background: linear-gradient(135deg, #2ebf60, #4CAF50);
+  transform: scale(1.05);
+}
+
+/* Flechas de navegación */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.55);
   color: #fff;
   border: none;
-  padding: 10px 16px;
+  padding: 12px 20px;
   cursor: pointer;
-  font-size: 1.5rem;
-  border-radius: 8px;
+  font-size: 2rem;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  z-index: 10;
 }
-
 .carousel-btn:hover {
-  background-color: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-50%) scale(1.1);
 }
-
 #prev { left: 10px; }
 #next { right: 10px; }
 
-/* ====== Sección de Juegos ====== */
-.section {
-  width: 90%;
-  margin: 3rem auto;
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.indicator.active {
+  background-color: #4CAF50;
 }
 
-.section h2 {
-  color: #4CAF50;
-  border-left: 5px solid #4CAF50;
-  padding-left: 10px;
-  margin-bottom: 1rem;
+/* === NUEVO: Precio estilo badge === */
+.price-tag {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #4CAF50, #2ebf60);
+  padding: 8px 16px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  align-self: flex-start;
+  box-shadow: 0 3px 10px rgba(0, 255, 100, 0.2);
 }
 
+/* === Clic en toda la tarjeta === */
+.carousel-slide {
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.carousel-slide:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+.carousel-info {
+  transition: background 0.3s ease;
+}
+.carousel-slide:hover .carousel-info {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+
+/* ====== TARJETAS DE JUEGOS ====== */
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -71,20 +169,24 @@ body {
 }
 
 .game-card {
-  background-color: #1e1e1e;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
   overflow: hidden;
-  transition: transform 0.3s;
   text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(5px);
+  cursor: pointer;
 }
 
 .game-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 255, 100, 0.3);
 }
 
 .game-card img {
   width: 100%;
-  height: 140px;
+  height: 160px;
   object-fit: cover;
 }
 
@@ -92,77 +194,145 @@ body {
   color: #fff;
   margin: 10px 0;
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .btn-ver {
+  display: inline-block;
   background: linear-gradient(135deg, #4CAF50, #2ebf60);
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  margin-bottom: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  min-width: 90px;
+  box-shadow: 0 3px 8px rgba(0, 255, 100, 0.25);
 }
 
 .btn-ver:hover {
   background: linear-gradient(135deg, #2ebf60, #4CAF50);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 255, 100, 0.35);
 }
+
+.section .btn-ver {
+  font-size: 1rem;
+  padding: 10px 22px;
+}
+
 </style>
 {% endblock %}
 
-{% block content %}
 
-<!-- 🧠 CARRUSEL DE DESTACADOS -->
+{% block content %}
+<!-- 🎠 CARRUSEL PORTADA INTERACTIVO -->
 <div class="carousel-container">
+  {% if juegos %}
   <div class="carousel" id="carousel">
     {% for j in juegos[:5] %}
-    <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
-    {% endfor %}
-  </div>
-  <button id="prev" class="carousel-btn">❮</button>
-  <button id="next" class="carousel-btn">❯</button>
-</div>
-
-<!-- 🎮 Tus Juegos -->
-<div class="section">
-  <h2>🎮 Tus Juegos Recientes</h2>
-  <div class="games-grid">
-    {% for j in juegos[:6] %}
-    <div class="game-card">
-      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}">
-        <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
-      </a>
-      <h4>{{ j.nombre }}</h4>
-      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}" class="btn-ver">Ver Detalles</a>
+    <div class="carousel-slide" data-id="{{ j.id }}" onclick="window.location.href='{{ url_for('main.juego_detalle', id=j.id, origen='index') }}'">
+      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+      <div class="carousel-info">
+        <h2>{{ j.nombre }}</h2>
+        <p>{{ j.descripcion }}</p>
+        <span class="price-tag">${{ "%.2f"|format(j.precio) }}</span>
+      </div>
     </div>
     {% endfor %}
   </div>
+
+  <button id="prev" class="carousel-btn">❮</button>
+  <button id="next" class="carousel-btn">❯</button>
+
+  <div class="carousel-indicators" id="indicators">
+    {% for j in juegos[:5] %}
+    <div class="indicator {% if loop.first %}active{% endif %}"></div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <p style="text-align:center; color:#aaa; padding:2rem;">No hay juegos disponibles.</p>
+  {% endif %}
 </div>
 
-<!-- 🏪 Enlace a Tienda -->
+
+
+<!-- 🎮 SECCIÓN DE JUEGOS RECIENTES -->
+<div class="section">
+  <h2>🎮 Tus Juegos Recientes</h2>
+  <p>Explora los últimos títulos que has adquirido.</p>
+
+  <div class="games-grid">
+    {% for j in juegos[:6] %}
+    <div class="game-card" onclick="location.href='{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}'">
+      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+      <h4>{{ j.nombre }}</h4>
+      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}" class="btn-ver">
+  ${{ "%.2f"|format(j.precio) }}
+</a>
+
+    </div>
+    {% else %}
+    <p>No tienes juegos recientes aún</p>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- 🏪 SECCIÓN TIENDA -->
 <div class="section">
   <h2>🛒 Explora la Tienda</h2>
-  <p>Descubre nuevos títulos y amplía tu colección.</p>
-  <a href="{{ url_for('main.tienda') }}" class="btn-ver" style="padding: 12px 24px;">Ir a la Tienda</a>
+  <p>Descubre nuevos títulos y amplía tu biblioteca de juegos.</p>
+  <a href="{{ url_for('main.tienda') }}" class="btn-ver">Ir a la Tienda</a>
 </div>
-
 {% endblock %}
+
 
 {% block extra_js %}
 <script>
-let index = 0;
-const carousel = document.getElementById('carousel');
-const total = carousel.children.length;
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('carousel');
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const total = slides.length;
+  const nextBtn = document.getElementById('next');
+  const prevBtn = document.getElementById('prev');
+  const indicators = document.querySelectorAll('.indicator');
+  let index = 0;
 
-document.getElementById('next').addEventListener('click', () => {
-  index = (index + 1) % total;
-  carousel.style.transform = `translateX(-${index * 100}%)`;
-});
+  function updateCarousel() {
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+    indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  }
 
-document.getElementById('prev').addEventListener('click', () => {
-  index = (index - 1 + total) % total;
-  carousel.style.transform = `translateX(-${index * 100}%)`;
+  function nextSlide() {
+    index = (index + 1) % total;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    index = (index - 1 + total) % total;
+    updateCarousel();
+  }
+
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+
+  indicators.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      index = i;
+      updateCarousel();
+    });
+  });
+
+  let auto = setInterval(nextSlide, 6000);
+  carousel.addEventListener('mouseenter', () => clearInterval(auto));
+  carousel.addEventListener('mouseleave', () => auto = setInterval(nextSlide, 6000));
+
+  updateCarousel();
 });
 </script>
 {% endblock %}
