@@ -91,7 +91,7 @@
         {% for j in juegos %}
         <div class="biblioteca-card">
 <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}">
-  <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}"
+  <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}"
        class="game-image" alt="{{ j.nombre }}">
 </a>
 

@@ -18,7 +18,7 @@
 
 <a href="{{ url_for('main.juego_detalle', id=juego.id, origen='tienda') }}">
   <img class="game-image"
-       src="{{ url_for('static', filename='IMG/' + (juego.imagen if juego.imagen else 'default.png')) }}"
+       src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else 'default.png')) }}"
        alt="{{ juego.nombre }}">
 </a>
 

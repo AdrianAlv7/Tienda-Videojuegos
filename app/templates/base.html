@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     {% block extra_css %}{% endblock %}
 </head>
-<body class="{{ 'modo-claro' if tema_usuario == 'claro' else 'modo-oscuro' }}">
+<body>
 
     
     <div class="topbar">
@@ -92,54 +92,5 @@
 
 </html>
 
-<script>
-    
-document.addEventListener("DOMContentLoaded", () => {
-    const modoSwitchGlobal = document.getElementById("modoSwitchGlobal");
-
-    // === Inicializar tema desde base de datos ===
-    const temaGuardado = "{{ current_user.tema if current_user.is_authenticated else 'oscuro' }}";
-    document.body.className = temaGuardado === "claro" ? "modo-claro" : "modo-oscuro";
-
-    // === Cambiar tema y guardar en DB ===
-    if (modoSwitchGlobal) {
-        modoSwitchGlobal.addEventListener("change", function() {
-            const nuevoTema = this.checked ? "claro" : "oscuro";
-            document.body.className = nuevoTema === "claro" ? "modo-claro" : "modo-oscuro";
-
-            fetch("/actualizar-tema", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tema: nuevoTema })
-            });
-        });
-    }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const modoSwitch = document.getElementById("modoSwitch");
-
-    if (modoSwitch) {
-        modoSwitch.addEventListener("change", function() {
-            const nuevoTema = this.checked ? "claro" : "oscuro";
-
-            // Cambia la clase en el body (tema visual inmediato)
-            document.body.className = nuevoTema === "claro" ? "modo-claro" : "modo-oscuro";
-
-            // Guarda el cambio en la base de datos
-            fetch("/actualizar-tema", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tema: nuevoTema })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.success) console.error("Error al guardar tema:", data.error);
-            });
-        });
-    }
-});
-</script>
 
 

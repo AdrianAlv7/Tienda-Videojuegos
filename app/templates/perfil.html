@@ -7,26 +7,32 @@
 
 {% block content %}
 <div class="perfil-container {{ user[5] }}">
-    <!-- Banner -->
-<div class="banner"style="background-image: url('{{ url_for('static', filename='IMG/' + (user[4] if user[4] else 'banner_default.jpg')) }}')">
+    
+    <!-- 🖼️ Banner -->
+    <div class="banner"
+         style="background-image: url('{{ url_for('static', filename='IMG/perfiles/' + (user[4] if user[4] else 'banner_default.jpg')) }}')">
         <div class="perfil-header">
-
-</div>  
-     <!-- Botón fuera del banner -->
-    <div class="perfil-header">
-        <button id="editarPerfilBtn" class="btn-editar">Editar Perfil</button>
-    </div>
+            <button id="editarPerfilBtn" class="btn-editar">Editar Perfil</button>
+        </div>
     </div>
 
-    <!-- Info del usuario -->
+    <!-- 👤 Información del usuario -->
     <div class="perfil-info">
-        <img id="fotoPerfil" src="{{ url_for('static', filename='IMG/' + (user[3] if user[3] else 'avatar_default.png')) }}" class="foto-perfil">
+        <img id="fotoPerfil"
+             src="{{ url_for('static', filename='IMG/perfiles/' + (user[3] if user[3] else 'avatar_default.png')) }}"
+             class="foto-perfil">
         <h2 id="username">{{ user[0] }}</h2>
         <p id="descripcion">{{ user[2] if user[2] else 'Sin descripción aún.' }}</p>
     </div>
 
-    <!-- Formulario de edición -->
-    <form id="formEditarPerfil" action="{{ url_for('main.editar_perfil_usuario') }}" method="POST" enctype="multipart/form-data" class="editar-form" style="display:none;">
+    <!-- 📝 Formulario de edición -->
+    <form id="formEditarPerfil"
+          action="{{ url_for('main.editar_perfil_usuario') }}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="editar-form"
+          style="display:none;">
+
         <div class="form-group">
             <label for="usernameInput">Nombre de usuario:</label>
             <input type="text" id="usernameInput" name="username" value="{{ user[0] }}" required>
@@ -52,17 +58,18 @@
         </div>
     </form>
 
-    <!-- Biblioteca -->
+    <!-- 🎮 Biblioteca de juegos -->
     <div class="perfil-juegos">
         <h3>🎮 Juegos en tu biblioteca</h3>
         <div class="juegos-grid">
             {% for j in juegos %}
-            <div class="juego-card">
-                <img src="{{ url_for('static', filename='IMG/' + (j[1] if j[1] else 'default.png')) }}">
-                <p>{{ j[0] }}</p>
-            </div>
+                <div class="juego-card">
+                    <img src="{{ url_for('static', filename='IMG/productos/' + (j[1] if j[1] else 'default.png')) }}"
+                         alt="{{ j[0] }}">
+                    <p>{{ j[0] }}</p>
+                </div>
             {% else %}
-            <p class="sin-juegos">No tienes juegos aún 😢</p>
+                <p class="sin-juegos">No tienes juegos aún 😢</p>
             {% endfor %}
         </div>
     </div>

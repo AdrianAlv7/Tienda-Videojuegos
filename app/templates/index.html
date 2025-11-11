@@ -117,7 +117,7 @@ body {
 <div class="carousel-container">
   <div class="carousel" id="carousel">
     {% for j in juegos[:5] %}
-    <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+    <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
     {% endfor %}
   </div>
   <button id="prev" class="carousel-btn">❮</button>
@@ -131,7 +131,7 @@ body {
     {% for j in juegos[:6] %}
     <div class="game-card">
       <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}">
-        <img src="{{ url_for('static', filename='IMG/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+        <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
       </a>
       <h4>{{ j.nombre }}</h4>
       <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}" class="btn-ver">Ver Detalles</a>
