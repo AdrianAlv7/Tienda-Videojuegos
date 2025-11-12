@@ -151,31 +151,35 @@ def carrito_vaciar():
 # =====================================================
 # 💳 CHECKOUT (pasa de carrito -> ventas, detalle_ventas y biblioteca)
 # =====================================================
-@carrito_bp.route('/carrito/checkout', methods=['POST'])
+@carrito_bp.route('/carrito/checkout', methods=['GET', 'POST'])
 @login_required
 def carrito_checkout():
     cur = mysql.connection.cursor()
 
+    # 🛍️ Obtener los productos del carrito
     cur.execute("""
-        SELECT p.id, p.nombre, p.imagen, p.precio, c.cantidad
-        FROM carrito c JOIN productos p ON p.id = c.id_producto
+        SELECT p.id, p.precio, c.cantidad
+        FROM carrito c 
+        JOIN productos p ON p.id = c.id_producto
         WHERE c.id_usuario = %s
     """, (current_user.id,))
     rows = cur.fetchall()
+
     if not rows:
         cur.close()
-        return jsonify({'ok': False, 'error': 'Carrito vacío.'}), 400
+        return render_template("ventas/compra_exito.html", total=0, cantidad=0)
 
-    total = sum(float(r[3]) * int(r[4]) for r in rows)
+    total = sum(float(r[1]) * int(r[2]) for r in rows)
+    cantidad = len(rows)
 
     cur.execute("INSERT INTO ventas (id_usuario, total) VALUES (%s, %s)", (current_user.id, total))
     venta_id = cur.lastrowid
 
-    for (id_producto, nombre, imagen, precio, cantidad) in rows:
+    for (id_producto, precio, cantidad_item) in rows:
         cur.execute("""
             INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, precio_unitario, subtotal)
             VALUES (%s, %s, %s, %s, %s)
-        """, (venta_id, id_producto, cantidad, precio, float(precio) * int(cantidad)))
+        """, (venta_id, id_producto, cantidad_item, precio, float(precio) * int(cantidad_item)))
 
         cur.execute("""
             INSERT IGNORE INTO biblioteca (id_usuario, id_producto)
@@ -186,11 +190,7 @@ def carrito_checkout():
     mysql.connection.commit()
     cur.close()
 
-    # Devolvemos los artículos para mostrar en la vista de éxito
-    productos = [{'nombre': r[1], 'imagen': r[2], 'precio': r[3]} for r in rows]
-
-    return jsonify({'ok': True, 'venta_id': venta_id, 'productos': productos, 'total': total})
-
+    return render_template("ventas/compra_exito.html", total=total, cantidad=cantidad)
 
 
 
@@ -236,3 +236,7 @@ def carrito_eliminar():
     return jsonify({"ok": True, "count": count})
 
 
+@carrito_bp.route('/carrito/compra_exitosa')
+@login_required
+def compra_exitosa():
+    return render_template("ventas/compra_exito.html")
