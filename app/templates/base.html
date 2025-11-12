@@ -1,96 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}ActiveLife{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
-    {% block extra_css %}{% endblock %}
-</head>
-<body>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}ActiveLife{% endblock %}</title>
 
-    
-    <div class="topbar">
+  <!-- 📦 Bootstrap y estilos base -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carrito.css') }}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <!-- 🔝 Barra superior -->
+  <div class="topbar">
     <div class="topbar-right">
-        {% if current_user.is_authenticated %}
-            <a href="{{ url_for('auth.logout') }}" class="btn-session logout">Cerrar sesión</a>
-        {% else %}
-            <a href="{{ url_for('auth.login') }}" class="btn-session login">Iniciar sesión</a>
-        {% endif %}
+      <!-- 🛒 Botón del carrito -->
+      <a href="javascript:void(0)" id="btn-carrito" class="btn btn-success position-relative me-2">
+        Mi Carrito
+        <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          0
+        </span>
+      </a>
+
+      <!-- 🔐 Sesión -->
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" class="btn-session logout">Cerrar sesión</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="btn-session login">Iniciar sesión</a>
+      {% endif %}
     </div>
+
+    <!-- 🌙 Modo oscuro -->
     <div class="modo-switch-container">
-    <label class="switch">
+      <label class="switch">
         <input type="checkbox" id="modoSwitch" {% if tema_usuario == 'claro' %}checked{% endif %}>
         <span class="slider"></span>
-    </label>
-</div>
-
-</div>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="bg-dark border-right" id="sidebar-wrapper">
-            <div class="list-group-item list-group-item-action bg-dark text-white sidebar-title">ActiveLife</div>
-<div class="list-group list-group-flush">
-    {% if current_user.is_authenticated %}
-    <div class="list-group-item bg-dark text-white sidebar-static">
-        Bienvenido {{ current_user.username }}<br />
-        {{ current_user.role|capitalize }}
+      </label>
     </div>
-    {% endif %}
+  </div>
 
-<!-- Menú general -->
-<a href="{{ url_for('main.index') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'index' %}active{% endif %}" style="{% if active_page == 'index' %}border-left: 5px solid #4CAF50; padding-left: 15px;{% endif %}">Inicio</a>
-<a href="{{ url_for('main.perfil') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'perfil' %}active{% endif %}" style="{% if active_page == 'perfil' %}border-left: 5px solid #4CAF50; padding-left: 15px;{% endif %}">Mi Perfil</a>
-<a href="{{ url_for('main.tienda') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'tienda' %}active{% endif %}" style="{% if active_page == 'tienda' %}border-left: 5px solid #4CAF50; padding-left: 15px;{% endif %}">Tienda online</a>
-<a href="{{ url_for('main.biblioteca') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'coleccion' %}active{% endif %}" style="{% if active_page == 'coleccion' %}border-left: 5px solid #4CAF50; padding-left: 15px;{% endif %}">Mi Biblioteca</a>
+  <!-- 📚 Sidebar + Contenido -->
+  <div class="d-flex" id="wrapper">
+    <!-- 📚 Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
+      <div class="list-group-item list-group-item-action bg-dark text-white sidebar-title">ActiveLife</div>
 
-<!-- Menú de Productos solo admin/editor -->
-{% if current_user.is_authenticated and current_user.role in ['admin', 'editor'] %}
-<a href="{{ url_for('productos.lista_productos') }}" class="list-group-item list-group-item-action bg-dark text-white">Gestión de Productos</a>
-{% endif %}
-
-<!-- Menú de Usuarios solo admin -->
-{% if current_user.is_authenticated and current_user.role == 'admin' %}
-<a href="{{ url_for('usuarios.lista_usuarios') }}" class="list-group-item list-group-item-action bg-dark text-white">Gestión de Usuarios</a>
-{% endif %}
-
-<!-- SECCIÓN DE COMPRAS SEGÚN EL ROL -->
-{% if current_user.is_authenticated %}
-    {% if current_user.role == 'admin' %}
-        <a href="{{ url_for('ventas_admin.lista_ventas') }}" class="list-group-item list-group-item-action bg-dark text-white">Historial de Compras</a>
-    {% else %}
-        <a href="{{ url_for('ventas.mis_compras') }}" class="list-group-item list-group-item-action bg-dark text-white">Mis Compras</a>
-    {% endif %}
-{% endif %}
-
-
-<a href="{{ url_for('main.acerca') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'acerca' %}active{% endif %}" style="{% if active_page == 'acerca' %}border-left: 5px solid #4CAF50; padding-left: 15px;{% endif %}">Acerca de Nosotros</a>
-
-            </div>
+      <div class="list-group list-group-flush">
+        {% if current_user.is_authenticated %}
+        <div class="list-group-item bg-dark text-white sidebar-static">
+          Bienvenido {{ current_user.username }}<br />
+          {{ current_user.role|capitalize }}
         </div>
+        {% endif %}
 
-        <div class="container-fluid">
-            <button class="btn btn-primary" id="menu-toggle">☰ Menú</button>
-            {% block content %}{% endblock %}
-        </div>
-        
+        <!-- 🧭 Navegación principal -->
+        <a href="{{ url_for('main.index') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'index' %}active{% endif %}">Inicio</a>
+        <a href="{{ url_for('main.perfil') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'perfil' %}active{% endif %}">Mi Perfil</a>
+        <a href="{{ url_for('main.tienda') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'tienda' %}active{% endif %}">Tienda Online</a>
+        <a href="{{ url_for('main.biblioteca') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'coleccion' %}active{% endif %}">Mi Biblioteca</a>
+
+        <!-- 🧰 Gestión interna -->
+        {% if current_user.is_authenticated and current_user.role in ['admin', 'editor'] %}
+          <a href="{{ url_for('productos.lista_productos') }}" class="list-group-item list-group-item-action bg-dark text-white">Gestión de Productos</a>
+        {% endif %}
+        {% if current_user.is_authenticated and current_user.role == 'admin' %}
+          <a href="{{ url_for('usuarios.lista_usuarios') }}" class="list-group-item list-group-item-action bg-dark text-white">Gestión de Usuarios</a>
+        {% endif %}
+
+        <!-- 🛍️ Sección de compras -->
+        {% if current_user.is_authenticated %}
+          {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('ventas_admin.lista_ventas') }}" class="list-group-item list-group-item-action bg-dark text-white">Historial de Compras</a>
+          {% else %}
+            <a href="{{ url_for('ventas_admin.mis_compras') }}" class="list-group-item list-group-item-action bg-dark text-white">Mis Compras</a>
+          {% endif %}
+        {% endif %}
+
+        <a href="{{ url_for('main.acerca') }}" class="list-group-item list-group-item-action bg-dark text-white {% if active_page == 'acerca' %}active{% endif %}">Acerca de Nosotros</a>
+      </div>
     </div>
-    
 
-    <footer class="bg-dark text-white py-3">
-        <div class="container text-center">
-            <p>&copy; 2025 ActiveLife. Todos los derechos reservados. INGxIngeniosos</p>
-            <p>&copy; ING's x Ingeniosos; "Adrian Alvarez, Erik Lopez, Kevin Lopez"</p>
-        </div>
-    </footer>
+    <!-- 📄 Contenido principal -->
+    <div class="container-fluid">
+      <button class="btn btn-primary" id="menu-toggle">☰ Menú</button>
+      {% block content %}{% endblock %}
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    {% block extra_js %}{% endblock %}
+  <!-- 🛍️ Panel lateral del carrito -->
+  <div id="carrito-panel" class="carrito-panel">
+    <div class="carrito-header">
+      <h5>🛒 Mi Carrito</h5>
+      <button id="cerrar-carrito" class="btn btn-sm btn-danger">✖</button>
+    </div>
+
+    <div id="carrito-items" class="carrito-items text-white text-center">
+      <p class="text-muted mt-3">Tu carrito está vacío</p>
+    </div>
+
+    <div class="carrito-footer">
+      <div>Total: <span id="carrito-total">$0.00</span></div>
+      <button id="btn-checkout" class="btn btn-success w-100 mt-2">Finalizar compra</button>
+    </div>
+  </div>
+
+  <!-- 🟢 Fondo oscuro para el carrito -->
+  <div id="overlay-carrito"
+       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+              background:rgba(0,0,0,0.5); z-index:2500; transition:opacity 0.3s;">
+  </div>
+
+  <!-- 🟩 Mensaje de confirmación -->
+  <div id="cart-feedback">Agregado al carrito 🛒</div>
+
+  <!-- 📜 Footer -->
+  <footer class="bg-dark text-white py-3 mt-5">
+    <div class="container text-center">
+      <p>&copy; 2025 ActiveLife. Todos los derechos reservados. INGxIngeniosos</p>
+      <p>"Adrián Álvarez, Erik López, Kevin López"</p>
+    </div>
+  </footer>
+
+  <!-- ⚙️ Scripts principales -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+
+  <!-- 🌐 URLs globales -->
+  <script>
+    window.__URLS__ = {
+      carrito_ver      : "{{ url_for('carrito.carrito_ver') }}",
+      carrito_agregar  : "{{ url_for('carrito.carrito_agregar') }}",
+      carrito_quitar   : "{{ url_for('carrito.carrito_quitar') }}",
+      carrito_conteo   : "{{ url_for('carrito.carrito_conteo') }}",
+      biblioteca       : "{{ url_for('main.biblioteca') }}",
+    };
+  </script>
+
+  <!-- 🧩 Lógica del carrito centralizada -->
+  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+<script>
+async function refrescarConteoCarrito() {
+  try {
+    const res = await fetch("{{ url_for('carrito.carrito_conteo') }}", { cache: "no-store" });
+    const data = await res.json();
+    const badge = document.getElementById("cart-badge");
+    if (badge) {
+      badge.textContent = data.count;
+      badge.style.display = data.count > 0 ? "inline-flex" : "none";
+    }
+  } catch (err) {
+    console.error("❌ Error al obtener conteo:", err);
+  }
+}
+
+// 🔁 Llamar siempre al iniciar
+document.addEventListener("DOMContentLoaded", refrescarConteoCarrito);
+
+// Escuchar si el carrito cambia (para refrescar sin recargar)
+document.addEventListener("carrito:eliminado", refrescarConteoCarrito);
+document.addEventListener("carrito:agregado", refrescarConteoCarrito);
+</script>
+
+<script>
+document.getElementById("btn-checkout")?.addEventListener("click", () => {
+  // Cierra el panel
+  const panel = document.getElementById("carrito-panel");
+  const overlay = document.getElementById("overlay-carrito");
+  if (panel) panel.classList.remove("show");
+  if (overlay) {
+    overlay.style.opacity = "0";
+    setTimeout(() => { overlay.style.display = "none"; }, 300);
+  }
+  document.body.style.overflow = "";
+
+  // 🔁 Redirige al carrito completo
+  window.location.href = "{{ url_for('carrito.carrito_ver') }}";
+});
+</script>
+
 </body>
-
 </html>
-
-
-

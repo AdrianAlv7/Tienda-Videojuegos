@@ -19,20 +19,26 @@ def create_app():
 
 
 
-    # Importa y registra blueprints 
+# Importa y registra blueprints
     from .routes.auth_routes import auth_bp, User
     from .routes.main_routes import main_bp
-    from .routes.productos_routes import productos_bp  
+    from .routes.productos_routes import productos_bp
     from .routes.usuarios_routes import usuarios_bp
-    from .routes.ventas_routes import ventas_bp
     from .routes.ventas_admin_routes import ventas_admin_bp
+    from .routes.carrito_routes import carrito_bp
 
+
+    # Registro de blueprints (una sola vez cada uno)
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
-    app.register_blueprint(productos_bp)  
+    app.register_blueprint(productos_bp)
     app.register_blueprint(usuarios_bp)
-    app.register_blueprint(ventas_bp)
     app.register_blueprint(ventas_admin_bp)
+    app.register_blueprint(carrito_bp)
+
+
+    
+            
     
 
     @login_manager.user_loader
@@ -56,10 +62,14 @@ def create_app():
             'rol': None,
             'current_user': None
         }
+        
     @app.context_processor
     def inject_user_data():
         if current_user.is_authenticated:
             return {'user': current_user, 'tema_usuario': getattr(current_user, 'tema', 'oscuro')}
         return {'user': None, 'tema_usuario': 'oscuro'}
+    
+
+
 
     return app

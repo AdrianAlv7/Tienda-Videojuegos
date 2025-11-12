@@ -269,4 +269,18 @@ CREATE TABLE IF NOT EXISTS imagenes_producto (
 
 
 
-xddd
+CREATE TABLE IF NOT EXISTS carrito (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT NOT NULL,
+  id_producto INT NOT NULL,
+  cantidad INT NOT NULL DEFAULT 1,
+  fecha_agregado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_usuario_producto (id_usuario, id_producto),
+  CONSTRAINT fk_carrito_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+  CONSTRAINT fk_carrito_producto FOREIGN KEY (id_producto) REFERENCES productos(id)
+);
+
+ALTER TABLE carrito MODIFY cantidad INT DEFAULT 1;
+
+
+ALTER TABLE carrito ADD UNIQUE KEY unq_usuario_producto (id_usuario, id_producto);

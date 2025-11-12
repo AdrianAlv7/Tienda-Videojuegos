@@ -1,0 +1,13 @@
+{% if items %}
+  {% for item in items %}
+<div class="carrito-item" data-id="{{ item[0] }}">
+  <img src="{{ url_for('static', filename='IMG/productos/' + (item[4] if item[4] else 'default.png')) }}" alt="{{ item[1] }}">
+  <div class="titulo">{{ item[1] }}</div>
+  <div class="precio">${{ '%.2f'|format(item[3]|float) }}</div>
+  <button class="btn btn-sm btn-danger btn-eliminar">🗑️</button>
+</div>
+
+  {% endfor %}
+{% else %}
+  <p class="text-center mt-4 text-muted">Tu carrito está vacío 🛒</p>
+{% endif %}

@@ -200,28 +200,40 @@ def comprar():
 def tienda():
     cur = mysql.connection.cursor()
 
-    # Obtener productos
+    # 🕹️ Obtener productos
     cur.execute("SELECT id, nombre, descripcion, precio, imagen FROM productos")
     productos = cur.fetchall()
 
-    # Juegos ya comprados
+    # 🎮 Juegos que el usuario ya tiene en la biblioteca
     cur.execute("SELECT id_producto FROM biblioteca WHERE id_usuario = %s", (current_user.id,))
-    juegos_usuario = [r[0] for r in cur.fetchall()]
+    juegos_biblioteca = [r[0] for r in cur.fetchall()]
+
+    # 🛒 Juegos que el usuario tiene en el carrito
+    cur.execute("SELECT id_producto FROM carrito WHERE id_usuario = %s", (current_user.id,))
+    juegos_carrito = [r[0] for r in cur.fetchall()]
+
     cur.close()
 
-    juegos = [
-        {
+    # 🎨 Estructurar lista con estados
+    juegos = []
+    for p in productos:
+        estado = "ninguno"
+        if p[0] in juegos_biblioteca:
+            estado = "biblioteca"
+        elif p[0] in juegos_carrito:
+            estado = "carrito"
+
+        juegos.append({
             'id': p[0],
             'nombre': p[1],
             'descripcion': p[2],
             'precio': p[3],
             'imagen': p[4],
-            'en_biblioteca': p[0] in juegos_usuario
-        }
-        for p in productos
-    ]
+            'estado': estado
+        })
 
     return render_template('tienda.html', juegos=juegos, active_page='tienda')
+
 
 
 # ======================================================

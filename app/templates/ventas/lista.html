@@ -1,26 +1,37 @@
 {% extends "base.html" %}
+{% block title %}Lista de Ventas - ActiveLife{% endblock %}
+
 {% block content %}
-<h2>Historial de Ventas</h2>
-<table class="table">
-    <thead>
+<div class="container">
+  <h2>🧾 Todas las Ventas</h2>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
         <tr>
-            <th>ID Venta</th>
-            <th>Fecha</th>
-            <th>Usuario</th>
-            <th>Productos</th>
-            <th>Total</th>
+          <th>ID Venta</th>
+          <th>Fecha</th>
+          <th>Usuario</th>
+          <th>Productos</th>
+          <th>Total</th>
         </tr>
-    </thead>
-    <tbody>
-        {% for venta in ventas %}
+      </thead>
+      <tbody>
+        {% for v in ventas %}
         <tr>
-            <td>{{ venta[0] }}</td>
-            <td>{{ venta[1] }}</td>
-            <td>{{ venta[3] }}</td>
-            <td>{{ venta[4] }}</td>
-            <td>${{ venta[2] }}</td>
+          <td>#{{ v[0] }}</td>
+          <td>{{ v[1].strftime('%d/%m/%Y %H:%M') }}</td>
+          <td>{{ v[3] }}</td>
+          <td>{{ v[4] }}</td>
+          <td class="total">${{ "%.2f"|format(v[2]) }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align:center; color:#888;">No hay ventas registradas.</td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
