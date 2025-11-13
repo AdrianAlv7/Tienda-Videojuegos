@@ -55,3 +55,5 @@ ActiveLife es una aplicación web desarrollada con Flask y MySQL para gestionar 
       Contraseña:  `admin123`
     - Los clientes pueden registrarse desde la página de login.
 ---
+
+sexo
