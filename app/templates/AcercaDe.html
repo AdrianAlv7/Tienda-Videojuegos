@@ -1,28 +1,94 @@
 {% extends 'base.html' %}
-{% block title %}Acerca de Nosotros - ActiveLife{% endblock %}
+{% block title %}Acerca de NintendoSteam{% endblock %}
 {% set active_page = 'acerca' %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Acercade.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acercade.css') }}">
 {% endblock %}
 
 {% block content %}
-<header>
-    <h1>ActiveLife</h1>
-</header>
-<div class="container">
-    <section class="about-us">
-        <h3>Acerca de Nosotros</h3>
-        <p>En <strong>ActiveLife</strong>, nos apasiona ayudarte a alcanzar tus metas de salud y bienestar. Nuestra aplicación combina ejercicios personalizados y recetas saludables para que puedas llevar un estilo de vida activo y equilibrado.</p>
-    </section>
-    <section class="mission">
-        <h3>Misión</h3>
-        <p>Nuestra misión es inspirar y facilitar un estilo de vida saludable a través de herramientas sofisticadas que integren el ejercicio físico y la alimentación saludable y balanceada, promoviendo el bienestar integral de nuestros usuarios.</p>
-    </section>
-    <section class="vision">
-        <h3>Visión</h3>
-        <p>Ser la plataforma líder en el mundo para el cuidado de la salud, destacada por su enfoque y su capacidad para transformar vidas a través de hábitos saludables y sostenibles.</p>
-    </section>
+
+<!-- HERO PRINCIPAL -->
+<section class="hero-about">
+    <div class="hero-text">
+        <h1>NintendoSteam</h1>
+        <p>Donde los jugadores encuentran su siguiente aventura.</p>
+
+<!-- LOGO -->
+<div class="hero-logo">
+    <img src="{{ url_for('static', filename='IMG/logo.png') }}" alt="Logo NintendoSteam">
 </div>
+
+    </div>
+</section>
+
+<!-- QUIÉNES SOMOS -->
+<section class="info-section fade-in">
+    <h2>¿Quiénes Somos?</h2>
+    <p>
+        En <strong>NintendoSteam</strong>, somos una tienda digital de videojuegos diseñada 
+        para ofrecer una experiencia moderna, rápida y completamente visual. 
+        Nuestro objetivo es que cada jugador encuentre sus títulos favoritos en un entorno 
+        agradable, intuitivo y seguro.
+    </p>
+</section>
+
+<!-- MISIÓN - VISIÓN -->
+<section class="cards-container fade-in">
+    <div class="about-card">
+        <h3>Misión</h3>
+        <p>
+            Brindar una plataforma accesible y confiable donde jugadores puedan adquirir 
+            videojuegos de forma sencilla, disfrutando de una interfaz fluida y pensada 
+            especialmente para una experiencia gamer.
+        </p>
+    </div>
+
+    <div class="about-card">
+        <h3>Visión</h3>
+        <p>
+            Convertirnos en una de las tiendas de videojuegos más reconocidas en la región, 
+            destacando por nuestra estética futurista, estabilidad técnica y calidad de servicio.
+        </p>
+    </div>
+</section>
+
+<!-- VALORES CON ICONOS -->
+<section class="values-section fade-in">
+    <h2>Nuestros Valores</h2>
+
+    <div class="values-grid">
+        <div class="value-item">
+            <span class="icon">⚡</span>
+            <h4>Velocidad</h4>
+            <p>Todo cargado al instante, sin esperas innecesarias.</p>
+        </div>
+
+        <div class="value-item">
+            <span class="icon">🎮</span>
+            <h4>Pasión Gamer</h4>
+            <p>Sabemos lo que quieres porque también jugamos.</p>
+        </div>
+
+        <div class="value-item">
+            <span class="icon">🔒</span>
+            <h4>Seguridad</h4>
+            <p>Tu cuenta y tus compras siempre protegidas.</p>
+        </div>
+
+        <div class="value-item">
+            <span class="icon">🌐</span>
+            <h4>Accesibilidad</h4>
+            <p>Diseñado para que cualquier jugador pueda disfrutar de la plataforma.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-about fade-in">
+    <h2>Explora la Tienda</h2>
+    <p>Descubre juegos, crea tu biblioteca y vive nuevas aventuras.</p>
+    <a href="{{ url_for('main.tienda') }}" class="btn-cta">Ir a la Tienda</a>
+</section>
+
 {% endblock %}

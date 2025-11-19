@@ -23,21 +23,19 @@
     <div class="topbar-left">
         <a href="{{ url_for('main.index') }}" class="logo-link">
           <img src="{{ url_for('static', filename='IMG/logo.png') }}" class="logo-img logo-top" alt="Logo">
-
-
-
         </a>
     </div>
 
     <!-- DERECHA: CARRITO + SESIÓN -->
     <div class="topbar-right">
         <!-- Botón del carrito -->
-        <a href="javascript:void(0)" id="btn-carrito" class="btn btn-success position-relative me-2">
+        <a href="javascript:void(0)" id="btn-carrito" class="btn btn-success position-relative me-2 btn-carrito">
             Mi Carrito
             <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               0
             </span>
         </a>
+        
 
         <!-- Botones login/logout -->
         {% if current_user.is_authenticated %}
@@ -49,7 +47,7 @@
 </div>
 
 
-    <!-- 🌙 Modo oscuro -->
+    <!-- 🌙 Modo oscuro 
     <div class="modo-switch-container">
       <label class="switch">
         <input type="checkbox" id="modoSwitch" {% if tema_usuario == 'claro' %}checked{% endif %}>
@@ -57,7 +55,7 @@
       </label>
     </div>
   </div>
-
+-->
   <!-- 📚 Sidebar + Contenido -->
   <div class="d-flex" id="wrapper">
     <!-- 📚 Sidebar -->
@@ -142,7 +140,7 @@
   <!-- 🛍️ Panel lateral del carrito -->
   <div id="carrito-panel" class="carrito-panel">
     <div class="carrito-header">
-      <h5>🛒 Mi Carrito</h5>
+      <h5>Mi Carrito</h5>
       <button id="cerrar-carrito" class="btn btn-sm btn-danger">✖</button>
     </div>
 
@@ -162,8 +160,6 @@
               background:rgba(0,0,0,0.5); z-index:2500; transition:opacity 0.3s;">
   </div>
 
-  <!-- 🟩 Mensaje de confirmación -->
-  <div id="cart-feedback">Agregado al carrito 🛒</div>
 
   <!-- 📜 Footer -->
   <footer class="bg-dark text-white py-3 mt-5">

@@ -1,30 +1,51 @@
 {% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin-form-usuarios.css') }}">
+{% endblock %}
+
 {% block content %}
-<h2>{{ accion }} Usuario</h2>
-<form method="post">
-    <div class="mb-3">
-        <label for="username">Usuario:</label>
-        <input type="text" name="username" class="form-control" id="username" required value="{{ usuario[1] if usuario else '' }}">
-    </div>
-    <div class="mb-3">
-        <label for="email">Email:</label>
-        <input type="email" name="email" class="form-control" id="email" required value="{{ usuario[2] if usuario else '' }}">
-    </div>
-    {% if accion == 'Agregar' %}
-    <div class="mb-3">
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" class="form-control" id="password" required>
-    </div>
-    {% endif %}
-    <div class="mb-3">
-        <label for="role">Rol:</label>
-        <select name="role" class="form-control" id="role">
-            <option value="admin" {% if usuario and usuario[3] == 'admin' %}selected{% endif %}>Admin</option>
-            <option value="editor" {% if usuario and usuario[3] == 'editor' %}selected{% endif %}>Editor</option>
-            <option value="cliente" {% if usuario and usuario[3] == 'cliente' %}selected{% endif %}>Cliente</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Aceptar</button>
-    <a href="{{ url_for('usuarios.lista_usuarios') }}" class="btn btn-secondary">Cancelar</a>
-</form>
+
+<h2 class="titulo-admin-form">{{ accion }} Usuario</h2>
+
+<div class="admin-user-form-container">
+    <form method="post" class="admin-user-form">
+
+<div class="form-group-admin">
+    <label for="username">Usuario</label>
+    <input type="text" name="username" id="username" required 
+           value="{{ usuario['username'] | default('') }}">
+</div>
+
+<div class="form-group-admin">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required 
+           value="{{ usuario['email'] | default('') }}">
+</div>
+
+{% if accion == 'Agregar' %}
+<div class="form-group-admin">
+    <label for="password">Contraseña</label>
+    <input type="password" name="password" id="password" required>
+</div>
+{% endif %}
+
+<div class="form-group-admin">
+    <label for="role">Rol</label>
+    <select name="role" id="role">
+        <option value="admin"   {% if usuario['role']|default('') == 'admin' %}selected{% endif %}>Admin</option>
+        <option value="editor"  {% if usuario['role']|default('') == 'editor' %}selected{% endif %}>Editor</option>
+        <option value="cliente" {% if usuario['role']|default('') == 'cliente' %}selected{% endif %}>Cliente</option>
+    </select>
+</div>
+
+
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn-admin-submit">Aceptar</button>
+            <a href="{{ url_for('usuarios.lista_usuarios') }}" class="btn-admin-cancel">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+
 {% endblock %}

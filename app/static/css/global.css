@@ -58,3 +58,26 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--morado-neon);
 }
+
+
+/* === Asegurar que el footer quede SIEMPRE abajo === */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-wrapper,
+#wrapper,
+#content {
+    flex: 1 0 auto;
+}
+
+/* FOOTER PEGADO AL FONDO SIN IMPORTAR EL CONTENIDO */
+footer {
+    flex-shrink: 0;
+}

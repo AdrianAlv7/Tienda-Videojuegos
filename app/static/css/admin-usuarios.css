@@ -1,0 +1,215 @@
+/****************************************************
+ 🔮 TÍTULO
+****************************************************/
+.titulo-admin {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(165,128,255,0.85);
+}
+
+/****************************************************
+ 🟣 BOTONES SUPERIORES — Shine Controlado
+****************************************************/
+
+/* Contenedor */
+.admin-buttons-top {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 20px;
+
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+/* Botón base */
+.btn-top {
+    position: relative;
+    overflow: hidden;
+
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+
+    color: #fff;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 0 18px rgba(165,128,255,0.45);
+}
+
+/* SHINE */
+.btn-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -110%;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+    transition: transform .7s ease;
+}
+
+.btn-top:hover::before {
+    transform: translateX(210%);
+}
+
+/* Glow Hover */
+.btn-top:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 30px rgba(165,128,255,0.9);
+}
+
+/****************************************************
+ 🎨 COLORES
+****************************************************/
+
+/* Agregar Usuario */
+.btn-add-user {
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+}
+
+/* Mostrar Fantasmas */
+.btn-ghost {
+    background: linear-gradient(135deg, #444, #222);
+    color: #ddd;
+}
+.btn-ghost:hover {
+    box-shadow: 0 0 24px rgba(255,255,255,0.25);
+}
+
+
+/****************************************************
+ 🔮 TABLA
+****************************************************/
+.table-custom {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+
+    overflow: hidden;
+    border-radius: 16px;
+
+    background: rgba(20, 15, 35, 0.85);
+    box-shadow: 0 0 25px rgba(165,128,255,0.35);
+}
+
+.table-custom th {
+    background: rgba(40, 20, 80, 0.9);
+    padding: 16px;
+    font-weight: 700;
+    color: var(--morado-neon);
+    text-shadow: 0 0 12px rgba(165,128,255,0.6);
+}
+
+.table-custom td {
+    padding: 14px 10px;
+    text-align: center;
+    color: #ddd;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.table-custom tbody tr:hover {
+    background: rgba(165,128,255,0.08);
+}
+
+/****************************************************
+ 🔥 BOTONES DE ACCIÓN — sin invadir el layout
+****************************************************/
+.acciones-col {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+/* base */
+.btn-action {
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* editar */
+.btn-edit {
+    background: linear-gradient(135deg, #ffde75, #ffb938);
+    color: black;
+    box-shadow: 0 0 10px rgba(255,220,140,0.45);
+}
+
+.btn-edit:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(255,220,140,0.85);
+}
+
+/* eliminar */
+.btn-delete {
+    background: linear-gradient(135deg, #ff6767, #ff3b3b);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255,80,80,0.45);
+}
+
+.btn-delete:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(255,80,80,0.85);
+}
+
+/* Base para que Shine jamás se salga del botón */
+.btn-action {
+    position: relative;
+    overflow: hidden;
+
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: .9rem;
+    text-decoration: none;
+
+    transition: .25s ease;
+}
+
+/* Shine */
+.btn-action::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;  /* No tan largo */
+    width: 100%;  /* Exacto al ancho del botón */
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+    transition: .6s ease;
+}
+
+.btn-action:hover::before {
+    left: 100%; /* Se mueve dentro del botón */
+}
+.btn-action:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(255,255,255,0.25);
+}

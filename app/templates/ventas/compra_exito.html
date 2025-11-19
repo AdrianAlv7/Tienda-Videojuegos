@@ -3,143 +3,423 @@
 
 {% block extra_css %}
 <style>
+:root {
+  --morado: #8b3dff;
+  --morado-oscuro: #3a0a74;
+  --neon: #c47cff;        /* rosa neon */
+  --neon-soft: #e4b3ff;   /* lila brillante */
+}
+
+/* =========================
+   FONDO + LAYOUT GENERAL
+   ========================= */
 .main-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 120px); /* ocupa casi toda la pantalla */
-  background: #0f0f0f;
-}
-
-.success-box {
-  position: relative;
-  background: #181818;
-  border-radius: 18px;
-  padding: 4rem 5rem; /* más espacio interno */
-  box-shadow: 0 0 35px rgba(0, 0, 0, 0.7);
-  text-align: center;
-  max-width: 720px; /* más ancho */
-  width: 95%;
+  min-height: calc(100vh - 120px);
+  background: #050214;
   overflow: hidden;
 }
+
+/* Canvas de estrellas */
+#starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Shader morado suave */
+.shader-bg {
+  position: absolute;
+  inset: -80px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(139,61,255,0.45), transparent 60%),
+    radial-gradient(circle at 100% 0%, rgba(196,124,255,0.45), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(160,80,255,0.35), transparent 60%);
+  filter: blur(40px);
+  opacity: 0.75;
+  animation: shaderMove 25s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+@keyframes shaderMove {
+  0%   { transform: translate(-30px, -20px) scale(1); }
+  50%  { transform: translate(20px, 30px) scale(1.05); }
+  100% { transform: translate(10px, -10px) scale(1.02); }
+}
+
+/* =========================
+   CAJA CRISTAL PRINCIPAL
+   ========================= */
+.success-box {
+  position: relative;
+  background: rgba(15, 10, 35, 0.9);
+  border-radius: 22px;
+  padding: 3.5rem 4rem;
+  width: 95%;
+  max-width: 820px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow:
+    0 0 32px rgba(139,61,255,0.6),
+    0 0 60px rgba(0,0,0,0.9);
+  text-align: center;
+  z-index: 2;
+  animation: fadeInUp 0.7s ease-out;
+  overflow: hidden;
+}
+
 .success-box::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, #4caf50 0%, transparent 70%);
-  opacity: 0.15;
+  background: radial-gradient(circle at top, rgba(196,124,255,0.25), transparent 70%);
+  pointer-events: none;
+  opacity: 0.7;
 }
+
+/* Icono */
 .success-icon {
-  font-size: 6rem; /* icono más grande */
-  color: #4CAF50;
-  margin-bottom: 1.5rem;
-}
-.success-title {
-  font-size: 2.4rem; /* título más grande */
-  font-weight: 800;
+  font-size: 5.2rem;
   margin-bottom: 1rem;
+  color: var(--neon);
+  text-shadow:
+    0 0 16px rgba(196,124,255,0.8),
+    0 0 30px rgba(196,124,255,0.6);
+  animation: checkPop 0.7s ease-out;
+}
+
+/* Título */
+.success-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
   color: #fff;
+  text-shadow:
+    0 0 12px var(--neon),
+    0 0 24px var(--morado);
 }
+
+/* Mensaje */
 .success-msg {
-  font-size: 1.2rem;
-  color: #bbb;
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 1.8rem;
 }
+
+/* Total */
 .total-box {
-  background: #222;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  margin: 1.5rem auto 2.5rem auto;
+  background: rgba(80, 30, 150, 0.35);
+  border-radius: 16px;
+  padding: 1.3rem 2.4rem;
+  margin: 2rem auto 2.4rem auto;
   width: fit-content;
-  font-size: 1.4rem; /* texto más grande */
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #2ebf60;
-  border: 1px solid #333;
+  color: var(--neon-soft);
+  border: 1px solid rgba(200, 170, 255, 0.5);
+  box-shadow:
+    0 0 18px rgba(180,120,255,0.35),
+    0 0 26px rgba(180,120,255,0.6);
+  text-shadow: 0 0 10px rgba(180,120,255,0.8);
 }
+
+/* =========================
+   BOTONES
+   ========================= */
 .btns {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 22px;
+  margin-top: 1rem;
 }
+
 .btns a {
   text-decoration: none;
-  padding: 14px 24px; /* botones más grandes */
-  border-radius: 12px;
+  padding: 15px 28px;
+  border-radius: 14px;
   font-weight: 700;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
+  font-size: 1.05rem;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
+
+/* Shine */
+.btns a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+.btns a:hover::after {
+  left: 130%;
+}
+
+/* Botón primario */
 .btn-primary {
-  background: linear-gradient(135deg, #4CAF50, #2ebf60);
+  background: linear-gradient(135deg, var(--morado), var(--neon));
   color: #fff;
+  box-shadow: 0 0 18px rgba(155,70,255,0.8);
 }
 .btn-primary:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.2);
+  box-shadow: 0 0 26px rgba(195,110,255,1);
 }
+
+/* Botón secundario */
 .btn-secondary {
-  background: #333;
+  background: rgba(255,255,255,0.06);
   color: #ddd;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 .btn-secondary:hover {
-  background: #444;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  box-shadow: 0 0 18px rgba(180,120,255,0.45);
+}
+
+/* =========================
+   GRID RESUMEN DE JUEGOS
+   ========================= */
+.games-section {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.games-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f3e8ff;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(196,124,255,0.9);
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 18px;
+}
+
+.game-card {
+  background: rgba(15, 8, 40, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(200, 170, 255, 0.4);
+  box-shadow: 0 0 16px rgba(155,70,255,0.55);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-thumb {
+  width: 100%;
+  height: 110px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: saturate(1.15);
+}
+
+.game-info {
+  padding: 0.7rem 0.9rem 0.9rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.game-name {
+  font-size: 0.95rem;
+  font-weight: 600;
   color: #fff;
 }
-@keyframes confetti {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
-}
-.confetti {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: var(--c);
-  top: -10px;
-  left: calc(10% * var(--i));
-  animation: confetti 2.5s linear infinite;
-  
-}
-/* 🛠️ Corrección: botones clickeables y confeti al fondo */
-.success-box {
-  position: relative;
-  z-index: 10; /* el contenido principal arriba del confeti */
+
+.game-price {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--neon-soft);
+  text-shadow: 0 0 6px rgba(200,170,255,0.8);
 }
 
-.confetti {
-  z-index: 1; /* el confeti se va detrás del contenido */
-  pointer-events: none; /* ignora los clics */
+.game-tag {
+  font-size: 0.75rem;
+  color: #cbb5ff;
+  opacity: 0.9;
 }
 
-.success-box::before {
-  pointer-events: none; /* el resplandor verde no bloquea clics */
+/* Animaciones */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.btns a {
-  position: relative;
-  z-index: 20; /* asegura que los botones estén por encima de todo */
-  cursor: pointer; /* cambia el cursor a la manita */
+@keyframes checkPop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  60%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .success-box {
+    padding: 2.5rem 1.8rem;
+  }
+}
 </style>
 {% endblock %}
 
+
 {% block content %}
 <div class="main-wrapper">
+  <!-- Fondo procedural de estrellas -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Shader morado suave -->
+  <div class="shader-bg"></div>
+
   <div class="success-box">
-    {% for i in range(10) %}
-    <div class="confetti" style="--i:{{ i }}; --c: hsl({{ 30*i }}, 80%, 60%); animation-delay: {{ 0.1*i }}s;"></div>
-    {% endfor %}
-    <div class="success-icon">✅</div>
     <div class="success-title">¡Compra realizada con éxito!</div>
-    
+
+    <div class="success-msg">
+      Tus juegos ya están disponibles en tu biblioteca
+    </div>
+
     <div class="total-box">
       Total pagado: ${{ "%.2f"|format(total) }}
     </div>
 
-<div class="btns">
-  <a href="{{ url_for('main.biblioteca') }}" class="btn-primary">Ver mi biblioteca</a>
-  <a href="{{ url_for('main.tienda') }}" class="btn-secondary">Volver a la tienda</a>
-</div>
+    {% if items %}
+    <div class="games-section">
+      <div class="games-title">Resumen de tus juegos</div>
+      <div class="games-grid">
+        {% for it in items %}
+        <div class="game-card">
+          <div class="game-thumb"
+               style="background-image: url('{{ url_for('static', filename='IMG/productos/' + (it[4] if it[4] else 'default.png')) }}');">
+          </div>
+          <div class="game-info">
+            <span class="game-name">{{ it[1] }}</span>
+            <span class="game-price">${{ '%.2f'|format(it[3]) }}</span>
+            <span class="game-tag">Añadido a tu biblioteca</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
 
+    <div class="btns">
+      <a href="{{ url_for('main.biblioteca') }}" class="btn-primary">Ver mi biblioteca</a>
+      <a href="{{ url_for('main.tienda') }}" class="btn-secondary">Volver a la tienda</a>
+    </div>
   </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+  const canvas = document.getElementById("starfield");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let stars = [];
+  const STAR_COUNT = 720;      // suficientes pero fluidas
+  const SPEED = 0.0010;        // ⭐ lento y elegante
+  let w, h, cx, cy;
+
+  // 🎨 Paleta final sin verde
+  const STAR_COLORS = [
+    "255,255,255",     // blanco brillante
+    "240,220,255",     // blanco-lila
+    "215,160,255",     // lila neon
+    "255,150,255",     // rosa neon
+    "255,210,170"      // dorado suave
+  ];
+
+  function genStar() {
+    const r = Math.random();
+    return {
+      x: (Math.random() * 2 - 1) * w,
+      y: (Math.random() * 2 - 1) * h,
+      z: Math.random() * w,
+
+      // ⭐ tamaños variados
+      size:
+        r < 0.70 ? (Math.random() * 1 + 0.3) :
+        r < 0.92 ? (Math.random() * 2 + 1) :
+                   (Math.random() * 4 + 2),
+
+      glow: r < 0.7 ? 7 : (r < 0.92 ? 14 : 24),
+
+      color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)]
+    };
+  }
+
+  function resize() {
+    const wrapper = document.querySelector(".main-wrapper");
+    const rect = wrapper.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    w = canvas.width;
+    h = canvas.height;
+    cx = w / 2;
+    cy = h / 2;
+
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) stars.push(genStar());
+  }
+
+  function update() {
+    // 🌑 fondo ultra negro morado
+    ctx.fillStyle = "#010006"; 
+    ctx.fillRect(0, 0, w, h);
+
+    for (let s of stars) {
+      s.z -= SPEED * w;
+
+      if (s.z <= 1) {
+        Object.assign(s, genStar());
+        s.z = w;
+      }
+
+      const k = 150 / s.z;
+      const px = s.x * k + cx;
+      const py = s.y * k + cy;
+
+      if (px < 0 || px >= w || py < 0 || py >= h) continue;
+
+      const brightness = 1 - s.z / w;
+      const alpha = 0.18 + brightness * 0.85;
+
+      // ⭐ halo neon suave
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${s.color}, ${alpha})`;
+      ctx.shadowBlur = s.glow;
+      ctx.shadowColor = `rgba(${s.color}, ${alpha})`;
+      ctx.arc(px, py, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.shadowBlur = 0;
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  update();
+
+})();
+</script>
+{% endblock %}
+

@@ -1,0 +1,190 @@
+/* Centrado del título */
+.titulo-admin {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    text-shadow: 0 0 20px rgba(165,128,255,0.85);
+}
+
+/* Contenedor para centrar botones */
+.admin-buttons-top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Botones superiores */
+.btn-admin-top {
+    padding: 10px 22px;
+    font-weight: 700;
+    border-radius: 12px;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+/* Mostrar activos */
+.btn-show-active {
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    box-shadow: 0 0 18px rgba(165,128,255,.5);
+}
+.btn-show-active:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(165,128,255,.9);
+}
+
+/* Tabla centrada */
+.table-custom {
+    width: 90%;
+    margin: auto;
+    background: rgba(20,20,30,0.6);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(165,128,255,0.4);
+}
+
+.table-custom th {
+    background: rgba(30, 15, 50, 0.85);
+    padding: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table-custom td {
+    background: rgba(10,10,18,0.9);
+    padding: 14px;
+    text-align: center;
+}
+/****************************************************
+ 🔥 BOTÓN MOSTRAR ACTIVOS — A LA IZQUIERDA
+*****************************************************/
+.admin-buttons-top {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: flex-start; /* ← izquierda */
+}
+
+/* Botón */
+.btn-admin-top {
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    text-decoration: none;
+
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: #fff;
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: 0 0 18px rgba(165,128,255,0.55);
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+.btn-admin-top:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(165,128,255,0.9);
+}
+
+/* Shine */
+.btn-admin-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+}
+
+.btn-admin-top:hover::before {
+    transform: translateX(230%);
+}
+
+/****************************************************
+ 🔥 BOTÓN REVIVIR — MODO INDEX (GLOW + SHINE + RIPPLE)
+*****************************************************/
+.btn-revive {
+    position: relative;
+    overflow: hidden;
+    border: none;
+
+    background: linear-gradient(135deg, #00ff85, #00c46a);
+    color: #000;
+    padding: 10px 22px;
+    border-radius: 12px;
+
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(0,255,150,0.55);
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+.btn-revive:hover {
+    transform: scale(1.10);
+    box-shadow: 0 0 35px rgba(0,255,150,0.85);
+}
+
+/* Shine */
+.btn-revive::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 90%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+}
+
+.btn-revive:hover::before {
+    transform: translateX(250%);
+}
+
+/* Ripple effect */
+.btn-revive::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.btn-revive:active::after {
+    animation: revive-ripple .55s ease-out;
+}
+
+@keyframes revive-ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(160);
+        opacity: 0;
+    }
+}

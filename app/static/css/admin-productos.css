@@ -1,0 +1,131 @@
+/***********************************************
+ 🟣 TABLA ADMIN – Gamer Neon Style
+***********************************************/
+:root {
+    --morado: #6d4aff;
+    --morado-neon: #a580ff;
+    --morado-dark: #1a1128;
+    --rojo: #ff3b5f;
+    --verde: #31d47d;
+}
+
+body {
+    color: white;
+}
+
+/* Título */
+.titulo-admin {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    text-shadow: 0 0 22px rgba(165,128,255,0.85);
+}
+
+/* Contenedor general */
+.admin-container {
+    width: 92%;
+    margin: auto;
+}
+
+/* Tabla */
+.tabla-wrapper {
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: #12101c;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(165,128,255,0.25);
+}
+
+.tabla-admin th {
+    background: var(--morado-dark);
+    padding: 16px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--morado-neon);
+}
+
+.tabla-admin td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Hover filas */
+.tabla-admin tbody tr:hover {
+    background: rgba(165,128,255,0.12);
+    transition: .25s;
+}
+
+/* Imagen */
+.img-col img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(165,128,255,0.5);
+}
+
+.no-img {
+    opacity: 0.5;
+    font-size: .9rem;
+}
+
+.descripcion {
+    max-width: 300px;
+    color: #dcdcdc;
+}
+
+/***********************************************
+ 🟣 BOTONES DEL ADMIN
+***********************************************/
+.btn-gamer-admin {
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #fff !important;
+    text-decoration: none;
+    display: inline-block;
+    transition: .25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-gamer-admin:hover {
+    transform: scale(1.08);
+}
+
+/* Agregar */
+.btn-add-producto {
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    box-shadow: 0 0 18px rgba(165,128,255,0.55);
+    margin-bottom: 18px;
+}
+
+/* Editar */
+.btn-edit {
+    background: var(--verde);
+    box-shadow: 0 0 14px rgba(49,212,125,0.55);
+    margin-right: 10px;
+}
+
+/* Eliminar */
+.btn-delete {
+    background: var(--rojo);
+    box-shadow: 0 0 14px rgba(255,59,95,0.55);
+}
+
+/* Sin datos */
+.sin-data {
+    text-align: center;
+    margin-top: 30px;
+    color: #aaa;
+    font-size: 1.2rem;
+}

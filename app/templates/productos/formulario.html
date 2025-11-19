@@ -1,43 +1,67 @@
 {% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin-form-producto.css') }}">
+{% endblock %}
+
 {% block content %}
-<h2>{{ accion }} Producto</h2>
+
+<h2 class="titulo-admin-form">{{ accion }} Producto</h2>
+
+<div class="form-producto-wrapper">
 
 <form method="POST" enctype="multipart/form-data" class="form-producto">
-    <div class="mb-3">
-        <label>Nombre:</label>
-        <input type="text" name="nombre" value="{{ producto[1] if producto else '' }}" class="form-control" required>
+
+    <!-- NOMBRE -->
+    <div class="campo">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ producto[1] if producto else '' }}" required>
     </div>
 
-    <div class="mb-3">
-        <label>Descripción:</label>
-        <textarea name="descripcion" class="form-control" required>{{ producto[2] if producto else '' }}</textarea>
+    <!-- DESCRIPCIÓN -->
+    <div class="campo">
+        <label>Descripción</label>
+        <textarea name="descripcion" rows="4" required>{{ producto[2] if producto else '' }}</textarea>
     </div>
 
-    <div class="mb-3">
-        <label>Imagen principal:</label>
-        {% if producto and producto[4] %}
-        <div class="mb-2">
-            <img src="{{ url_for('static', filename='IMG/' ~ producto[4]) }}" width="120" style="border-radius: 8px;">
+    <!-- IMAGEN PRINCIPAL -->
+    <div class="campo">
+        <label>Imagen principal</label>
+
+        {% if producto and producto[3] %}
+        <div class="preview-img">
+            <img src="{{ url_for('static', filename='IMG/productos/' ~ producto[3]) }}">
+
         </div>
+
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="eliminar_imagen" id="eliminar_imagen">
-            <label class="form-check-label" for="eliminar_imagen">Eliminar imagen actual</label>
+            <input type="checkbox" name="eliminar_imagen" id="eliminar_imagen">
+            <label for="eliminar_imagen">Eliminar imagen actual</label>
         </div>
         {% endif %}
-        <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*">
+
+        <input type="file" name="imagen" accept="image/*">
     </div>
 
-    <div class="mb-3">
-        <label>Imágenes adicionales:</label>
-        <input class="form-control" type="file" id="imagenes_extra" name="imagenes_extra" accept="image/*" multiple>
-        <small class="text-muted">Puedes subir varias imágenes (Ctrl o Shift + clic)</small>
+    <!-- IMÁGENES EXTRA -->
+    <div class="campo">
+        <label>Imágenes adicionales</label>
+        <input type="file" name="imagenes_extra" accept="image/*" multiple>
+        <small>Puedes subir múltiples (Ctrl / Shift)</small>
     </div>
 
-    <div class="mb-3">
-        <label>Precio:</label>
-        <input type="number" step="0.01" name="precio" value="{{ producto[5] if producto else '' }}" class="form-control" required>
+    <!-- PRECIO -->
+    <div class="campo">
+        <label>Precio</label>
+        <input type="number" step="0.01" name="precio" value="{{ producto[4] if producto else '' }}" class="form-control" required>
+
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ accion }}</button>
+    <!-- BOTÓN -->
+    <button type="submit" class="btn-submit-producto">{{ accion }}</button>
+
 </form>
+
+</div>
+
 {% endblock %}

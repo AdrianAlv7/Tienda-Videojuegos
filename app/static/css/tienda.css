@@ -43,8 +43,8 @@ body {
  🟣 2. BANNER CENTRAL
 ******************************************************/
 .store-banner {
-    width: 92%;
-    height: 280px;
+    width: 90%;
+    height: 25%;
     margin: 30px auto 40px auto;
     border-radius: 22px;
     overflow: hidden;

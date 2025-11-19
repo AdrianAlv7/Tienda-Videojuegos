@@ -35,7 +35,8 @@ def agregar_usuario():
         cursor.close()
         flash('Usuario agregado correctamente')
         return redirect(url_for('usuarios.lista_usuarios'))
-    return render_template('usuarios/formulario.html', accion='Agregar')
+    return render_template('usuarios/formulario.html', accion='Agregar', usuario={})
+
 
 @usuarios_bp.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
 @login_required

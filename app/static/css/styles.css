@@ -26,82 +26,119 @@ body {
 
 
 /* ============================================================
-   B) TOPBAR (LOGO + CARRITO + SESIÓN)
+   🔥 TOPBAR NITENDOSTEAM — NEON PRO
    ============================================================ */
 
 .topbar {
     width: 100%;
-    height: 70px; /* antes 56px */
-    background: var(--negro-suave);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    box-shadow: var(--shadow);
+    height: 80px;
+    background: linear-gradient(135deg, #0b0b12, #141323, #0b0b12);
+    border-bottom: 1px solid rgba(165,128,255,0.25);
+
     display: flex;
     align-items: center;
-    justify-content: space-between; /* IZQUIERDA ↔ DERECHA */
-    padding: 0 24px;
+    justify-content: space-between;
+
+    padding: 0 28px;
     position: fixed;
     top: 0;
-    left: 0;
     z-index: 2000;
+
+    box-shadow:
+        0 0 20px rgba(165,128,255,0.4),
+        inset 0 0 12px rgba(255,255,255,0.05);
 }
 
-/* LOGO IZQUIERDA */
+/* ============================================================
+   🔮 LOGO IZQUIERDA
+   ============================================================ */
+
 .topbar-left {
     display: flex;
     align-items: center;
 }
 
 .logo-img {
-    height: 48px;
+    height: 52px;
     width: auto;
     cursor: pointer;
-    transition: transform .25s ease;
-    filter: drop-shadow(0 0 6px rgba(107,79,224,0.8)); /* glow más fuerte */
+
+    /* Glow */
+    filter: drop-shadow(0 0 8px rgba(165,128,255,0.9));
+    transition: transform .25s ease, filter .25s ease;
 }
 
 .logo-img:hover {
-    transform: scale(1.08);
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 18px rgba(165,128,255,1));
 }
 
+/* ============================================================
+   🎮 BOTONES DERECHA (CARRITO / LOGIN / LOGOUT)
+   ============================================================ */
 
-.logo-link {
-    text-decoration: none;
-}
-
-/* DERECHA: CARRITO + LOGIN/LOGOUT */
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 18px;
 }
 
-/* Botones sesión */
+/* --- Botones de sesión --- */
 .btn-session {
+    padding: 10px 26px;
+    border-radius: 12px;
     border: none;
-    border-radius: var(--radius);
-    padding: 8px 22px;
-    font-weight: 500;
-    font-size: 1.02rem;
+    font-weight: 700;
+    cursor: pointer;
     text-decoration: none;
-    transition: var(--transition);
+    color: #fff;
+
+    position: relative;
+    overflow: hidden;
+
+    transition: transform .28s ease, box-shadow .28s ease;
 }
 
+/* Shine */
+.btn-session::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -120%;
+    width: 80%; height: 100%;
+    background: linear-gradient(110deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent);
+    transform: skewX(-25deg);
+    transition: .6s ease;
+}
+
+.btn-session:hover::before {
+    transform: translateX(240%);
+}
+
+/* --- LOGIN --- */
 .btn-session.login {
-    background: var(--morado);
-    color: #fff;
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    box-shadow: 0 0 20px rgba(165,128,255,0.55);
 }
 
 .btn-session.login:hover {
-    background: var(--morado-neon);
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(165,128,255,0.9);
 }
 
+/* --- LOGOUT --- */
 .btn-session.logout {
-    background: #e74c3c;
+    background: linear-gradient(135deg, #c62828, #ff1744);
+    box-shadow: 0 0 15px rgba(255,60,60,0.45);
 }
 
 .btn-session.logout:hover {
-    background: #ff6a54;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255,80,80,0.9);
 }
+
 
 
 
@@ -111,7 +148,7 @@ body {
 
 #sidebar-wrapper {
     width: 200px;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 80px);
     min-height: 0;
     background: var(--negro-suave);
     border-right: 1px solid rgba(255,255,255,0.05);
@@ -124,6 +161,34 @@ body {
     transition: transform 0.3s ease;
     overflow: hidden;
 }
+#sidebar-wrapper {
+    width: 200px;
+    height: calc(100vh - 80px);
+    min-height: 0;
+
+    /* 🔥 Nuevo fondo gradient gamer neon */
+    background: linear-gradient(180deg,
+        #100b18 0%,
+        #0c0713 40%,
+        #07050d 100%);
+
+    /* 🔥 Borde y glow suave */
+    border-right: 2px solid rgba(165,128,255,0.25);
+    box-shadow:
+        0 0 20px rgba(165,128,255,0.25),
+        inset 0 0 15px rgba(255,255,255,0.03);
+
+    position: fixed;
+    top: 80px; /* más espacio debajo del topbar */
+    left: 0;
+    z-index: 1050;
+
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
 
 .sidebar-header {
     font-size: 1.3rem;
@@ -146,83 +211,82 @@ body {
     padding-bottom: 20px;
 }
 
-.sidebar-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.sidebar-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sidebar-content::-webkit-scrollbar-thumb {
-    background: var(--morado);
-    border-radius: 6px;
-}
-
-.sidebar-content::-webkit-scrollbar-thumb:hover {
-    background: var(--morado-neon);
-}
-
-
-.sidebar-welcome {
-    font-size: 1rem;
-    color: #aaa;
-    padding: 14px 24px 8px 24px;
-    border-bottom: 1px solid #393E46;
-    background: #23272f;
-    margin-bottom: 8px;
-}
-
-#sidebar-wrapper .list-group-item {
-    border: none;
-    padding: 15px;
-    color: #cfcfcf;
-    background: transparent;
-    border-left: 5px solid transparent;
-    transition: var(--transition);
-    font-size: 1.05rem;
-    cursor: pointer;
-}
-
-#sidebar-wrapper .list-group-item.active,
-#sidebar-wrapper .list-group-item:hover {
-    background: var(--gris-medio);
-    border-left: 5px solid var(--morado);
-    color: var(--morado-neon);
-    font-weight: bold;
-}
-
-.sidebar-title, .sidebar-static {
-    pointer-events: none;
-    background: #23272b !important;
-    color: #fff !important;
-    cursor: default !important;
-    border-left: none !important;
-}
-
-.sidebar-title:hover,
-.sidebar-static:hover {
-    background: #23272b !important;
-}
+/* Título / Bienvenida */
 .sidebar-profile {
-    padding: 18px 20px;
-    text-align: left;
-    background: var(--gris-oscuro);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+    background: rgba(20,15,40,0.8);
+    border-bottom: 1px solid rgba(165,128,255,0.25);
 }
 
 .profile-name {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 700;
     color: var(--morado-neon);
-    text-shadow: 0 0 6px rgba(165,128,255,0.4);
+    text-shadow: 0 0 10px rgba(165,128,255,0.7);
 }
 
 .profile-role {
     font-size: 0.9rem;
-    opacity: 0.8;
-    color: #aaa;
-    margin-top: 3px;
+    color: #bbb;
+}
+
+
+/* ============================================================
+   🔮 LISTA DEL SIDEBAR
+   ============================================================ */
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 8px;
+    padding-bottom: 20px;
+}
+
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: var(--morado);
+    border-radius: 10px;
+}
+
+/* Items */
+#sidebar-wrapper .list-group-item {
+    padding: 14px 20px;
+    background: transparent;
+    color: #cfcfcf;
+    border: none;
+    border-left: 4px solid transparent;
+
+    font-size: 1.05rem;
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+/* Hover */
+#sidebar-wrapper .list-group-item:hover {
+    background: rgba(165,128,255,0.1);
+    color: var(--morado-neon);
+    border-left: 4px solid var(--morado-neon);
+
+    text-shadow: 0 0 8px rgba(165,128,255,0.8);
+}
+
+/* Activo */
+#sidebar-wrapper .list-group-item.active {
+    background: rgba(165,128,255,0.15);
+    color: var(--morado-neon);
+    font-weight: 700;
+    border-left: 4px solid var(--morado-neon);
+}
+
+/* Categorías fijas */
+.sidebar-title, .sidebar-static {
+    background: rgba(25,20,40,0.95) !important;
+    color: #eee !important;
+    font-weight: 800 !important;
+    pointer-events: none;
 }
 
 
@@ -301,19 +365,85 @@ body {
    ============================================================ */
 
 
-/* Botón carrito */
-#btn-carrito {
-    background: var(--morado);
-    color: #fff !important;
-    border: none !important;
-    font-weight: 500;
-    border-radius: var(--radius);
-    transition: var(--transition);
+/* BOTÓN CARRO DE COMPRAS */
+/* BOTÓN CARRITO CON SHINE */
+.btn-carrito {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 28px;
+    border-radius: 16px;
+    border: none;
+
+    background: linear-gradient(135deg, #a06bff, #8a52f5);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+
+    box-shadow: 0 0 14px rgba(160,110,255,0.7);
+    transition: transform .25s ease, box-shadow .25s ease;
+
+    overflow: hidden;        /* 👈 CLAVE: el shine NO se sale del botón */
 }
 
-#btn-carrito:hover {
-    background: var(--morado-neon) !important;
+.btn-carrito:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 22px rgba(170,130,255,0.95);
 }
+
+/* SHINE dentro del botón */
+.btn-carrito::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        110deg,
+        transparent,
+        rgba(255,255,255,0.45),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+    pointer-events: none;
+}
+
+.btn-carrito:hover::before {
+    transform: translateX(230%);
+}
+/* BADGE ROJO ESQUINA SUPERIOR DERECHA */
+#cart-badge {
+    top: -1px !important;
+    right: -1px !important;
+    left: auto !important;
+    transform: none !important;
+
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    background: #ff3040 !important;
+    box-shadow: 0 0 10px rgba(255,0,0,0.75);
+    z-index: 3;  /* por encima del shine */
+}
+
+
 
 
 
@@ -342,6 +472,12 @@ body {
     box-shadow: 0 0 8px rgba(173,181,189,0.6);
 }
 
+.bg-danger {
+    background: linear-gradient(135deg, #c62828, #ff1744) !important;
+}
+#cart-badge {
+    box-shadow: 0 0 10px rgba(255,60,60,0.9);
+}
 
 
 /* ============================================================

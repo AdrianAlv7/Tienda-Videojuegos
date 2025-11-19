@@ -1,50 +1,269 @@
-/* Estilos para el encabezado */
-header {
-    text-align: center; /* Centra el texto dentro del encabezado */
-    padding: 20px; /* Añade espacio interno de 20 píxeles */
-    background-color: #f0f0f0; /* Color de fondo gris claro */
-    border-radius: 10px; /* Bordes redondeados de 10 píxeles */
-    margin-bottom: 20px; /* Espacio inferior de 20 píxeles */
+/****************************************************
+ 🌌 HERO PRINCIPAL
+****************************************************/
+.hero-about {
+    width: 100%;
+    height: 40vh;
+
+    background: linear-gradient(
+        180deg,
+        rgba(30,20,55,0.95),
+        rgba(15,10,25,0.85)
+    ),
+    url('../IMG/logo.png');  /* ❗ luego lo cambiamos por la que quieras */
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 100px 80px;
 }
 
-header h1 {
-    color: #4CAF50; /* Color verde para el texto del encabezado principal */
-    font-size: 2.5rem; /* Tamaño de fuente grande */
-    font-weight: bold; /* Texto en negrita */
+
+.hero-text h1 {
+    font-size: 3.2rem;
+    color: var(--morado-neon);
+    text-shadow: 0 0 20px rgba(165,128,255,0.8);
+    font-weight: 800;
 }
 
-header p {
-    font-size: 1.2rem; /* Tamaño de fuente un poco más grande que el normal */
-    color: #666; /* Color gris para el texto del párrafo */
-    margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+.hero-text p {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-top: 5px;
+}
+.hero-logo img {
+    margin-top: 15px;
+    width: 300px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(165,128,255,0.7));
+    opacity: 0;
+    animation: fadeLogo .9s ease-out forwards;
 }
 
-header img {
-    display: block; /* Hace que la imagen se comporte como un bloque */
-    margin: 0 auto; /* Centra la imagen horizontalmente */
-    border-radius: 10px; /* Bordes redondeados de 10 píxeles para la imagen */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la imagen */
+@keyframes fadeLogo {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
 }
 
-/* Estilos para el contenido dentro de .container */
-.container {
-    max-width: 900px; /* Ancho máximo de 900 píxeles */
-    margin: auto; /* Centra el contenedor horizontalmente */
-    background: white; /* Color de fondo blanco */
-    padding: 20px; /* Espacio interno de 20 píxeles */
-    border-radius: 10px; /* Bordes redondeados de 10 píxeles */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+
+
+/****************************************************
+ 🔮 TRANSICIONES SUAVES
+****************************************************/
+.fade-in {
+    animation: fadeIn .8s ease-out forwards;
+    opacity: 0;
 }
 
-h3 {
-    color: #4CAF50; /* Color verde para los encabezados de nivel 3 */
-    font-size: 1.5rem; /* Tamaño de fuente mediano */
-    font-weight: bold; /* Texto en negrita */
-    margin-bottom: 10px; /* Espacio inferior de 10 píxeles */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(25px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-p {
-    font-size: 1rem; /* Tamaño de fuente normal */
-    color: #333; /* Color gris oscuro para el texto del párrafo */
-    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+
+/****************************************************
+ 🔮 SECCIONES DE TEXTO
+****************************************************/
+.info-section {
+    width: 65%;
+    margin: 40px auto;
+    text-align: center;
 }
+
+.info-section h2 {
+    color: var(--morado-neon);
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(165,128,255,0.7);
+}
+
+.info-section p {
+    color: #ddd;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+}
+
+
+/****************************************************
+ 🟣 TARJETAS PROFESIONALES
+****************************************************/
+.cards-container {
+    width: 75%;
+    margin: 30px auto;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.about-card {
+    background: rgba(25,20,40,0.75);
+    border-radius: 15px;
+    padding: 25px;
+    width: 320px;
+
+    border: 2px solid rgba(165,128,255,0.4);
+    backdrop-filter: blur(5px);
+
+    box-shadow:
+        0 0 25px rgba(165,128,255,0.3),
+        inset 0 0 10px rgba(255,255,255,0.05);
+
+    transition: .3s ease;
+}
+
+.about-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 40px rgba(165,128,255,0.8);
+}
+
+.about-card h3 {
+    color: var(--morado-neon);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.about-card p {
+    color: #ccc;
+}
+
+
+/****************************************************
+ 🎮 GRID DE VALORES
+****************************************************/
+.values-section {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.values-section h2 {
+    color: var(--morado-neon);
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.value-item {
+    background: rgba(15,12,25,0.8);
+    border-radius: 14px;
+    padding: 25px;
+
+    border: 1px solid rgba(165,128,255,0.4);
+    transition: .3s ease;
+    box-shadow: 0 0 15px rgba(165,128,255,0.25);
+}
+
+.value-item:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 0 30px rgba(165,128,255,0.7);
+}
+
+.value-item .icon {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+    color: var(--morado-neon);
+}
+
+
+/****************************************************
+ 🚀 CTA FINAL
+****************************************************/
+.cta-about {
+    text-align: center;
+    margin: 60px 0 40px;
+}
+
+.cta-about h2 {
+    color: var(--morado-neon);
+    font-size: 2rem;
+}
+
+.cta-about p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.btn-cta {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: white;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-shadow: 0 0 25px rgba(165,128,255,0.6);
+    transition: .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine */
+.btn-cta {
+    padding: 16px 40px;  /* MÁS GRANDE */
+    font-size: 1.4rem;   /* SE NOTA MÁS */
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+
+    box-shadow: 0 0 30px rgba(165,128,255,0.6);
+    transition: .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine */
+.btn-cta {
+    padding: 16px 40px;  /* MÁS GRANDE */
+    font-size: 1.4rem;   /* SE NOTA MÁS */
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+
+    box-shadow: 0 0 30px rgba(165,128,255,0.6);
+    transition: .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine */
+.btn-cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 90%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-20deg);
+    transition: transform .7s ease;
+}
+
+.btn-cta:hover::before {
+    transform: translateX(200%);
+}
+
+.btn-cta:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 50px rgba(165,128,255,1);
+}
+

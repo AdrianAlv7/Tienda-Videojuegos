@@ -1,25 +1,46 @@
 {% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin-usuarios-inactivos.css') }}">
+{% endblock %}
+
 {% block content %}
-<h2>Usuarios inactivos ("fantasmas")</h2>
-<a href="{{ url_for('usuarios.lista_usuarios') }}" class="btn btn-primary mb-3">Mostrar activos</a>
-<table class="table table-bordered table-custom">
+
+<h2 class="titulo-admin">Usuarios Inactivos (Fantasmas)</h2>
+
+<div class="admin-buttons-top">
+    <a href="{{ url_for('usuarios.lista_usuarios') }}" class="btn-admin-top btn-show-active">
+        Mostrar activos
+    </a>
+</div>
+
+<table class="table-custom">
     <thead>
         <tr>
-            <th>ID</th><th>Usuario</th><th>Email</th><th>Rol</th><th>Acciones</th>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acción</th>
         </tr>
     </thead>
+
     <tbody>
-    {% for usuario in usuarios %}
+        {% for usuario in usuarios %}
         <tr>
-            <td>{{ usuario['id'] }}</td>
-            <td>{{ usuario['username'] }}</td>
-            <td>{{ usuario['email'] }}</td>
-            <td>{{ usuario['role'] }}</td>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.role }}</td>
+
             <td>
-                <a href="{{ url_for('usuarios.reactivar_usuario', id=usuario['id']) }}" class="btn btn-success btn-sm">Revivir</a>
+                <a href="{{ url_for('usuarios.reactivar_usuario', id=usuario['id']) }}" 
+   class="btn-revive">Revivir</a>
+
             </td>
         </tr>
-    {% endfor %}
+        {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}

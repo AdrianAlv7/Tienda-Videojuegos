@@ -156,7 +156,7 @@ def carrito_vaciar():
 def carrito_checkout():
     cur = mysql.connection.cursor()
 
-    # 🛍️ Obtener los productos del carrito
+    # 🛍️ Obtener productos del carrito (id, precio, cantidad)
     cur.execute("""
         SELECT p.id, p.precio, c.cantidad
         FROM carrito c 
@@ -167,30 +167,53 @@ def carrito_checkout():
 
     if not rows:
         cur.close()
-        return render_template("ventas/compra_exito.html", total=0, cantidad=0)
+        return render_template("ventas/compra_exito.html", total=0, cantidad=0, items=[])
 
     total = sum(float(r[1]) * int(r[2]) for r in rows)
     cantidad = len(rows)
 
-    cur.execute("INSERT INTO ventas (id_usuario, total) VALUES (%s, %s)", (current_user.id, total))
+    # Registrar la venta
+    cur.execute(
+        "INSERT INTO ventas (id_usuario, total) VALUES (%s, %s)",
+        (current_user.id, total)
+    )
     venta_id = cur.lastrowid
 
+    # Insertar detalle venta y pasar a biblioteca
     for (id_producto, precio, cantidad_item) in rows:
+        subtotal = float(precio) * int(cantidad_item)
+
         cur.execute("""
             INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, precio_unitario, subtotal)
             VALUES (%s, %s, %s, %s, %s)
-        """, (venta_id, id_producto, cantidad_item, precio, float(precio) * int(cantidad_item)))
+        """, (venta_id, id_producto, cantidad_item, precio, subtotal))
 
         cur.execute("""
             INSERT IGNORE INTO biblioteca (id_usuario, id_producto)
             VALUES (%s, %s)
         """, (current_user.id, id_producto))
 
+    # 📦 Obtener datos completos de los productos para el carrusel
+    cur.execute("""
+        SELECT p.id, p.nombre, p.descripcion, p.precio, p.imagen 
+        FROM detalle_ventas dv
+        JOIN productos p ON p.id = dv.producto_id
+        WHERE dv.venta_id = %s
+    """, (venta_id,))
+    items = cur.fetchall()
+
+    # Vaciar carrito
     cur.execute("DELETE FROM carrito WHERE id_usuario = %s", (current_user.id,))
     mysql.connection.commit()
     cur.close()
 
-    return render_template("ventas/compra_exito.html", total=total, cantidad=cantidad)
+    return render_template(
+        "ventas/compra_exito.html",
+        total=total,
+        cantidad=cantidad,
+        items=items
+    )
+
 
 
 
