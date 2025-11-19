@@ -1,133 +1,6 @@
-/* General */
-body {
-    
-    font-family: Arial, sans-serif; /* Establece la tipografía para toda la página */
-    background-color: #d4d4d4; /* Define un color de fondo claro */
-    margin: 0px; /* Elimina márgenes por defecto en el body */
-    padding: 0px; /* Elimina los rellenos por defecto en el body */
-}
-
-/* Wrapper */
-#wrapper {
-    display: flex; /* Utiliza el modelo Flexbox para el diseño */
-    transition: margin-left 0.3s ease; /* Añade una transición suave para el cambio de margen izquierdo */
-}
-
-/* Sidebar */
-#sidebar-wrapper {
-    width: 200px; /* Define el ancho del sidebar */
-    min-height: 100vh; /* Asegura que el sidebar tenga al menos la altura completa de la ventana */
-    background-color: #343a40; /* Color de fondo oscuro para el sidebar */
-    padding-top: 30px; /* Relleno en la parte superior del sidebar */
-    position: fixed; /* Relativa para que se mueva con el contenedor padre */
-    transition: transform 0.3s ease; /* Animación suave para mover el sidebar */
-}
-
-/* Estilos de los items en el sidebar */
-#sidebar-wrapper .list-group-item {
-    border: none; /* Elimina el borde de los items */
-    padding: 15px; /* Relleno en los items */
-    color: white; /* Color del texto en los items */
-}
-
-
-/* Contenedor principal */
-.container-fluid {
-    margin: 10px; /* Da un pequeño margen a la izquierda, se ajustará cuando el sidebar esté visible */
-    padding: 30px; /* Relleno en todo el contenedor */
-    transition: margin-left 0.3s ease; /* Transición suave para el cambio de margen izquierdo */
-    min-height: 100vh; /* Asegura que el contenido no se sobreponga al footer */
-}
-
-/* Encabezados */
-h1 {
-    color: #343a40; /* Color verde */
-    font-size: 2.5rem; /* Tamaño grande */
-    font-weight: bold; /* Negrita */
-    margin-bottom: 20px; /* Espaciado debajo */
-    text-align: center; /* Centrado */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
-
-h2 {
-    color: #4CAF50; /* Color gris oscuro para los subtítulos */
-    font-size: 1.8rem;
-    margin-bottom: 15px; /* Espaciado debajo de los subtítulos */
-}
-
-/* Footer */
-footer {
-    width: 100%; /* El pie de página ocupa todo el ancho */
-    background-color: #343a40; /* Color de fondo oscuro */
-    color: white; /* Color del texto */
-    text-align: center; /* Centra el texto */
-    padding: 10px 0; /* Añade relleno arriba y abajo */
-    margin-top: 50px; /* Añade espacio entre el contenido y el footer */
-}
-
-/* Imágenes */
-.img-fluid {
-    max-width: 100%; /* Hace que las imágenes sean escalables y no desborden el contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-}
-
-/* Sidebar oculto */
-#wrapper.toggled #sidebar-wrapper {
-    transform: translateX(-250px); /* Mueve el sidebar fuera de la pantalla cuando está oculto */
-}
-#wrapper:not(.toggled) .container-fluid {
-    margin-left: 200px; /* Mueve el contenido hacia la derecha cuando el sidebar está visible */
-}
-/* Cuando el menú está oculto, el contenedor se ajusta */
-#wrapper.toggled .container-fluid {
-    margin-left: 0px; /* Elimina el margen izquierdo del contenedor cuando el sidebar está oculto */
-}
-
-/* Personalización del botón de menú */
-#menu-toggle {
-    position: fixed; /* Fija el botón en la pantalla */
-    top: 18px; /* Ajusta la distancia desde la parte superior */
-    left: 150px; /* Distancia desde el borde izquierdo (ajustado si el sidebar está visible) */
-    z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
-    background-color: #45a049; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Elimina el borde */
-    padding: 7px 10px; /* Espaciado dentro del botón */
-    font-size: 20px; /* Tamaño de la fuente */
-    cursor: pointer; /* Cambia el cursor a mano cuando se pasa por encima */
-    transition: background-color 0.3s ease, transform 0.3s ease, left 0.3s ease; /* Efecto de transición en color, escala y posición */
-}
-
-/* Estilo cuando se pasa el ratón por encima */
-#menu-toggle:hover {
-    background-color: #0a710e; /* Cambia el color al pasar el ratón */
-    transform: scale(1.05); /* Agranda ligeramente el botón */
-}
-
-/* Cuando el menú está oculto, el botón se mueve */
-#wrapper.toggled #menu-toggle {
-    left: 15px; /* Mueve el botón hacia la izquierda cuando el sidebar está oculto */
-}
-
-/* Para pantallas más pequeñas */
-@media (max-width: 768px) {
-    #menu-toggle {
-        left: 150px; /* Ajusta la distancia izquierda en pantallas pequeñas */
-        font-size: 18px; /* Tamaño de fuente reducido */
-        top: 10px; /* Ajusta la distancia superior en pantallas pequeñas */
-        
-    }
-    #sidebar-wrapper {
-        width: 150;
-    }
-}
-
-
-/* Asegurarnos que la columna de la lista no desborde */
-.row {
-    margin-left: 0; /* Elimina márgenes a la izquierda en las filas */
-    margin-right: 0; /* Elimina márgenes a la derecha en las filas */
-}
+/* ============================================================
+   A) ESTILO GLOBAL Y BASE
+   ============================================================ */
 
 body {
     font-family: Arial, sans-serif;
@@ -136,75 +9,161 @@ body {
     padding: 0;
 }
 
-/* Barra superior fija para login/logout */
+#wrapper {
+    display: flex;
+    transition: margin-left 0.3s ease;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.d-flex, #wrapper, .container-fluid {
+    margin-top: 56px;
+}
+
+
+
+/* ============================================================
+   B) TOPBAR (LOGO + CARRITO + SESIÓN)
+   ============================================================ */
+
 .topbar {
     width: 100%;
-    height: 56px;
-    background: #343a40;
-    border-bottom: 1px solid #bdbdbd;
+    height: 70px; /* antes 56px */
+    background: var(--negro-suave);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: var(--shadow);
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between; /* IZQUIERDA ↔ DERECHA */
     padding: 0 24px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 2000;
 }
+
+/* LOGO IZQUIERDA */
+.topbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 48px;
+    width: auto;
+    cursor: pointer;
+    transition: transform .25s ease;
+    filter: drop-shadow(0 0 6px rgba(107,79,224,0.8)); /* glow más fuerte */
+}
+
+.logo-img:hover {
+    transform: scale(1.08);
+}
+
+
+.logo-link {
+    text-decoration: none;
+}
+
+/* DERECHA: CARRITO + LOGIN/LOGOUT */
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 18px;
 }
+
+/* Botones sesión */
 .btn-session {
     border: none;
-    border-radius: 18px;
+    border-radius: var(--radius);
     padding: 8px 22px;
     font-weight: 500;
     font-size: 1.02rem;
     text-decoration: none;
-    transition: background 0.19s, color 0.19s;
-}
-.btn-session.login { background: #45a049; color: #fff; }
-.btn-session.login:hover { background: #37843b; color: #fff; }
-.btn-session.logout { background: #e74c3c; color: #fff; }
-.btn-session.logout:hover { background: #c0392b; color: #fff; }
-
-/* Wrapper para empujar el contenido debajo de la topbar */
-.d-flex, #wrapper, .container-fluid {
-    margin-top: 56px;
+    transition: var(--transition);
 }
 
-/* Sidebar fijo, header fijo, enlaces scrolleables */
+.btn-session.login {
+    background: var(--morado);
+    color: #fff;
+}
+
+.btn-session.login:hover {
+    background: var(--morado-neon);
+}
+
+.btn-session.logout {
+    background: #e74c3c;
+}
+
+.btn-session.logout:hover {
+    background: #ff6a54;
+}
+
+
+
+/* ============================================================
+   C) SIDEBAR
+   ============================================================ */
+
 #sidebar-wrapper {
     width: 200px;
-    height: calc(100vh - 56px); /* No llega hasta abajo: respeta la topbar */
+    height: calc(100vh - 56px);
     min-height: 0;
-    background-color: #343a40;
+    background: var(--negro-suave);
+    border-right: 1px solid rgba(255,255,255,0.05);
     position: fixed;
     top: 56px;
     left: 0;
     z-index: 1050;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease;
+    overflow: hidden;
 }
+
 .sidebar-header {
     font-size: 1.3rem;
     font-weight: bold;
-    background: #23272b;
+    background: var(--gris-oscuro);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--morado-neon);
+    text-shadow: 0 0 10px rgba(165,128,255,0.35);
     text-align: center;
-    border-bottom: 1px solid #444;
     padding: 20px 10px;
-    letter-spacing: 1px;
     flex-shrink: 0;
 }
+
+
+/* CONTENEDOR SCROLLEABLE DEL SIDEBAR */
 .sidebar-content {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 28px; /* Espacio para que los enlaces nunca queden pegados abajo */
+    flex: 1;
+    overflow-y: auto;  /* 👈 ESTA LÍNEA ES LA QUE FALTABA */
+    overflow-x: hidden;
+    padding-bottom: 20px;
 }
+
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: var(--morado);
+    border-radius: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: var(--morado-neon);
+}
+
+
 .sidebar-welcome {
     font-size: 1rem;
     color: #aaa;
@@ -212,84 +171,119 @@ body {
     border-bottom: 1px solid #393E46;
     background: #23272f;
     margin-bottom: 8px;
-    text-align: left;
 }
-/* Estilos para los enlaces del sidebar */
+
 #sidebar-wrapper .list-group-item {
     border: none;
     padding: 15px;
-    color: white;
+    color: #cfcfcf;
     background: transparent;
     border-left: 5px solid transparent;
-    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    transition: var(--transition);
     font-size: 1.05rem;
     cursor: pointer;
 }
+
 #sidebar-wrapper .list-group-item.active,
 #sidebar-wrapper .list-group-item:hover {
-    background: #23272b;
-    border-left: 5px solid #4CAF50;
-    color: #4CAF50;
+    background: var(--gris-medio);
+    border-left: 5px solid var(--morado);
+    color: var(--morado-neon);
     font-weight: bold;
 }
 
-/* Empuja el contenido principal para que no quede debajo del sidebar */
+.sidebar-title, .sidebar-static {
+    pointer-events: none;
+    background: #23272b !important;
+    color: #fff !important;
+    cursor: default !important;
+    border-left: none !important;
+}
+
+.sidebar-title:hover,
+.sidebar-static:hover {
+    background: #23272b !important;
+}
+.sidebar-profile {
+    padding: 18px 20px;
+    text-align: left;
+    background: var(--gris-oscuro);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--morado-neon);
+    text-shadow: 0 0 6px rgba(165,128,255,0.4);
+}
+
+.profile-role {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: #aaa;
+    margin-top: 3px;
+}
+
+
+
+/* ============================================================
+   D) SIDEBAR TOGGLE (MODO OCULTO)
+   ============================================================ */
+
+#wrapper.toggled #sidebar-wrapper {
+    transform: translateX(-220px);
+}
+
 .container-fluid {
     margin-left: 200px;
     transition: margin-left 0.3s;
 }
 
-/* Sidebar oculto con el menú toggle */
-#wrapper.toggled #sidebar-wrapper {
-    transform: translateX(-220px);
-}
 #wrapper.toggled .container-fluid {
     margin-left: 0;
 }
 
-/* Botón de menú siempre visible */
+/* Botón toggle */
 #menu-toggle {
     position: fixed;
-    top: 74px; /* un poco debajo de la topbar */
+    top: 74px;
     left: 150px;
     z-index: 3000;
-    background-color: #45a049;
+    background-color: var(--morado);
     color: white;
     border: none;
     padding: 7px 10px;
     font-size: 20px;
     cursor: pointer;
+    border-radius: var(--radius);
     transition: background-color 0.3s, transform 0.3s, left 0.3s;
 }
+
 #menu-toggle:hover {
-    background-color: #0a710e;
+    background-color: var(--morado-neon);
     transform: scale(1.05);
 }
+
 #wrapper.toggled #menu-toggle {
     left: 15px;
 }
 
-.sidebar-title, .sidebar-static {
-    pointer-events: none;           /* No se pueden seleccionar ni hacer click */
-    background: #23272b !important; /* Fondo igual siempre */
-    color: #fff !important;
-    cursor: default !important;     /* Cursor normal */
-    border-left: none !important;   /* Sin borde de selección */
-}
-.sidebar-title:hover,
-.sidebar-static:hover {
-    background: #23272b !important;
-    color: #fff !important;
-    border-left: none !important;
-}
+
+
+/* ============================================================
+   E) TABLAS
+   ============================================================ */
 
 .table-custom {
-    background-color: #292b2c !important;   /* Fondo oscuro */
-    color: #fff !important;                 /* Texto claro */
+    background-color: var(--gris-medio);
+    border-radius: var(--radius);
+    overflow: hidden;
 }
 
 .table-custom thead {
-    background-color: #23272b !important;   /* Encabezado más oscuro */
+    background-color: var(--gris-oscuro);
+    color: var(--morado-neon);
 }
 
 .table-custom tbody tr {
@@ -297,35 +291,98 @@ body {
 }
 
 .table-custom tbody tr:hover {
-    background-color: #373b3e !important;   /* Hover */
+    background-color: rgba(107,79,224,0.25);
 }
+
+
+
+/* ============================================================
+   F) CARRITO LATERAL
+   ============================================================ */
+
+
+/* Botón carrito */
+#btn-carrito {
+    background: var(--morado);
+    color: #fff !important;
+    border: none !important;
+    font-weight: 500;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+#btn-carrito:hover {
+    background: var(--morado-neon) !important;
+}
+
+
+
+/* ============================================================
+   G) BOTONES DE ESTADO DE JUEGOS
+   ============================================================ */
+
+.btn[data-product-id] {
+    transition: all 0.25s ease-in-out;
+    font-weight: 500;
+    min-width: 150px;
+}
+
+.btn-success[data-product-id]:hover {
+    background-color: #2ecc71;
+    box-shadow: 0 0 8px rgba(40,167,69,0.6);
+}
+
+.btn-warning[data-product-id]:hover {
+    background-color: #ffd659;
+    box-shadow: 0 0 8px rgba(255,215,87,0.6);
+}
+
+.btn-secondary[data-product-id]:hover {
+    background-color: #adb5bd;
+    box-shadow: 0 0 8px rgba(173,181,189,0.6);
+}
+
+
+
+/* ============================================================
+   H) EFECTOS DE IMÁGENES Y TRANSICIONES
+   ============================================================ */
+
+img {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carrito-panel {
+    transition: right 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+/* ============================================================
+   I) SWITCH MODO OSCURO
+   ============================================================ */
+
 body.modo-oscuro {
-  background-color: #121212 !important;
-  color: #ffffff !important;
+    background-color: #121212 !important;
+    color: #ffffff !important;
 }
 
 body.modo-oscuro .card,
 body.modo-oscuro .content,
 body.modo-oscuro .perfil-container {
-  background-color: #1c1c1c !important;
+    background-color: #1c1c1c !important;
 }
 
-body.modo-oscuro button,
-body.modo-oscuro .btn {
-  filter: none !important;
-}
-/* === Switch global (modo claro/oscuro) === */
 .modo-switch-container {
     position: fixed;
     top: 70px;
     right: 30px;
-    z-index: 9999; /* Siempre visible encima de todo */
+    z-index: 9999;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* Etiqueta opcional junto al switch */
 .modo-label {
     color: #fff;
     font-size: 0.95rem;
@@ -337,7 +394,6 @@ body.modo-oscuro .btn {
     color: #222;
 }
 
-/* Estilo del switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -373,122 +429,14 @@ body.modo-oscuro .btn {
     transition: 0.3s ease;
 }
 
-/* Activado (modo claro) */
 input:checked + .slider {
     background-color: #4CAF50;
 }
+
 input:checked + .slider:before {
     transform: translateX(28px);
 }
 
-/* Hover para retroalimentación visual */
 .slider:hover {
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
-}
-
-/* === Corrección visual para el carrito === */
-
-/* Panel del carrito bien aislado */
-#carrito-panel {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 350px;
-  height: 100vh;
-  background: #1e1e1e; /* Fondo oscuro uniforme */
-  color: white;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
-  z-index: 4000; /* Encima de todo */
-  transition: right 0.3s ease;
-}
-
-/* Cuando está visible */
-#carrito-panel.show {
-  right: 0;
-}
-
-/* Fondo semitransparente que oscurece el contenido al abrir el carrito */
-#overlay-carrito {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.4);
-  z-index: 3500;
-  display: none;
-  transition: opacity 0.3s;
-}
-#overlay-carrito.show {
-  display: block;
-  opacity: 1;
-}
-
-/* Botón 'Mi Carrito' siempre con estilo claro */
-#btn-carrito {
-  background: #4CAF50 !important;
-  color: #fff !important;
-  border: none !important;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-#btn-carrito:hover {
-  background: #45A049 !important;
-}
-#overlay-carrito {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.55);
-  z-index: 2500;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  backdrop-filter: blur(3px); /* Efecto vidrio */
-}
-
-/* 🎨 Botones del estado de juegos */
-.btn[data-product-id] {
-  transition: all 0.25s ease-in-out;
-  font-weight: 500;
-  min-width: 150px;
-}
-
-/* 🟢 Agregar al carrito */
-.btn-success[data-product-id] {
-  background-color: #28a745;
-  border-color: #28a745;
-}
-.btn-success[data-product-id]:hover {
-  background-color: #2ecc71;
-  box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
-}
-
-/* 🟡 En carrito */
-.btn-warning[data-product-id] {
-  background-color: #f7c32e;
-  border-color: #f7c32e;
-  color: #222;
-}
-.btn-warning[data-product-id]:hover {
-  background-color: #ffd659;
-  box-shadow: 0 0 8px rgba(255, 215, 87, 0.6);
-}
-
-/* ⚪ En biblioteca */
-.btn-secondary[data-product-id] {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-.btn-secondary[data-product-id]:hover {
-  background-color: #adb5bd;
-  box-shadow: 0 0 8px rgba(173, 181, 189, 0.6);
-}
-
-/* ✈️ Suaviza cualquier transición de imágenes "voladoras" */
-img {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.carrito-panel {
-  transition: right 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 0 10px rgba(76,175,80,0.6);
 }

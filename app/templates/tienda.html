@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% block title %}Tienda - ActiveLife{% endblock %}
 {% set active_page = 'tienda' %}
 
 {% block extra_css %}
@@ -7,66 +6,98 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="mt-4 text-center">Tienda de Videojuegos</h1>
 
-<div class="tienda-layout">
+<h1 class="titulo-principal-tienda">Tienda de Videojuegos</h1>
 
-  <!-- 🕹️ Zona de juegos -->
-  <div class="games-container">
-    {% for juego in juegos %}
-      <div class="game-card" data-id="{{ juego.id }}">
-        <!-- Imagen -->
-        <img 
-          src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else 'default.png')) }}" 
-          alt="{{ juego.nombre }}" 
-          class="game-image"
-        >
+<!-- ⭐ BANNER CENTRAL -->
+<section class="store-banner">
+    <img src="{{ url_for('static', filename='IMG/banner_store.png') }}" alt="Banner de tienda">
+    <div class="banner-glow"></div>
+</section>
 
-        <!-- Info principal -->
-        <div class="game-info">
-          <div class="game-title">{{ juego.nombre }}</div>
-          <p class="game-desc">{{ juego.descripcion[:80] }}...</p>
+<!-- 🔍 BUSCADOR DERECHA -->
+<div class="buscador-wrapper">
+    <form method="GET" action="{{ url_for('main.tienda') }}" class="buscador">
+        <input type="text" name="q" placeholder="Buscar juegos..." value="{{ request.args.get('q', '') }}">
+        <button type="submit" class="btn-gamer-search">Buscar</button>
+    </form>
+</div>
 
-          <div class="game-footer">
-            <div class="game-price">${{ '%.2f'|format(juego.precio|float) }}</div>
+<h2 class="titulo-destacados">Destacados</h2>
 
-            <button 
-              class="btn 
-                {% if juego.estado == 'biblioteca' %}btn-secondary
-                {% elif juego.estado == 'carrito' %}btn-warning
-                {% else %}btn-success{% endif %}" 
-              data-product-id="{{ juego.id }}" 
-              data-state="{{ juego.estado }}">
-              {% if juego.estado == 'biblioteca' %}
-                En biblioteca
-              {% elif juego.estado == 'carrito' %}
-                En carrito
-              {% else %}
-                Agregar al carrito
-              {% endif %}
-            </button>
+<div class="destacados-wrapper">
+    <div class="destacados-grid">
+      {% for juego in juegos[:4] %}
+        <div class="destacado-card" onclick="location.href='{{ url_for("main.juego_detalle", id=juego.id) }}'">
+          <div class="destacado-image">
+              <img src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else "default.png")) }}">
+          </div>
+          <div class="destacado-info">
+            <h3>{{ juego.nombre }}</h3>
+            <span>${{ "%.2f"|format(juego.precio) }}</span>
           </div>
         </div>
-      </div>
+      {% endfor %}
+    </div>
+</div>
+
+
+<!-- TÍTULO DE TODOS LOS JUEGOS -->
+<h2 class="titulo-juegos">🎮 Todos los Juegos</h2>
+
+<!-- 🕹️ GRID DE JUEGOS -->
+<div class="games-container">
+    {% for juego in juegos %}
+    <div class="game-card" data-id="{{ juego.id }}">
+
+        <img src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else 'default.png')) }}"
+             class="game-image">
+
+        <div class="game-info">
+            <div class="game-title">{{ juego.nombre }}</div>
+            <p class="game-desc">{{ juego.descripcion[:80] }}...</p>
+
+            <div class="game-footer">
+                <div class="game-price">${{ '%.2f'|format(juego.precio|float) }}</div>
+
+                <!-- BOTÓN SEGÚN ESTADO -->
+                <button 
+                    class="
+                        {% if juego.estado == 'biblioteca' %}btn-estado-biblio
+                        {% elif juego.estado == 'carrito' %}btn-estado-carrito
+                        {% else %}btn-estado-agregar
+                        {% endif %}
+                    "
+                    data-product-id="{{ juego.id }}"
+                    data-state="{{ juego.estado }}">
+                    
+                    {% if juego.estado == 'biblioteca' %}
+                        En biblioteca
+                    {% elif juego.estado == 'carrito' %}
+                        En carrito
+                    {% else %}
+                        Agregar al carrito
+                    {% endif %}
+
+                </button>
+            </div>
+        </div>
+
+    </div>
     {% endfor %}
-  </div>
 </div>
 
 {% endblock %}
 
-
 {% block extra_js %}
 <script>
-/* 🎯 Permite abrir el detalle del juego al hacer clic en la tarjeta */
+// Click en tarjetas excepto botón
 document.querySelectorAll(".game-card").forEach(card => {
-  card.addEventListener("click", (e) => {
-    if (e.target.closest("button")) return; // evita conflicto con botón
-    const id = card.dataset.id;
-    window.location.href = `/juego/${id}`;
-  });
+    card.addEventListener("click", (e) => {
+        if (e.target.closest("button")) return;
+        const id = card.dataset.id;
+        window.location.href = `/juego/${id}`;
+    });
 });
 </script>
 {% endblock %}
-
-
-

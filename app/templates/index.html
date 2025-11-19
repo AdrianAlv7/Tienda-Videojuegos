@@ -1,241 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Inicio - ActiveLife{% endblock %}
+{% set body_class = "index-page" %}
 
 {% block extra_css %}
-<style>
-body {
-  background-color: #0b0b0b;
-  color: #f2f2f2;
-  font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
-}
-
-/* ====== CARRUSEL PORTADA ====== */
-.carousel-container {
-  position: relative;
-  width: 90%;
-  margin: 3rem auto 4rem auto;
-  overflow: hidden;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-  background-color: #111;
-  height: 420px;
-  display: flex;
-  align-items: center;
-}
-
-.carousel {
-  display: flex;
-  transition: transform 0.8s ease-in-out;
-  width: 100%;
-  height: 100%;
-}
-
-.carousel-slide {
-  flex: 0 0 100%;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  position: relative;
-  color: white;
-}
-
-.carousel-slide img {
-  width: 60%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 18px 0 0 18px;
-}
-
-.carousel-info {
-  width: 40%;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.6);
-  height: 100%;
-  border-radius: 0 18px 18px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.carousel-info h2 {
-  color: #4CAF50;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.carousel-info p {
-  color: #ccc;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.carousel-info .btn-ver {
-  display: inline-block;
-  background: linear-gradient(135deg, #4CAF50, #2ebf60);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 18px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  text-decoration: none;
-  text-align: center;
-  width: 150px;
-}
-.carousel-info .btn-ver:hover {
-  background: linear-gradient(135deg, #2ebf60, #4CAF50);
-  transform: scale(1.05);
-}
-
-/* Flechas de navegación */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-size: 2rem;
-  border-radius: 50%;
-  transition: 0.3s ease;
-  z-index: 10;
-}
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.75);
-  transform: translateY(-50%) scale(1.1);
-}
-#prev { left: 10px; }
-#next { right: 10px; }
-
-.carousel-indicators {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255,255,255,0.5);
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-}
-.indicator.active {
-  background-color: #4CAF50;
-}
-
-/* === NUEVO: Precio estilo badge === */
-.price-tag {
-  display: inline-block;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(135deg, #4CAF50, #2ebf60);
-  padding: 8px 16px;
-  border-radius: 10px;
-  margin-top: 1rem;
-  align-self: flex-start;
-  box-shadow: 0 3px 10px rgba(0, 255, 100, 0.2);
-}
-
-/* === Clic en toda la tarjeta === */
-.carousel-slide {
-  cursor: pointer;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.carousel-slide:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
-}
-.carousel-info {
-  transition: background 0.3s ease;
-}
-.carousel-slide:hover .carousel-info {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-
-/* ====== TARJETAS DE JUEGOS ====== */
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.game-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 15px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  backdrop-filter: blur(5px);
-  cursor: pointer;
-}
-
-.game-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 255, 100, 0.3);
-}
-
-.game-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.game-card h4 {
-  color: #fff;
-  margin: 10px 0;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.btn-ver {
-  display: inline-block;
-  background: linear-gradient(135deg, #4CAF50, #2ebf60);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  min-width: 90px;
-  box-shadow: 0 3px 8px rgba(0, 255, 100, 0.25);
-}
-
-.btn-ver:hover {
-  background: linear-gradient(135deg, #2ebf60, #4CAF50);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 255, 100, 0.35);
-}
-
-.section .btn-ver {
-  font-size: 1rem;
-  padding: 10px 22px;
-}
-
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}?v=2">
 {% endblock %}
 
-
 {% block content %}
-<!-- 🎠 CARRUSEL PORTADA INTERACTIVO -->
+
+<!-- LOGO GRANDE INDEX -->
+<img src="{{ url_for('static', filename='IMG/logo.png') }}" class="logo-img logo-index" alt="Logo grande">
+
+<!-- HERO / CARRUSEL -->
 <div class="carousel-container">
   {% if juegos %}
   <div class="carousel" id="carousel">
     {% for j in juegos[:5] %}
-    <div class="carousel-slide" data-id="{{ j.id }}" onclick="window.location.href='{{ url_for('main.juego_detalle', id=j.id, origen='index') }}'">
-      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+    <div class="carousel-slide" onclick="window.location.href='{{ url_for('main.juego_detalle', id=j.id, origen='index') }}'">
+      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}">
       <div class="carousel-info">
         <h2>{{ j.nombre }}</h2>
         <p>{{ j.descripcion }}</p>
@@ -248,91 +29,120 @@ body {
   <button id="prev" class="carousel-btn">❮</button>
   <button id="next" class="carousel-btn">❯</button>
 
-  <div class="carousel-indicators" id="indicators">
+  <div class="carousel-indicators">
     {% for j in juegos[:5] %}
     <div class="indicator {% if loop.first %}active{% endif %}"></div>
     {% endfor %}
   </div>
-
-  {% else %}
-  <p style="text-align:center; color:#aaa; padding:2rem;">No hay juegos disponibles.</p>
   {% endif %}
 </div>
 
 
-
-<!-- 🎮 SECCIÓN DE JUEGOS RECIENTES -->
+<!-- JUEGOS RECIENTES -->
 <div class="section">
-  <h2>🎮 Tus Juegos Recientes</h2>
+  <h2>Juegos Recientes</h2>
   <p>Explora los últimos títulos que has adquirido.</p>
 
   <div class="games-grid">
     {% for j in juegos[:6] %}
-    <div class="game-card" onclick="location.href='{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}'">
-      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}" alt="{{ j.nombre }}">
+    <div class="game-card">
+      <img src="{{ url_for('static', filename='IMG/productos/' + (j.imagen if j.imagen else 'default.png')) }}">
       <h4>{{ j.nombre }}</h4>
-      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='biblioteca') }}" class="btn-ver">
-  ${{ "%.2f"|format(j.precio) }}
-</a>
-
+      <a href="{{ url_for('main.juego_detalle', id=j.id, origen='index') }}" class="btn-gamer">
+        ${{ "%.2f"|format(j.precio) }}
+      </a>
     </div>
-    {% else %}
-    <p>No tienes juegos recientes aún</p>
     {% endfor %}
   </div>
 </div>
 
 
-<!-- 🏪 SECCIÓN TIENDA -->
-<div class="section">
-  <h2>🛒 Explora la Tienda</h2>
-  <p>Descubre nuevos títulos y amplía tu biblioteca de juegos.</p>
-  <a href="{{ url_for('main.tienda') }}" class="btn-ver">Ir a la Tienda</a>
-</div>
-{% endblock %}
+<!-- CTA TIENDA -->
+<div class="section store-section">
+  <div class="store-cta">
 
+    <div class="store-cta-text">
+      <h2>Explora la Tienda</h2>
+      <p>Descubre lanzamientos, clásicos y ofertas exclusivas.</p>
+
+      <div class="store-pills">
+        <span class="store-pill">Nuevos lanzamientos</span>
+        <span class="store-pill">Ofertas destacadas</span>
+        <span class="store-pill">Tu biblioteca digital</span>
+      </div>
+    </div>
+
+    <div class="store-cta-action">
+      <a href="{{ url_for('main.tienda') }}" class="btn-gamer btn-store">
+        Explorar tienda
+      </a>
+    </div>
+
+    <div class="store-cta-image">
+      <img src="{{ url_for('static', filename='IMG/default.jpg') }}" alt="Tienda">
+      <div class="store-cta-glow"></div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const carousel = document.getElementById('carousel');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const total = slides.length;
-  const nextBtn = document.getElementById('next');
-  const prevBtn = document.getElementById('prev');
-  const indicators = document.querySelectorAll('.indicator');
-  let index = 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-  function updateCarousel() {
-    carousel.style.transform = `translateX(-${index * 100}%)`;
-    indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
-  }
+    const carousel = document.getElementById("carousel");
+    const slides = document.querySelectorAll(".carousel-slide");
+    const indicators = document.querySelectorAll(".indicator");
+    const nextBtn = document.getElementById("next");
+    const prevBtn = document.getElementById("prev");
 
-  function nextSlide() {
-    index = (index + 1) % total;
-    updateCarousel();
-  }
+    if (!carousel || slides.length === 0) return;
 
-  function prevSlide() {
-    index = (index - 1 + total) % total;
-    updateCarousel();
-  }
+    let index = 0;
+    const total = slides.length;
 
-  nextBtn.addEventListener('click', nextSlide);
-  prevBtn.addEventListener('click', prevSlide);
+    /* === Actualizar carrusel === */
+    function updateCarousel() {
+        carousel.style.transform = `translateX(-${index * 100}%)`;
 
-  indicators.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      index = i;
-      updateCarousel();
+        indicators.forEach((dot, i) =>
+            dot.classList.toggle("active", i === index)
+        );
+    }
+
+    /* === Botón Siguiente === */
+    function nextSlide() {
+        index = (index + 1) % total;
+        updateCarousel();
+    }
+
+    /* === Botón Anterior === */
+    function prevSlide() {
+        index = (index - 1 + total) % total;
+        updateCarousel();
+    }
+
+    /* === Listeners botones === */
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+
+    /* === Click en indicadores === */
+    indicators.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            index = i;
+            updateCarousel();
+        });
     });
-  });
 
-  let auto = setInterval(nextSlide, 6000);
-  carousel.addEventListener('mouseenter', () => clearInterval(auto));
-  carousel.addEventListener('mouseleave', () => auto = setInterval(nextSlide, 6000));
+    /* === Autoplay === */
+    let auto = setInterval(nextSlide, 6000);
 
-  updateCarousel();
+    carousel.addEventListener("mouseenter", () => clearInterval(auto));
+    carousel.addEventListener("mouseleave", () => auto = setInterval(nextSlide, 6000));
+
+    updateCarousel();
 });
 </script>
 {% endblock %}

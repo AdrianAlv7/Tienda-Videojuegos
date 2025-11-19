@@ -1,95 +1,371 @@
-/* Estilos para las tarjetas */
-.card {
-    border: none; /* Sin borde alrededor de la tarjeta */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
-    margin-bottom: 20px; /* Espacio inferior entre tarjetas */
-    border-radius: 10px; /* Bordes redondeados */
-    overflow: hidden; /* Evita que el contenido se desborde de la tarjeta */
+/*****************************************************
+ 🟣 0. INDEX BASE
+******************************************************/
+.index-page {
+  background: radial-gradient(circle at top, #2b1770 0%, #0b0b15 60%);
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  font-family: var(--fuente);
 }
 
-.card-img-top {
-    border-bottom: 2px solid #f1f1f1; /* Borde inferior para la imagen de la tarjeta */
+/* Logo grande SOLO en index */
+.index-page .logo-index {
+    height: 160px;
+    margin: 20px auto;
+    display: block;
+    filter: drop-shadow(0 0 18px rgba(165,128,255,0.7));
+    animation: logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse {
+    0%   { transform: scale(1);   filter: drop-shadow(0 0 14px rgba(165,128,255,0.45)); }
+    50%  { transform: scale(1.06); filter: drop-shadow(0 0 24px rgba(165,128,255,0.9)); }
+    100% { transform: scale(1);   filter: drop-shadow(0 0 14px rgba(165,128,255,0.45)); }
 }
 
-/* Estilo del pie de página */
-footer {
-    background-color: #343a40; /* Color de fondo oscuro para el pie de página */
-    color: #fff; /* Color del texto en blanco */
-    text-align: center; /* Centra el texto */
-    padding: 20px 0; /* Espacio interno arriba y abajo */
+
+/*****************************************************
+ 🟣 1. HERO / CARRUSEL TIPO EPIC GAMES
+******************************************************/
+.carousel-container {
+  position: relative;
+  width: 92%;
+  margin: 3rem auto 4rem auto;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(15, 15, 25, 0.85);
+  box-shadow: 0 0 40px rgba(107,79,224,0.45);
+  height: 650px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(6px);
 }
 
-/* Estilo para los botones */
-.btn-primary {
-    background-color: #4CAF50; /* Color verde para el botón primario */
-    border: none; /* Sin borde para el botón */
-    padding: 10px 20px; /* Espacio interno del botón */
-    border-radius: 5px; /* Bordes redondeados */
-    font-size: 1rem; /* Tamaño de fuente del botón */
+.carousel {
+  display: flex;
+  height: 100%;
+  transition: transform 0.8s ease-in-out;
 }
 
-.btn-primary:hover {
-    background-color: #45a049; /* Cambio de color al pasar el ratón */
+.carousel-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.carousel-slide:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 35px rgba(165,128,255,0.55);
 }
 
-/* Estilo para los botones de detalles */
-.btn-success {
-    background-color: #28a745; /* Color verde más oscuro para el botón de éxito */
-    border: none; /* Sin borde para el botón */
-    padding: 10px 20px; /* Espacio interno del botón */
-    border-radius: 5px; /* Bordes redondeados */
-    font-size: 1rem; /* Tamaño de fuente del botón */
+.carousel-slide img {
+  width: 58%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px 0 0 18px;
 }
 
-.btn-success:hover {
-    background-color: #218838; /* Cambio de color al pasar el ratón */
+.carousel-info {
+  width: 42%;
+  height: 100%;
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgba(0,0,0,0.50);
+  border-radius: 0 18px 18px 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.carousel-info::-webkit-scrollbar {
+  width: 6px;
+}
+.carousel-info::-webkit-scrollbar-thumb {
+  background: var(--morado);
+  border-radius: 6px;
 }
 
-/* Estilos para las columnas en dispositivos pequeños */
-@media (max-width: 768px) {
-    .container-fluid {
-        margin-left: 0; /* Elimina margen izquierdo en pantallas pequeñas */
-        padding-left: 15px; /* Añade padding izquierdo */
-        padding-right: 15px; /* Añade padding derecho */
+.carousel-info h2 {
+  color: var(--morado-neon);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(165,128,255,0.8);
+}
+
+.carousel-info p {
+  color: #d6d6d6;
+  font-size: 1.05rem;
+  line-height: 1.35rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Precio */
+.price-tag {
+  display: inline-block;
+  font-size: 1.35rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--morado), var(--morado-neon));
+  padding: 10px 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(165,128,255,0.45);
+}
+
+
+/******** Flechas *******/
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 35, 0.75);
+  color: var(--morado-neon);
+  border: 2px solid var(--morado-neon);
+  padding: 12px 18px;
+  font-size: 1.9rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: .3s;
+}
+.carousel-btn:hover {
+  background: rgba(40, 20, 80, 0.85);
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 0 18px rgba(165,128,255,0.7);
+}
+#prev { left: 12px; }
+#next { right: 12px; }
+
+/******** Indicadores *******/
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+.indicator {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+.indicator.active {
+  background: var(--morado-neon);
+  box-shadow: 0 0 12px rgba(165,128,255,0.85);
+}
+
+
+/*****************************************************
+ 🟣 2. TITULOS DE SECCIÓN
+******************************************************/
+.section {
+  width: 92%;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2.1rem;
+  color: var(--morado-neon);
+  text-shadow: 0 0 15px rgba(165,128,255,0.85);
+  font-weight: 700;
+}
+
+.section p {
+  color: #c8c8c8;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+
+/*****************************************************
+ 🟣 3. CARDS TIPO STEAM
+******************************************************/
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.7rem;
+}
+
+.game-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  transition: transform .35s ease, box-shadow .35s ease;
+  cursor: pointer;
+  min-height: 380px; /* aumenta altura del cuadro */
+   padding-bottom: 18px;
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.07);
+  box-shadow: 0 0 45px rgba(165,128,255,0.7);
+}
+
+
+.game-card img {
+  width: 100%;
+  height: 230px;   /* antes 180 */
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
+.game-card h4 {
+  margin: 12px 10px 8px;
+  color: #f4f4f4;
+  font-size: 1.25rem; /* antes 1.15 */
+  margin-top: 14px;
+  font-weight: 600;
+  line-height: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4rem;
+  margin: 14px 10px 14px;
+}
+
+
+/*****************************************************
+ 🟣 4. CTA "Explorar Tienda"
+******************************************************/
+.store-section {
+  margin-top: 3.5rem;
+}
+
+.store-cta {
+  background: linear-gradient(135deg, rgba(20,20,40,0.95), rgba(40,20,80,0.95));
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto; /* ← TEXTO | IMAGEN | BOTÓN */
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 0 30px rgba(165,128,255,0.5);
+}
+
+.store-cta-text h2 {
+  margin-bottom: .6rem;
+}
+.store-cta-text p {
+  margin-bottom: 1rem;
+}
+
+.store-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.store-pill {
+  background: rgba(0,0,0,0.35);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: .85rem;
+  color: #f2f2f2;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.store-cta-image {
+  text-align: center;
+  position: relative; /* ⭐ SUPER IMPORTANTE */
+}
+
+.store-cta-image img {
+  height: 160px;
+  filter: drop-shadow(0 0 22px rgba(165,128,255,0.55));
+  transition: transform .3s ease;
+}
+
+.store-cta-image img:hover {
+  transform: scale(1.08);
+}
+
+.store-cta-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(165,128,255,0.35), transparent 70%);
+    pointer-events: none;
+}
+
+.store-cta-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*****************************************************
+ 🟣 5. BOTONES GAMER (Glow + Shine + Ripple)
+******************************************************/
+.btn-gamer {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: #fff;
+    transition: transform .28s ease, box-shadow .28s ease;
+    box-shadow: 0 0 18px rgba(165,128,255,0.55);
+}
+.btn-gamer:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(165,128,255,0.9);
+}
+
+.btn-gamer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+}
+.btn-gamer:hover::before {
+    transform: translateX(230%);
+}
+
+/* Ripple */
+.btn-gamer::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+}
+.btn-gamer:active::after {
+    animation: rippleIndex .55s ease-out;
+}
+@keyframes rippleIndex {
+    0% {
+        transform: scale(0);
+        opacity: 0.9;
     }
-
-    .row {
-        flex-direction: column; /* Cambia la dirección de la fila a columna */
-    }
-
-    .col-md-6 {
-        width: 100%; /* Ancho completo para columnas en pantallas pequeñas */
-    }
-
-    h1 {
-        font-size: 2rem; /* Tamaño de fuente más grande para h1 */
-    }
-
-    h2 {
-        font-size: 1.5rem; /* Tamaño de fuente más grande para h2 */
+    100% {
+        transform: scale(180);
+        opacity: 0;
     }
 }
 
-/* Estilos para el botón de menú */
-#menu-toggle {
-    margin-bottom: 20px; /* Espacio inferior para el botón de menú */
-    background-color: #4CAF50; /* Color verde para el botón de menú */
-    color: white; /* Color del texto en blanco */
-    border-radius: 5px; /* Bordes redondeados */
-}
 
-/* Espaciado entre elementos */
-.mt-4 {
-    margin-top: 20px; /* Margen superior de 20 píxeles */
-}
-
-.mb-4 {
-    margin-bottom: 20px; /* Margen inferior de 20 píxeles */
-}
-
-/* Ajuste de imágenes */
-img.img-fluid {
-    max-width: 100%; /* Asegura que las imágenes no excedan el ancho del contenedor */
-    height: auto; /* Mantiene la proporción de las imágenes */
-    border-radius: 10px; /* Bordes redondeados para las imágenes */
+a.btn-gamer,
+a.btn-store,
+.section .btn-ver,
+.game-card a {
+    text-decoration: none !important;
 }

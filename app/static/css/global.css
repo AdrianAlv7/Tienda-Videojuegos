@@ -1,0 +1,60 @@
+/* 🎮 Tema global morado gamer */
+:root {
+    --morado: #6b4fe0;
+    --morado-oscuro: #3b2a8c;
+    --morado-neon: #a580ff;
+
+    --negro: #0f0f0f;
+    --negro-suave: #15151d;
+    --gris-oscuro: #23272b;
+    --gris-medio: #2e2e38;
+    --gris-claro: #d4d4d4;
+
+    --radius: 12px;
+    --shadow: 0 4px 15px rgba(0,0,0,0.35);
+    --transition: .25s ease-in-out;
+
+    --fuente: 'Poppins', sans-serif;
+}
+
+/* Tipografía global */
+body {
+  background:
+    radial-gradient(circle at top, rgba(107,79,224,0.28), transparent 70%),
+    linear-gradient(180deg, #0f0f0f, #000000),
+    #0b0b0b;
+  color: #f2f2f2;
+}
+
+
+.logo-top {
+    height: 40px;
+}
+
+
+.logo-img {
+    width: auto;
+    height: 40px;
+    transition: 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(107,79,224,0.4));
+}
+
+
+
+
+
+
+/* Scrollbar gamer */
+::-webkit-scrollbar {
+    width: 9px;
+}
+::-webkit-scrollbar-track {
+    background: #1c1c1c;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--morado);
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--morado-neon);
+}

@@ -1,95 +1,154 @@
-body {
-  background: #0c0f14;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
+/*****************************************************
+ 🟣 GRID 2x — Tarjetas panorámicas
+******************************************************/
+.biblioteca-container {
+    width: 92%;
+    margin: 2.5rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    gap: 2.2rem;
 }
 
-h1 {
-  font-weight: 600;
-  text-align: center;
-  margin-top: 30px;
-  color: #00ffb3;
+/*****************************************************
+ 🟣 TARJETA PANORÁMICA
+******************************************************/
+.biblio-card {
+    background: linear-gradient(145deg, #1a1328, #0f0a18);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow:
+        0 0 35px rgba(165,128,255,0.45),
+        inset 0 0 12px rgba(255,255,255,0.04);
+    border: 2px solid rgba(165,128,255,0.3);
+    transition: .3s ease;
 }
 
-.library-list {
-  width: 90%;
-  margin: 40px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+.biblio-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 0 55px rgba(165,128,255,0.75),
+        inset 0 0 18px rgba(255,255,255,0.06);
 }
 
-.library-item {
-  display: flex;
-  background: linear-gradient(90deg, #1a1f29, #11141b);
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  align-items: center;
-  padding: 15px;
-  border: 1px solid #222;
+/*****************************************************
+ 🟣 IMAGEN PANORÁMICA
+******************************************************/
+.biblio-img-wrapper {
+    width: 100%;
+    height: 280px; /* 🔹 Más pequeño para caber 2 por fila */
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 18px;
 }
 
-.library-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  border-color: #00ffb3;
+.biblio-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s ease;
 }
 
-.library-image {
-  flex: 0 0 280px;
-  height: 170px;
-  overflow: hidden;
-  border-radius: 10px;
-  margin-right: 25px;
+.biblio-card:hover .biblio-img-wrapper img {
+    transform: scale(1.07);
 }
 
-.library-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+/*****************************************************
+ 🟣 INFO DEL JUEGO
+******************************************************/
+.biblio-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.library-item:hover .library-image img {
-  transform: scale(1.05);
+/*****************************************************
+ 🟣 BOTÓN JUGAR (MISMA LÓGICA DEL INDEX)
+******************************************************/
+.biblio-play-btn {
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(165,128,255,0.5);
+    transition: .3s ease;
+    text-decoration: none !important;
 }
 
-.library-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* Hover */
+.biblio-play-btn:hover {
+    transform: scale(1.09);
+    box-shadow: 0 0 30px rgba(165,128,255,0.9);
 }
 
-.library-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #00ffb3;
+/* Shiny */
+.biblio-play-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    transition: .6s ease;
 }
 
-.library-desc {
-  font-size: 1rem;
-  color: #cfcfcf;
-  line-height: 1.5;
-  margin-bottom: 15px;
+.biblio-play-btn:hover::before {
+    left: 130%;
 }
 
-.library-meta {
-  display: flex;
-  justify-content: flex-end;
-  color: #aaa;
-  font-size: 0.95rem;
-  font-style: italic;
+/*****************************************************
+ 🟣 DESCRIPCIÓN + FECHA
+******************************************************/
+.biblio-desc {
+    margin-top: 6px;
+    color: #cfcfcf;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
-.empty-msg {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #aaa;
-  margin-top: 50px;
+.biblio-date {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/*****************************************************
+ 🟣 TÍTULO PRINCIPAL DE LA BIBLIOTECA
+******************************************************/
+.titulo-biblioteca {
+    width: 100%;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 20px;
+
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+
+    color: var(--morado-neon);
+    text-shadow:
+        0 0 12px rgba(165,128,255,0.7),
+        0 0 25px rgba(165,128,255,0.45),
+        0 0 45px rgba(165,128,255,0.35);
+        
+    animation: tituloPulse 3s infinite ease-in-out;
+}
+
+@keyframes tituloPulse {
+    0%   { text-shadow: 0 0 15px rgba(165,128,255,0.35); }
+    50%  { text-shadow: 0 0 35px rgba(165,128,255,0.95); }
+    100% { text-shadow: 0 0 15px rgba(165,128,255,0.35); }
 }

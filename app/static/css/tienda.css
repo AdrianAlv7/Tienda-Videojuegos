@@ -1,224 +1,425 @@
-/* ====== ESTILO GENERAL ====== */
+/*****************************************************
+ 🟣 0. VARIABLES GLOBALES
+******************************************************/
+:root {
+    --morado: #6d4aff;
+    --morado-neon: #a580ff;
+    --morado-dark: #201533;
+    --negro: #0a0a0f;
+    --gris-suave: #d0d0d0;
+}
+
+/*****************************************************
+ 🟣 1. ESTILOS GENERALES DE LA TIENDA
+******************************************************/
 body {
+    background: radial-gradient(circle at top, #2b1770 0%, #0b0b15 60%);
+    color: white;
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f6f8;
-    color: #333;
+}
+
+.titulo-principal-tienda {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    text-shadow: 0 0 22px rgba(165,128,255,0.85);
+    letter-spacing: 1.5px;
+}
+.titulo-juegos::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 4px;
+    margin: 8px auto 0 auto;
+    background: linear-gradient(90deg, transparent, var(--morado-neon), transparent);
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(165,128,255,0.8);
+}
+
+
+/*****************************************************
+ 🟣 2. BANNER CENTRAL
+******************************************************/
+.store-banner {
+    width: 92%;
+    height: 280px;
+    margin: 30px auto 40px auto;
+    border-radius: 22px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 40px rgba(165,128,255,0.45);
+}
+
+.store-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.store-banner .banner-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(165,128,255,0.33), transparent 70%);
+}
+
+/*****************************************************
+ 🟣 3. BUSCADOR DERECHA
+******************************************************/
+.buscador-wrapper {
+    width: 92%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px auto 30px auto;
+}
+
+.buscador {
+    display: flex;
+    gap: 14px;
+}
+
+.buscador input {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 2px solid var(--morado);
+    background: #0e0e16;
+    color: white;
+    outline: none;
+    font-size: 1rem;
+    width: 260px;
+    box-shadow: 0 0 18px rgba(165,128,255,0.35);
+}
+
+.btn-gamer-search {
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    border: none;
+    padding: 13px 22px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn-gamer-search:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(165,128,255,0.9);
+}
+
+/*****************************************************
+ 🟣 4. TÍTULOS DE SECCIONES (DESTACADOS / JUEGOS)
+******************************************************/
+.titulo-destacados,
+.titulo-juegos {
+    width: 92%;
+    margin: 35px auto 18px auto;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--morado-neon);
+    text-shadow: 0 0 22px rgba(165,128,255,0.85);
+    letter-spacing: 1px;
+}
+
+/*****************************************************
+ 🟣 TARJETAS DESTACADAS — GRANDES
+******************************************************/
+.destacados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 28px;
+    width: 100%;
+}
+
+.destacado-card {
+    position: relative;
+    height: 300px; /* ← MÁS GRANDE */
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+
+    background: #1b1b2c;
+    box-shadow: 0 0 35px rgba(165,128,255,0.35);
+    transition: .3s ease;
+}
+
+.destacado-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 55px rgba(165,128,255,0.8);
+}
+
+.destacado-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/*****************************************************
+ 🟣 INFO DE DESTACADOS (más grande)
+******************************************************/
+.destacado-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 18px;
+
+    background: linear-gradient(0deg, rgba(0,0,0,0.85), transparent);
+}
+
+.destacado-info h3 {
+    font-size: 1.45rem;
     margin: 0;
-    padding: 0;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 14px rgba(165,128,255,0.9);
 }
 
-h1 {
-    font-weight: 600;
-    color: #1a1a1a;
+.destacado-info span {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--morado-neon);
+    text-shadow: 0 0 10px rgba(165,128,255,0.9);
 }
 
-/* ====== LAYOUT PRINCIPAL ====== */
-.tienda-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px; /* izquierda: juegos | derecha: carrito */
-    gap: 20px;
-    align-items: start;
-    margin: 30px auto;
-    width: 90%;
-    max-width: 1400px;
-}
 
-/* ====== LISTA DE JUEGOS ====== */
+
+/*****************************************************
+ 🟣 GAMECARDS — Como antes, solo más cómodos
+******************************************************/
 .games-container {
+    width: 92%;
+    margin: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
 }
 
 .game-card {
-    background: #fff;
-    border-radius: 16px;
+    background: #151520;
+    border-radius: 18px;
+    padding: 16px; /* antes 14px */
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-height: 360px; /* ligeramente más alto, NO más ancho */
+    box-shadow: 0 0 18px rgba(0,0,0,0.4);
+    transition: .25s ease;
 }
 
 .game-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 28px rgba(165,128,255,0.55);
 }
 
 .game-image {
     width: 100%;
-    height: 180px;
+    height: 190px; /* antes 180px */
+    border-radius: 12px;
     object-fit: cover;
 }
 
-.game-info {
-    padding: 15px;
-    text-align: center;
-}
-
 .game-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+    margin-top: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .game-desc {
-    font-size: 0.9rem;
-    color: #666;
-    height: 60px;
+    font-size: .92rem;
+    margin-top: 6px;
+    height: 52px;
+    color: #b9b9b9;
     overflow: hidden;
 }
 
-.game-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-}
 
-.game-price {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #28a745;
-}
 
-/* ====== BOTONES ====== */
-.btn-add {
-    background: linear-gradient(135deg, #007bff, #00bfff);
-    color: white;
+
+/*****************************************************
+ 🟣 BOTONES DE ESTADO — CON ANIMACIÓN
+******************************************************/
+
+.btn-estado-agregar {
+    position: relative;
+    overflow: hidden;
     border: none;
-    border-radius: 8px;
-    padding: 8px 14px;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
     cursor: pointer;
-    transition: all 0.25s ease;
+
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: #fff;
+
+    transition: transform .28s ease, box-shadow .28s ease;
+    box-shadow: 0 0 18px rgba(165,128,255,0.55);
+}
+.btn-estado-agregar:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(165,128,255,0.9);
+}
+.btn-estado-agregar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+}
+.btn-estado-agregar:hover::before {
+    transform: translateX(230%);
 }
 
-.btn-add:hover {
-    background: linear-gradient(135deg, #0069d9, #009ad9);
+.btn-estado-agregar::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+}
+.btn-estado-agregar:active::after {
+    animation: rippleIndex .55s ease-out;
 }
 
-.btn-add:disabled {
-    background: #999;
-    cursor: not-allowed;
-}
 
-/* ====== CARRITO ====== */
-.carrito-box {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 90px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
 
-.carrito-box h3 {
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: #1a1a1a;
-}
 
-#lista-carrito {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#lista-carrito li {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#lista-carrito button {
-    background: #dc3545;
-    color: white;
+/* 💖 EN CARRITO (rosita neon) */
+.btn-estado-carrito {
+    position: relative;
+    overflow: hidden;
     border: none;
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 0.8rem;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
     cursor: pointer;
-    transition: background 0.2s ease;
-}
 
-#lista-carrito button:hover {
-    background: #c82333;
-}
-
-.total {
-    font-weight: 600;
-    margin-top: 15px;
-    text-align: right;
-    font-size: 1.1rem;
-}
-
-.btn-pagar {
-    background: linear-gradient(135deg, #28a745, #36c96a);
+    background: linear-gradient(135deg, #ff6ddd, #ff2eb6);
     color: white;
-    border: none;
-    border-radius: 8px;
+
+    transition: transform .28s ease, box-shadow .28s ease;
+    box-shadow: 0 0 18px rgba(255,110,220,0.55);
+}
+
+.btn-estado-carrito:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(255,110,220,0.9);
+}
+
+.btn-estado-carrito::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-25deg);
+    transition: transform .6s ease;
+}
+.btn-estado-carrito:hover::before {
+    transform: translateX(230%);
+}
+
+.btn-estado-carrito::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+}
+.btn-estado-carrito:active::after {
+    animation: rippleIndex .55s ease-out;
+}
+
+
+.btn-estado-carrito:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 22px rgba(255,105,220,0.8);
+}
+
+
+
+/* 🔘 EN BIBLIOTECA (gris premium gamer, NO apagado) */
+/* 🔘 EN BIBLIOTECA — Gris premium gamer con feedback */
+.btn-estado-biblio {
+    position: relative;
+    background: linear-gradient(135deg, #3a3a45, #2a2a32);
+    color: #e0e0e0;
     padding: 10px 16px;
-    width: 100%;
-    margin-top: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    border: none;
+    font-weight: 800;
+    cursor: default;
+
+    /* Brillo interno premium */
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,0.10),
+        0 0 12px rgba(180,180,200,0.20);
+
+    opacity: 0.95;
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
-.btn-pagar:hover {
-    background: linear-gradient(135deg, #218838, #2ebf60);
+/* 🌟 Feedback visual al pasar el mouse (sin dar click) */
+.btn-estado-biblio:hover {
+    transform: scale(1.04);
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,0.15),
+        0 0 18px rgba(200,200,220,0.35);
 }
 
-.btn-ver {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
+/* ✨ Shine leve como los botones gamer */
+.btn-estado-biblio::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: skewX(-25deg);
+    transition: transform .7s ease;
+    pointer-events: none;
 }
 
-.btn-ver:hover {
-  background: #45a049;
-  transform: scale(1.05);
-}
-
-.btn-add {
-  background: #999;
-  color: white;
-  border-radius: 6px;
-  padding: 8px 14px;
-  border: none;
-  cursor: default;
-}
-
-.btn-agregar, .btn-carrito {
-  transition: all 0.25s ease;
-  cursor: pointer;
-}
-
-.btn-agregar:hover {
-  background-color: #2e8b57;
-  transform: scale(1.05);
-}
-
-.btn-carrito:hover {
-  background-color: #d4b93c;
-  transform: scale(1.05);
-}
-
-.btn-secondary:hover {
-  background-color: #5c636a;
+.btn-estado-biblio:hover::before {
+    transform: translateX(230%);
 }
 
 
+
+
+/*****************************************************
+ 🟣 CONTENEDOR DESTACADOS — Versión D EPIC
+******************************************************/
+.destacados-wrapper {
+    width: 95%;
+    margin: 30px auto 40px auto;
+    padding: 28px;
+
+    background: linear-gradient(135deg, rgba(55,35,120,0.95), rgba(20,15,40,0.98));
+    border-radius: 26px;
+    border: 2px solid rgba(165,128,255,0.55);
+
+    box-shadow:
+        0 0 55px rgba(165,128,255,0.55),
+        inset 0 0 25px rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(6px);
+}

@@ -59,35 +59,51 @@
     </form>
 
     <!-- 🎮 Biblioteca de juegos -->
+     
     <div class="perfil-juegos">
-        <h3>🎮 Juegos en tu biblioteca</h3>
+        <h3>Juegos en tu biblioteca</h3>
         <div class="juegos-grid">
             {% for j in juegos %}
-                <div class="juego-card">
-                    <img src="{{ url_for('static', filename='IMG/productos/' + (j[1] if j[1] else 'default.png')) }}"
-                         alt="{{ j[0] }}">
-                    <p>{{ j[0] }}</p>
-                </div>
+<a href="{{ url_for('main.juego_detalle', id=j.id, origen='perfil') }}" class="juego-card-link">
+    <div class="juego-card">
+        
+        <img src="{{ url_for('static', filename='IMG/productos/' + j.imagen) }}">
+        <p>{{ j.nombre }}</p>
+        <small>Adquirido el {{ j.fecha_adquirido }}</small>
+    </div>
+</a>
             {% else %}
                 <p class="sin-juegos">No tienes juegos aún 😢</p>
             {% endfor %}
+            
+
         </div>
-    </div>
+<div id="modalFoto" class="modal-foto">
+  <span class="cerrar-modal">&times;</span>
+  <img id="modalImagen" src="" alt="">
+</div>
+
+</div>
+
 </div>
 {% endblock %}
 
 
 {% block extra_js %}
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     const btnEditar = document.getElementById("editarPerfilBtn");
     const form = document.getElementById("formEditarPerfil");
 
     if (btnEditar && form) {
-        btnEditar.addEventListener("click", () => {
-            form.style.display = form.style.display === "none" ? "block" : "none";
-            form.scrollIntoView({ behavior: "smooth" });
-        });
+       btnEditar.addEventListener("click", (e) => {
+    e.stopPropagation(); // ← EVITA QUE SE ABRA EL MODAL DEL BANNER
+
+    form.style.display = form.style.display === "none" ? "block" : "none";
+    form.scrollIntoView({ behavior: "smooth" });
+});
+
     }
 });
 
@@ -148,6 +164,53 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+document.addEventListener("DOMContentLoaded", () => {
+
+    const foto = document.getElementById("fotoPerfil");
+    const banner = document.querySelector(".banner");
+    const modal = document.getElementById("modalFoto");
+    const modalImg = document.getElementById("modalImagen");
+    const cerrar = document.querySelector(".cerrar-modal");
+
+    function abrirModal(src) {
+        modalImg.src = src;
+        modal.classList.add("show");
+    }
+
+    function cerrarModal() {
+        modal.classList.remove("show");
+    }
+
+    // FOTO PERFIL
+    if (foto) {
+        foto.addEventListener("click", () => abrirModal(foto.src));
+    }
+
+    // BANNER
+    if (banner) {
+        banner.style.cursor = "pointer";
+
+        banner.addEventListener("click", () => {
+            let bg = window.getComputedStyle(banner).backgroundImage;
+            const match = bg.match(/url\(["']?(.*?)["']?\)/);
+            if (match && match[1]) abrirModal(match[1]);
+        });
+    }
+
+    // BOTÓN X
+    if (cerrar) {
+        cerrar.addEventListener("click", cerrarModal);
+    }
+
+    // CLIC FUERA DE LA IMAGEN
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) cerrarModal();
+    });
+});
+
+
+
+
 </script>
 {% endblock %}
 

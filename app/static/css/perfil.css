@@ -1,130 +1,324 @@
-body {
-    transition: background 0.4s ease, color 0.4s ease;
-}
-body.modo-claro {
-  background-color: #ffffff !important;
-}
+/*****************************************************
+ 🟣 PERFIL GAMER – ESTILO CONSISTENTE
+******************************************************/
 
+/* 🎨 Fondo general */
 .perfil-container {
     width: 100%;
     min-height: 100vh;
-    transition: background 0.3s ease, color 0.3s ease;
+    padding-bottom: 3rem;
+    background: rgba(10, 10, 20, 0.6);
+    backdrop-filter: blur(6px);
+    color: #e8e8e8;
+    font-family: var(--fuente);
 }
 
-/* === Banner === */
+/*****************************************************
+ 🟣 1. BANNER DEL PERFIL
+******************************************************/
+/* === Banner corregido === */
 .banner {
     width: 100%;
-    height: 450px; /* ← antes 300px */
+    height: 500px; /* antes 420px */
     background-size: cover;
     background-position: center;
+    border-bottom: 4px solid var(--morado-neon);
     position: relative;
-    border-bottom: 3px solid #4CAF50; /* opcional: da un toque de separación elegante */
+    box-shadow: 0 0 35px rgba(165,128,255,0.55);
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
 }
 
-/* Header botones */
+.banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(165,128,255,0.2), transparent 70%);
+}
+
+
+/*****************************************************
+ 🟣 2. BOTÓN EDITAR (estilo gamer)
+******************************************************/
+.perfil-header {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+}
+
+.btn-editar {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--morado-neon), var(--morado));
+    color: #fff;
+    box-shadow: 0 0 18px rgba(165,128,255,0.4);
+    transition: .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine */
+.btn-editar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -140%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    transition: .6s;
+}
+
+.btn-editar:hover::before { transform: translateX(240%); }
+.btn-editar:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 35px rgba(165,128,255,0.8);
+}
+
+/*****************************************************
+ 🟣 3. INFO DEL USUARIO
+******************************************************/
+.perfil-info {
+    text-align: center;
+    margin-top: -140px; /* antes -120, bajamos más */
+    position: relative;
+    z-index: 5;
+}
+
+.foto-perfil {
+    width: 260px;
+    height: 260px;
+    border-radius: 20px;
+    border: 6px solid var(--morado-neon);
+    object-fit: cover;
+    background: #111;
+    box-shadow: 0 0 20px rgba(165,128,255,0.5);
+    cursor: pointer;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 45px rgba(165,128,255,0.8);
+}
+
+
+.perfil-info h2 {
+    margin-top: 15px;
+    font-size: 2rem;
+    color: var(--morado-neon);
+    text-shadow: 0 0 15px rgba(165,128,255,0.9);
+}
+
+.perfil-info p {
+    opacity: .8;
+    margin-top: 6px;
+    font-size: 1.1rem;
+}
+
+/*****************************************************
+ 🟣 4. FORMULARIO EDITAR (glassmorphism)
+******************************************************/
+.editar-form {
+    width: 65%;
+    margin: 25px auto;
+    background: rgba(20, 20, 35, 0.65);
+    backdrop-filter: blur(6px);
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(165,128,255,0.25);
+    animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+label {
+    font-weight: 600;
+    color: var(--morado-neon);
+}
+
+input[type="text"], textarea, input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    background: rgba(40, 40, 60, 0.85);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+}
+
+.btn-guardar {
+    background: linear-gradient(135deg, var(--morado), var(--morado-neon));
+    border: none;
+    color: white;
+    padding: 12px 26px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .3s ease;
+}
+
+.btn-guardar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(165,128,255,0.7);
+}
+
+/*****************************************************
+ 🟣 5. BIBLIOTECA – TARJETAS TIPO STEAM
+******************************************************/
+.perfil-juegos {
+    width: 90%;
+    margin: 3rem auto;
+}
+
+.perfil-juegos h3 {
+    font-size: 1.7rem;
+    color: var(--morado-neon);
+    text-shadow: 0 0 10px rgba(165,128,255,0.7);
+    margin-bottom: 1.5rem;
+}
+
+.juegos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.7rem;
+}
+
+.juego-card-link {
+    text-decoration: none;
+}
+
+.juego-card {
+    background: rgba(25, 25, 40, 0.85);
+    padding: 14px;
+    border-radius: 14px;
+    text-align: center;
+    transition: .3s ease;
+    box-shadow: 0 0 18px rgba(0,0,0,0.45);
+}
+
+.juego-card:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 0 28px rgba(165,128,255,0.6);
+}
+
+.juego-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.juego-card p {
+    margin: 12px 0 6px;
+    color: #e8e8e8;
+    font-weight: 600;
+}
+
+.juego-card small {
+    color: #bbb;
+    font-size: .85rem;
+}
+
+/*****************************************************
+ 🟣 6. SIN JUEGOS
+******************************************************/
+.sin-juegos {
+    text-align: center;
+    margin-top: 2rem;
+    color: #aaa;
+}
+
+
+/* === Modal para ampliar foto === */
+/* === MODAL FOTO === */
+.modal-foto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;   /* ← NO BLOQUEA CLICKS */
+    transition: opacity .25s ease;
+    z-index: 9999;
+}
+
+/* Cuando está activo */
+.modal-foto.show {
+    opacity: 1;
+    pointer-events: auto;   /* ← AHORA SÍ BLOQUEA PARA FUNCIONAR */
+}
+
+/* Imagen del modal */
+.modal-foto img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 20px;
+    animation: zoomIn .35s ease-out;
+
+    box-shadow:
+        0 0 40px rgba(165,128,255,0.9),
+        0 0 80px rgba(165,128,255,0.45);
+}
+
+/* Botón cerrar (X) */
+.cerrar-modal {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10000; /* ← SOBRE TODO */
+    transition: .25s ease;
+}
+
+.cerrar-modal:hover {
+    color: var(--morado-neon);
+}
+
+
+
+
+/*****************************************************
+ 🟣 6. ajustes banner
+******************************************************/
+.banner {
+    position: relative;
+    z-index: 1; /* banner abajo */
+}
+
+/* El header con el botón queda ARRIBA */
 .perfil-header {
     position: absolute;
     top: 20px;
     right: 30px;
-    display: flex;
-    gap: 15px;
+    z-index: 50;
 }
 
-/* Botón editar */
-.btn-editar {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.btn-editar:hover { background: #45a049; transform: scale(1.05); }
-
-/* === Info de usuario === */
+/* La foto también queda por encima */
 .perfil-info {
     text-align: center;
-    margin-top: -100px;
+    margin-top: -110px; /* AJUSTE FINO */
     position: relative;
+    z-index: 60;
 }
 
-.foto-perfil {
-    width: 220px;
-    height: 220px;
-    border-radius: 20px;
-    border: 6px solid #4CAF50;
-    object-fit: cover;
-    background-color: #111;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
-
-.perfil-info h2 {
-    margin-top: 15px;
-    font-size: 1.8rem;
-}
-.perfil-info p {
-    color: #aaa;
-    margin-top: 5px;
-}
-
-/* === Formulario === */
-.editar-form {
-    width: 60%;
-    margin: 20px auto;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 10px;
-    display: none;
-}
-.form-group {
-    margin-bottom: 15px;
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #4CAF50;
-}
-input[type="text"], textarea, input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    background: #222;
-    color: white;
-}
-.btn-guardar {
-    background-color: #4CAF50;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-}
-.btn-guardar:hover { background-color: #45a049; }
-
-/* === Juegos === */
-.perfil-juegos {
-    width: 90%;
-    margin: 2rem auto;
-}
-.juegos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-}
-.juego-card {
-    background: #1e1e1e;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-}
-.juego-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-}

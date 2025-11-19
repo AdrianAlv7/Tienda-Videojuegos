@@ -63,19 +63,29 @@ def perfil():
     """, (current_user.id,))
     user = cur.fetchone()
 
-    # Juegos de la biblioteca del usuario
+    # Juegos de la biblioteca del usuario (con ID incluído)
     cur.execute("""
-        SELECT p.nombre, p.imagen, b.fecha_adquirido
+        SELECT p.id, p.nombre, p.imagen, b.fecha_adquirido
         FROM biblioteca b
         JOIN productos p ON b.id_producto = p.id
         WHERE b.id_usuario = %s
         ORDER BY b.fecha_adquirido DESC
     """, (current_user.id,))
-    juegos = cur.fetchall()
-
+    resultados = cur.fetchall()
     cur.close()
 
+    juegos = [
+        {
+            'id': r[0],
+            'nombre': r[1],
+            'imagen': r[2] or 'default.png',
+            'fecha_adquirido': r[3].strftime("%d/%m/%Y")
+        }
+        for r in resultados
+    ]
+
     return render_template('perfil.html', user=user, juegos=juegos, active_page='perfil')
+
 
 
 # ======================================================
@@ -287,13 +297,17 @@ def procesar_compra():
 @login_required
 def juego_detalle(id):
     origen = request.args.get('origen')
-    back_url = (
-        url_for('main.tienda') if origen == 'tienda' else
-        url_for('main.biblioteca') if origen == 'biblioteca' else
-        request.referrer or url_for('main.tienda')
-    )
+
+    # Para botón volver
+    back_url = {
+        'tienda': url_for('main.tienda'),
+        'biblioteca': url_for('main.biblioteca'),
+        'perfil': url_for('main.perfil'),
+        'index': url_for('main.index')
+    }.get(origen, request.referrer or url_for('main.tienda'))
 
     cur = mysql.connection.cursor()
+
     # Obtener información del juego
     cur.execute("SELECT id, nombre, descripcion, precio, imagen FROM productos WHERE id = %s", (id,))
     fila = cur.fetchone()
@@ -303,29 +317,43 @@ def juego_detalle(id):
         flash("Juego no encontrado", "warning")
         return redirect(back_url)
 
-    # ✅ Verificar si el usuario ya lo tiene
-    cur.execute("SELECT 1 FROM biblioteca WHERE id_usuario = %s AND id_producto = %s", (current_user.id, id))
-    tiene_juego = cur.fetchone() is not None
+    # Saber si está en biblioteca
+    cur.execute("""
+        SELECT 1 FROM biblioteca WHERE id_usuario = %s AND id_producto = %s
+    """, (current_user.id, id))
+    en_biblioteca = cur.fetchone() is not None
 
-    # Galería de imágenes
+    # Saber si está en carrito
+    cur.execute("""
+        SELECT 1 FROM carrito WHERE id_usuario = %s AND id_producto = %s
+    """, (current_user.id, id))
+    en_carrito = cur.fetchone() is not None
+
+    # Galería
     cur.execute("SELECT nombre_imagen FROM imagenes_producto WHERE producto_id = %s", (id,))
     imagenes = [r[0] for r in cur.fetchall()]
     cur.close()
+
+    # Estado global del botón
+    estado = "ninguno"
+    if en_biblioteca:
+        estado = "biblioteca"
+    elif en_carrito:
+        estado = "carrito"
 
     juego = {
         'id': fila[0],
         'nombre': fila[1],
         'descripcion': fila[2],
         'precio': fila[3],
-        'imagen': fila[4],
+        'imagen': fila[4] or 'default.png',
         'galeria': imagenes,
-        'en_biblioteca': tiene_juego  # 👈 importante
+        'estado': estado
     }
-    
-    if not juego['imagen']:
-        juego['imagen'] = 'default.png'
 
     return render_template('juego_detalle.html', juego=juego, back_url=back_url)
+
+
 
 
 # ======================================================
