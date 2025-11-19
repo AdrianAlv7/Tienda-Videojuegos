@@ -94,41 +94,57 @@ def perfil():
 @main_bp.route('/perfil/editar', methods=['POST'])
 @login_required
 def editar_perfil_usuario():
+
     username = request.form.get('username')
     descripcion = request.form.get('descripcion')
+
     foto = request.files.get('foto_perfil')
     banner = request.files.get('banner')
 
-    foto_nombre = guardar_imagen(foto, UPLOADS_PERFIL)
-    banner_nombre = guardar_imagen(banner, UPLOADS_PERFIL)
+    # Rutas correctas
+    ruta_perfiles = os.path.join('app', 'static', 'IMG', 'perfiles')
 
+    # Inicializamos nombres
+    foto_nombre = None
+    banner_nombre = None
 
-    cur = mysql.connection.cursor()
-
-    # Actualizar foto de perfil
-    if foto and foto.filename:
+    # FOTO DE PERFIL
+    if foto and foto.filename != "":
         foto_nombre = secure_filename(foto.filename)
-        foto.save(os.path.join('app/static/IMG', foto_nombre))
-        cur.execute("UPDATE usuarios SET foto_perfil = %s WHERE id = %s", (foto_nombre, current_user.id))
+        foto.save(os.path.join(ruta_perfiles, foto_nombre))
+    else:
+        foto_nombre = "default.png"  # FOTO POR DEFECTO
 
-    # Actualizar banner
-    if banner and banner.filename:
+    # BANNER
+    if banner and banner.filename != "":
         banner_nombre = secure_filename(banner.filename)
-        banner.save(os.path.join('app/static/IMG', banner_nombre))
-        cur.execute("UPDATE usuarios SET banner = %s WHERE id = %s", (banner_nombre, current_user.id))
+        banner.save(os.path.join(ruta_perfiles, banner_nombre))
+    else:
+        banner_nombre = "default.png"  # BANNER POR DEFECTO
 
-    # Actualizar nombre y descripción
+
+    # Guardamos en DB
+    cur = mysql.connection.cursor()
     cur.execute("""
         UPDATE usuarios
-        SET username = %s, descripcion = %s
+        SET username = %s,
+            descripcion = %s,
+            foto_perfil = %s,
+            banner = %s
         WHERE id = %s
-    """, (username, descripcion, current_user.id))
+    """, (username, descripcion, foto_nombre, banner_nombre, current_user.id))
 
     mysql.connection.commit()
     cur.close()
 
-    flash("Perfil actualizado correctamente.", "success")
-    return redirect(url_for('main.perfil'))
+    return jsonify({
+        "success": True,
+        "username": username,
+        "descripcion": descripcion,
+        "foto_perfil": "perfiles/" + foto_nombre,
+        "banner": "perfiles/" + banner_nombre
+    })
+
 
 
 # ======================================================

@@ -30,7 +30,7 @@
       {% for juego in juegos[:4] %}
         <div class="destacado-card" onclick="location.href='{{ url_for("main.juego_detalle", id=juego.id) }}'">
           <div class="destacado-image">
-              <img src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else "default.png")) }}">
+              <img src="{{ url_for('static', filename='IMG/productos/' + (juego.imagen if juego.imagen else "default.jpg")) }}">
           </div>
           <div class="destacado-info">
             <h3>{{ juego.nombre }}</h3>
@@ -43,7 +43,7 @@
 
 
 <!-- TÍTULO DE TODOS LOS JUEGOS -->
-<h2 class="titulo-juegos">🎮 Todos los Juegos</h2>
+<h2 class="titulo-juegos">Todos los Juegos</h2>
 
 <!-- 🕹️ GRID DE JUEGOS -->
 <div class="games-container">

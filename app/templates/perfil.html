@@ -19,7 +19,9 @@
     <!-- 👤 Información del usuario -->
     <div class="perfil-info">
         <img id="fotoPerfil"
-             src="{{ url_for('static', filename='IMG/perfiles/' + (user[3] if user[3] else 'avatar_default.png')) }}"
+             src="{{ url_for('static', filename='IMG/perfiles/' + (user[3] if user[3] else 'default.png')) }}"
+
+
              class="foto-perfil">
         <h2 id="username">{{ user[0] }}</h2>
         <p id="descripcion">{{ user[2] if user[2] else 'Sin descripción aún.' }}</p>
@@ -73,7 +75,7 @@
     </div>
 </a>
             {% else %}
-                <p class="sin-juegos">No tienes juegos aún 😢</p>
+                <p class="sin-juegos">No tienes juegos aún</p>
             {% endfor %}
             
 
@@ -88,84 +90,62 @@
 </div>
 {% endblock %}
 
-
 {% block extra_js %}
-
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const btnEditar = document.getElementById("editarPerfilBtn");
-    const form = document.getElementById("formEditarPerfil");
-
-    if (btnEditar && form) {
-       btnEditar.addEventListener("click", (e) => {
-    e.stopPropagation(); // ← EVITA QUE SE ABRA EL MODAL DEL BANNER
-
-    form.style.display = form.style.display === "none" ? "block" : "none";
-    form.scrollIntoView({ behavior: "smooth" });
-});
-
-    }
-});
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // === Switch de modo claro/oscuro ===
-    const modoSwitch = document.getElementById("modoSwitch");
-    if (modoSwitch) {
-        modoSwitch.checked = temaGuardado === "claro";
-        modoSwitch.addEventListener("change", function() {
-            const nuevoTema = this.checked ? "claro" : "oscuro";
-            document.body.className = nuevoTema === "claro" ? "modo-claro" : "modo-oscuro";
-            fetch("/actualizar-tema", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tema: nuevoTema })
-            });
-        });
-    }
-
-    // === Mostrar/Ocultar formulario ===
+    /* ======================================
+       1) MOSTRAR / OCULTAR FORMULARIO
+    ====================================== */
     const btnEditar = document.getElementById("editarPerfilBtn");
     const form = document.getElementById("formEditarPerfil");
 
     if (btnEditar && form) {
-        btnEditar.addEventListener("click", () => {
+        btnEditar.addEventListener("click", (e) => {
+            e.stopPropagation();  // evita abrir el banner
             form.style.display = form.style.display === "none" ? "block" : "none";
+            form.scrollIntoView({ behavior: "smooth" });
         });
     }
 
-    // === Guardar cambios y actualizar en tiempo real ===
+    /* ======================================
+       2) GUARDAR CAMBIOS (AJAX)
+    ====================================== */
     if (form) {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
 
-            const res = await fetch(form.action, { method: "POST", body: formData });
+            const res = await fetch(form.action, {
+                method: "POST",
+                body: formData
+            });
+
             const data = await res.json();
 
             if (data.success) {
-                // ✅ Actualiza datos visualmente sin recargar
                 document.querySelector(".perfil-info h2").textContent = data.username;
                 document.querySelector(".perfil-info p").textContent = data.descripcion || "Sin descripción";
 
                 if (data.foto_perfil) {
                     document.querySelector(".foto-perfil").src = "/static/IMG/" + data.foto_perfil;
                 }
-
                 if (data.banner) {
                     document.querySelector(".banner").style.backgroundImage = "url('/static/IMG/" + data.banner + "')";
                 }
 
                 alert("✅ Perfil actualizado correctamente");
                 form.style.display = "none";
+
             } else {
                 alert("❌ Error al guardar cambios");
             }
         });
     }
-});
-document.addEventListener("DOMContentLoaded", () => {
 
+    /* ======================================
+       3) MODAL DE FOTO (FOTO / BANNER)
+    ====================================== */
     const foto = document.getElementById("fotoPerfil");
     const banner = document.querySelector(".banner");
     const modal = document.getElementById("modalFoto");
@@ -181,36 +161,32 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("show");
     }
 
-    // FOTO PERFIL
     if (foto) {
-        foto.addEventListener("click", () => abrirModal(foto.src));
+        foto.style.cursor = "pointer";
+        foto.addEventListener("click", (e) => {
+            e.stopPropagation();
+            abrirModal(foto.src);
+        });
     }
 
-    // BANNER
     if (banner) {
         banner.style.cursor = "pointer";
-
         banner.addEventListener("click", () => {
+            // obtiene la URL real del background
             let bg = window.getComputedStyle(banner).backgroundImage;
             const match = bg.match(/url\(["']?(.*?)["']?\)/);
             if (match && match[1]) abrirModal(match[1]);
         });
     }
 
-    // BOTÓN X
     if (cerrar) {
         cerrar.addEventListener("click", cerrarModal);
     }
 
-    // CLIC FUERA DE LA IMAGEN
     modal.addEventListener("click", (e) => {
         if (e.target === modal) cerrarModal();
     });
+
 });
-
-
-
-
 </script>
 {% endblock %}
-
